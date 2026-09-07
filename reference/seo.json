@@ -1,0 +1,66 @@
+{
+  "audiologia": {
+    "title": "Audiología - Clínica Angular",
+    "description": ""
+  },
+  "contactenos": {
+    "title": "Contáctenos - Clínica Angular",
+    "description": ""
+  },
+  "escleroterapia": {
+    "title": "Escleroterapia - Clínica Angular",
+    "description": ""
+  },
+  "especialidades": {
+    "title": "Especialidades - Clínica Angular",
+    "description": ""
+  },
+  "especialidades__podologia": {
+    "title": "Podología - Clínica Angular",
+    "description": ""
+  },
+  "especialidades__psicologia": {
+    "title": "Psicología - Clínica Angular",
+    "description": ""
+  },
+  "fisioterapia": {
+    "title": "Fisioterapia - Clínica Angular",
+    "description": ""
+  },
+  "index": {
+    "title": "Clínica Angular",
+    "description": ""
+  },
+  "k-laser": {
+    "title": "K-laser - Clínica Angular",
+    "description": ""
+  },
+  "laser-pion": {
+    "title": "Láser Pion - Clínica Angular",
+    "description": ""
+  },
+  "medicina-general": {
+    "title": "Medicina General - Clínica Angular",
+    "description": ""
+  },
+  "nuestra-empresa": {
+    "title": "Nuestra Empresa - Clínica Angular",
+    "description": ""
+  },
+  "nuestros-beneficios": {
+    "title": "Nuestros Beneficios - Clínica Angular",
+    "description": ""
+  },
+  "nuestros-especialistas": {
+    "title": "Nuestros Especialistas - Clínica Angular",
+    "description": ""
+  },
+  "pedicure-clinico": {
+    "title": "Pedicure clínico - Clínica Angular",
+    "description": ""
+  },
+  "servicio-de-estetica": {
+    "title": "Servicio de Estética - Clínica Angular",
+    "description": ""
+  }
+}
