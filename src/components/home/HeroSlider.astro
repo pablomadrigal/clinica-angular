@@ -1,0 +1,126 @@
+---
+import { Image } from 'astro:assets';
+import banner2 from '../../assets/Banner-2-e1770682456920.png';
+import banner2Mobile from '../../assets/Diseno-sin-titulo.jpg';
+import podologia from '../../assets/podologia-banner.jpg';
+import medicina from '../../assets/medicina-general-1.jpg';
+import banner6 from '../../assets/Banner-6-e1764877042937.png';
+import psicologia from '../../assets/Psicologia.jpg';
+import fisioterapia from '../../assets/Fisioterapia.jpg';
+import estetica from '../../assets/Estetica.jpg';
+import { nl2br } from '../../lib/text';
+
+// Color del texto por slide, elegido según el fondo real de cada imagen (revisado contra
+// reference/screenshots/index-desktop.png e index-mobile.png):
+// - 'dark'    (#2a2525): slide 1, fondo claro con las franjas diagonales de marca.
+// - 'primary' (morado):  fondos claros/blancos con franjas diagonales (podología, psicología, estética).
+// - 'white':             fondos oscuros o fotos sin zona clara (medicina general, K-Laser, fisioterapia).
+type TextColor = 'dark' | 'primary' | 'white';
+
+interface Slide {
+  bg: ImageMetadata;
+  bgMobile?: ImageMetadata;
+  title: string;
+  text?: string;
+  cta: string;
+  href: string;
+  color: TextColor;
+  // Fisioterapia.jpg es una foto de cancha completa sin zona clara para el texto: se añade un
+  // velo oscuro a la izquierda para que el título en blanco sea legible (no aplica a las demás,
+  // que ya traen fondo claro u oscuro sólido de fábrica).
+  overlay?: boolean;
+}
+
+const slides: Slide[] = [
+  {
+    bg: banner2,
+    bgMobile: banner2Mobile,
+    title: 'BRINDAMOS MÁS QUE\nUN SERVICIO DE SALUD',
+    text: 'Ofrecemos desde un proceso de acompañamiento, educación\ny curación, hasta todo el tratamiento posterior\nque requiera el paciente.',
+    cta: 'Ver Especialidades',
+    href: '/especialidades/',
+    color: 'dark',
+  },
+  { bg: podologia, title: 'PODOLOGÍA', cta: 'Más información', href: '/especialidades/podologia/', color: 'primary' },
+  {
+    bg: medicina,
+    title: 'MEDICINA GENERAL Y\nTRASTORNOS DEL SUEÑO',
+    cta: 'Más información',
+    href: '/medicina-general/',
+    color: 'white',
+  },
+  {
+    bg: banner6,
+    title: 'K-Laser CUBE 4',
+    text: 'Somos la única clínica de podología en utilizar un láser de alta\npotencia en Costa Rica, capaz de penetrar en la profundidad de los\ntejidos, regenerar células y acelerar el tiempo de recuperación.',
+    cta: 'Más información',
+    href: '/k-laser/',
+    color: 'white',
+  },
+  { bg: psicologia, title: 'PSICOLOGÍA', cta: 'Más información', href: '/especialidades/psicologia/', color: 'primary' },
+  { bg: fisioterapia, title: 'FISIOTERAPIA', cta: 'Más información', href: '/fisioterapia/', color: 'white', overlay: true },
+  { bg: estetica, title: 'SERVICIO DE ESTÉTICA', cta: 'Más información', href: '/servicio-de-estetica/', color: 'primary' },
+];
+
+const textClass: Record<TextColor, string> = {
+  dark: 'text-slide',
+  primary: 'text-primary',
+  white: 'text-white',
+};
+---
+<section class="hero-swiper swiper relative h-[400px] md:h-[520px]" aria-label="Destacados">
+  <div class="swiper-wrapper">
+    {slides.map((s, i) => (
+      <div class="swiper-slide relative overflow-hidden">
+        <Image
+          src={s.bg}
+          alt=""
+          width={1920}
+          height={640}
+          class:list={['absolute inset-0 h-full w-full object-cover', s.bgMobile && 'hidden md:block']}
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+        {s.bgMobile && (
+          <Image src={s.bgMobile} alt="" width={800} height={800} class="absolute inset-0 h-full w-full object-cover md:hidden" loading="eager" />
+        )}
+        {s.overlay && <div class="absolute inset-0 bg-gradient-to-r from-black/45 via-black/15 to-transparent" />}
+        <div class="container-site relative flex h-full items-center">
+          <div class="max-w-[560px]">
+            <h2 class:list={['text-[28px] font-semibold leading-tight md:text-[45px]', textClass[s.color]]} set:html={nl2br(s.title)} />
+            {s.text && <p class:list={['mt-4 text-[15px] leading-relaxed md:text-[16px]', textClass[s.color]]} set:html={nl2br(s.text)} />}
+            <a href={s.href} class="mt-6 inline-block rounded-[22px] bg-accent px-7 py-3 text-[13px] font-semibold uppercase text-primary hover:bg-accent-dark hover:text-white">{s.cta}</a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="swiper-pagination !bottom-4"></div>
+  <button type="button" class="hero-prev absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent hover:text-accent-dark md:block" aria-label="Anterior">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-8 w-8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+  </button>
+  <button type="button" class="hero-next absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent hover:text-accent-dark md:block" aria-label="Siguiente">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-8 w-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+  </button>
+</section>
+
+<style is:global>
+  .hero-swiper .swiper-pagination-bullet { background: #efb37d; opacity: 1; width: 10px; height: 10px; }
+  .hero-swiper .swiper-pagination-bullet-active { background: #2a2525; }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+  import 'swiper/css/navigation';
+
+  new Swiper('.hero-swiper', {
+    modules: [Autoplay, Navigation, Pagination],
+    loop: true,
+    speed: 500,
+    autoplay: { delay: 5000, disableOnInteraction: false },
+    pagination: { el: '.hero-swiper .swiper-pagination', clickable: true },
+    navigation: { prevEl: '.hero-prev', nextEl: '.hero-next' },
+  });
+</script>

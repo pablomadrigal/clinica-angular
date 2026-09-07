@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import img1 from '../../assets/enfermera-paciente-sesion-osteopatia-1-e1764877090615.png';
+import img2 from '../../assets/Que-diferencias-existen-entre-la-medicina-general-y-la-medicina-interna.webp';
+import img3 from '../../assets/centro-estetica-avanzado.jpg';
+import img4 from '../../assets/fisioterapia-deportiva-1920w.webp';
+import img5 from '../../assets/por_que_fazer_terapia.width-1920.jpg';
+import Button from '../Button.astro';
+const images = [
+  { src: img1, alt: 'Podología' },
+  { src: img2, alt: 'Medicina general' },
+  { src: img3, alt: 'Estética' },
+  { src: img4, alt: 'Fisioterapia' },
+  { src: img5, alt: 'Psicología' },
+];
+---
+<section class="bg-accent py-14">
+  <div class="container-site text-center">
+    <h2 class="text-[30px] font-semibold text-white md:text-[35px]">Conozca nuestras especialidades</h2>
+    <div class="specialties-swiper swiper mt-8">
+      <div class="swiper-wrapper">
+        {images.map((im) => (
+          <div class="swiper-slide !w-[80%] md:!w-[60%]">
+            <Image src={im.src} alt={im.alt} width={900} height={560} class="aspect-[16/10] w-full rounded-3xl object-cover shadow-lg" />
+          </div>
+        ))}
+      </div>
+      <div class="swiper-pagination !static mt-5"></div>
+    </div>
+    <Button href="/especialidades/" variant="primary" class="mt-6">Más Información</Button>
+  </div>
+</section>
+
+<style is:global>
+  .specialties-swiper .swiper-pagination-bullet { background: #fff; opacity: .7; }
+  .specialties-swiper .swiper-pagination-bullet-active { background: #3d387f; opacity: 1; }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/effect-coverflow';
+  new Swiper('.specialties-swiper', {
+    modules: [Autoplay, EffectCoverflow, Pagination],
+    effect: 'coverflow',
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    loop: true,
+    autoplay: { delay: 4000, disableOnInteraction: false },
+    coverflowEffect: { rotate: 0, stretch: 0, depth: 200, modifier: 1, slideShadows: false },
+    pagination: { el: '.specialties-swiper .swiper-pagination', clickable: true },
+  });
+</script>

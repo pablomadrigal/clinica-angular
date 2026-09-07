@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import milaHome from '../../assets/Mila-fondo-bl-seria.jpg';
+import Button from '../Button.astro';
+
+const featured = (await getCollection('specialists')).filter((s) => s.data.featured).sort((a, b) => a.data.order - b.data.order);
+const photoFor = (id: string, fallback: ImageMetadata) => (id === 'milagro-quesada' ? milaHome : fallback);
+---
+<section class="bg-primary py-16 text-center text-white">
+  <div class="container-site">
+    <h4 class="text-[30px] font-semibold md:text-[35px]">Nuestro Equipo</h4>
+    <div class="mt-10 grid gap-10 sm:grid-cols-3">
+      {featured.map((s) => (
+        <div>
+          <h6 class="text-[15px] font-semibold text-accent">{s.data.featuredRole}</h6>
+          <Image src={photoFor(s.id, s.data.photo)} alt={s.data.name} width={160} height={210} class="mx-auto mt-3 h-[190px] w-[150px] rounded-full object-cover object-top" />
+          <h2 class="mt-3 text-[16px] font-semibold text-white">{s.data.shortName ?? s.data.name}</h2>
+        </div>
+      ))}
+    </div>
+    <Button href="/nuestros-especialistas/" variant="accent" class="mt-10">Conocer más</Button>
+  </div>
+</section>
