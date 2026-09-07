@@ -22,9 +22,6 @@
     "swiper": "^14.2.0",
     "tailwindcss": "^4.3.3"
   },
-  "allowScripts": {
-    "esbuild": true
-  },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "typescript": "^6.0.3",
