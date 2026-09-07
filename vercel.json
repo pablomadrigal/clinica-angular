@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/productos", "destination": "/", "permanent": true },
+    { "source": "/productos/", "destination": "/", "permanent": true },
+    { "source": "/cart", "destination": "/", "permanent": true },
+    { "source": "/cart/", "destination": "/", "permanent": true },
+    { "source": "/checkout", "destination": "/", "permanent": true },
+    { "source": "/checkout/", "destination": "/", "permanent": true },
+    { "source": "/my-account", "destination": "/", "permanent": true },
+    { "source": "/my-account/", "destination": "/", "permanent": true }
+  ]
+}
