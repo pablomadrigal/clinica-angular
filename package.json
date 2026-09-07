@@ -12,7 +12,8 @@
     "astro": "astro",
     "check": "astro check",
     "test": "vitest run",
-    "assets": "node scripts/download-assets.mjs"
+    "assets": "node scripts/download-assets.mjs",
+    "links": "node scripts/check-links.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
