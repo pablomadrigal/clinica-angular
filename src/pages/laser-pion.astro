@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import AppointmentButton from '../components/AppointmentButton.astro';
+import BackHome from '../components/BackHome.astro';
+import ContactSection from '../components/ContactSection.astro';
+import pion from '../assets/Captura-de-pantalla-2026-03-16-121826.png';
+import { site } from '../data/site';
+---
+<Base title="Láser Pion - Clínica Angular">
+  <section class="container-site pt-14 pb-10 text-center">
+    <h2 class="text-[30px] font-semibold text-primary md:text-[45px]">TECNOLOGÍA DE AVANZADA</h2>
+  </section>
+  <div class="grid md:grid-cols-2">
+    <div class="flex flex-col justify-center gap-4 bg-primary px-6 py-14 text-white sm:px-10 md:px-14">
+      <div class="flex items-start gap-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="mt-1 h-6 w-6 shrink-0 text-accent" aria-hidden="true">
+          <circle cx="12" cy="12" r="9.5" />
+          <path d="m8 12.5 2.5 2.5 5.5-5.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p class="text-[15px] leading-relaxed text-white/90">El láser Pioon de diodo para podología es una herramienta versátil de 3ª generación de alta potencia (hasta 10-15W) usada para tratar onicomicosis, verrugas plantares, helomas y aliviar dolores como la fascitis plantar. Proporciona tratamientos no invasivos, rápidos e indoloros, utilizando fototermólisis para eliminar patógenos sin dañar tejidos sanos.</p>
+      </div>
+      <div><AppointmentButton /></div>
+    </div>
+    <div class="flex flex-col items-center justify-center gap-4 bg-white px-6 py-14 text-center sm:px-10 md:px-14">
+      <Image src={pion} alt="Láser Pion" width={520} class="w-full max-w-[440px] rounded-2xl object-cover shadow-md" />
+      <h3 class="text-[18px] font-semibold uppercase text-accent-dark">Laboratorio de pisada</h3>
+    </div>
+  </div>
+  <section class="container-site max-w-[700px] py-14 text-center">
+    <h2 class="text-[24px] font-semibold text-accent-dark md:text-[28px]">Ventajas Destacadas:</h2>
+    <ul class="mx-auto mt-6 list-inside list-disc space-y-3 text-[15px] leading-relaxed text-text marker:text-primary">
+      <li><strong class="text-primary">Sesiones Rápidas:</strong> Suelen durar entre 2 y 10 minutos por zona.</li>
+      <li><strong class="text-primary">No Invasivo:</strong> Generalmente no requiere anestesia y permite la reincorporación inmediata a la actividad diaria.</li>
+      <li><strong class="text-primary">Alta Efectividad:</strong> Con resultados visibles y alta tasa de éxito tras varias sesiones.</li>
+    </ul>
+    <div class="mt-8"><AppointmentButton /></div>
+  </section>
+  <BackHome />
+  <ContactSection address={site.addresses.laserPion} />
+</Base>
