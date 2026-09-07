@@ -1,0 +1,12 @@
+name: Dr. Ricardo Sáenz Coto
+role: Médico General
+code: "Código: 11821"
+photo: ../../assets/Captura-de-pantalla-2026-03-16-115438.png
+profile:
+  - Licenciatura UACA.
+  - Valoraciones vasculares básicas.
+  - Escleroterapia.
+  - Curación de úlceras.
+  - Dolor e inflamación de piernas.
+group: clinico
+order: 8

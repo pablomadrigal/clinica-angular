@@ -1,0 +1,29 @@
+title: Pedicure clínico
+slug: pedicure-clinico
+menuLabel: Pedicure Clínico
+order: 5
+seoTitle: Pedicure clínico - Clínica Angular
+card:
+  label: Pedicure Clínico
+  image: ../../assets/pedicure-clinico-8.jpg
+showTreatmentsHeader: true
+showBackHome: false
+sections:
+  - type: condition
+    heading: ""
+    image: ../../assets/pedicure-clinico-8.jpg
+    subheading: "- Pedicure clínico -"
+    body:
+      - "Tratamiento podológico enfocado en la salud del pie. Incluye limpieza de canales, corte correcto de uñas, eliminación de durezas y evaluación para detectar posibles problemas a tiempo."
+  - type: treatments
+    items:
+      - title: Higiene y mantenimiento
+        body:
+          - "Limpieza de canales, corte correcto de uñas y eliminación de durezas."
+      - title: Prevención
+        body:
+          - "Detección temprana de hongos, uñas encarnadas o alteraciones en la piel"
+      - title: Cuidado especializado
+        body:
+          - "Tratamiento profesional para mantener la salud y comodidad del pie"
+related: []

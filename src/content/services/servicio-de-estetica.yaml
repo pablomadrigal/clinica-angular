@@ -1,0 +1,19 @@
+title: SERVICIO DE ESTÉTICA
+slug: servicio-de-estetica
+menuLabel: Servicio de Estética
+inMenu: false
+order: 8
+seoTitle: Servicio de Estética - Clínica Angular
+card:
+  label: Servicio de Estética
+  image: ../../assets/1661351690796.jpg
+heroImage: ../../assets/procedimiento-cosmetico-limpieza-facial-mujer-joven-que-usa-cuchara-tratamiento-acne-limpieza-mecanica-piel-facial_132375-14672.jpg
+sections:
+  - type: topics
+    showAppointment: true
+    items:
+      - title: Depilación Tri-laser
+      - title: Limpiezas faciales
+      - title: Masajes relajantes y terapéuticos
+      - title: Masajes descontracturantes
+related: [fisioterapia, psicologia, medicina-general, podologia]
