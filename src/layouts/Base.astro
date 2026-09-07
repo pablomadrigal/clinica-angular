@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import TopBar from '../components/TopBar.astro';
 import Header from '../components/Header.astro';
@@ -18,8 +19,8 @@ const {
   ogImage,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).href;
-// Sin transformación de Sharp: usa el asset tal cual fue importado (mismo criterio que el resto del layout).
-const ogImageUrl = new URL(ogImage ? ogImage.src : '/favicon.png', site.url).href;
+const ogImageSrc = ogImage ? (await getImage({ src: ogImage, width: ogImage.width, height: ogImage.height })).src : '/favicon.png';
+const ogImageUrl = new URL(ogImageSrc, site.url).href;
 ---
 <!doctype html>
 <html lang="es">

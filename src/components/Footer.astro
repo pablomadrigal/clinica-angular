@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import logo from '../assets/Logo-Angular-1.png';
 import payments from '../assets/Contactenos-footer.png';
 import cards from '../assets/Group-245464935-1.png';
@@ -9,13 +10,13 @@ import Contact from './icons/Contact.astro';
 <footer class="bg-primary text-white">
   <div class="container-site grid gap-10 py-12 text-center md:grid-cols-3 md:text-left">
     <div class="flex justify-center md:justify-start">
-      <img src={logo.src} width={logo.width} height={logo.height} alt="Clínica Angular" class="w-[220px]" />
+      <Image src={logo} alt="Clínica Angular" width={220} class="w-[220px]" />
     </div>
     <div class="flex flex-col items-center md:items-start">
       <h2 class="text-[18px] font-medium text-accent">Verified by Visa and Master Card</h2>
-      <img src={payments.src} width={payments.width} height={payments.height} alt="Verified by Visa y MasterCard SecureCode" class="my-4 w-[180px]" />
+      <Image src={payments} alt="Verified by Visa y MasterCard SecureCode" width={180} class="my-4 w-[180px]" />
       <h2 class="text-[14px] font-normal text-white">La forma segura de pagar en línea.</h2>
-      <img src={cards.src} width={cards.width} height={cards.height} alt="Tarjetas aceptadas" class="mt-3 w-[200px]" />
+      <Image src={cards} alt="Tarjetas aceptadas" width={200} class="mt-3 w-[200px]" />
     </div>
     <div class="flex flex-col items-center md:items-start">
       <h2 class="text-[22px] font-semibold text-accent">Contáctenos</h2>
