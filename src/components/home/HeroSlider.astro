@@ -88,7 +88,13 @@ const textClass: Record<TextColor, string> = {
           <div class="max-w-[560px]">
             <h2 class:list={['text-[28px] font-semibold leading-tight md:text-[45px]', textClass[s.color]]} set:html={nl2br(s.title)} />
             {s.text && <p class:list={['mt-4 text-[15px] leading-relaxed md:text-[16px]', textClass[s.color]]} set:html={nl2br(s.text)} />}
-            <a href={s.href} class="mt-6 inline-block rounded-[22px] bg-accent px-7 py-3 text-[13px] font-semibold uppercase text-primary hover:bg-accent-dark hover:text-white">{s.cta}</a>
+            <a
+              href={s.href}
+              class:list={[
+                'mt-6 inline-block rounded-[22px] bg-accent px-7 py-3 text-[13px] font-semibold text-primary hover:bg-accent-dark hover:text-white',
+                i === 0 && 'uppercase',
+              ]}
+            >{s.cta}</a>
           </div>
         </div>
       </div>
