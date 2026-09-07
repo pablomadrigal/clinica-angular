@@ -1,0 +1,21 @@
+---
+interface Props {
+  href: string;
+  variant?: 'accent' | 'primary' | 'white' | 'chat';
+  class?: string;
+  target?: string;
+}
+const { href, variant = 'accent', class: cls = '', target } = Astro.props;
+const styles = {
+  accent: 'bg-accent text-primary hover:bg-accent-dark hover:text-white',
+  primary: 'bg-primary text-white hover:bg-purple-dark',
+  white: 'bg-white text-primary hover:bg-accent',
+  chat: 'bg-chat text-white hover:bg-[#2fb878]',
+};
+---
+<a
+  href={href}
+  target={target}
+  rel={target === '_blank' ? 'noopener' : undefined}
+  class:list={['inline-block rounded-full px-7 py-3 text-[13px] font-semibold uppercase tracking-wide transition-colors', styles[variant], cls]}
+><slot /></a>

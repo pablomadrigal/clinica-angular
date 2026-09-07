@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { entry: CollectionEntry<'specialists'>; reverse?: boolean }
+const { entry, reverse = false } = Astro.props;
+const d = entry.data;
+---
+<article class:list={['grid items-center gap-8 py-10 md:grid-cols-[320px_1fr]', reverse && 'md:[&>*:first-child]:order-2']}>
+  <div class="text-center">
+    <h6 class="mb-3 text-[15px] font-semibold uppercase tracking-wide text-accent-dark" set:html={d.role.replace(/\n/g, '<br />')} />
+    <Image src={d.photo} alt={d.name} width={320} height={400} class="mx-auto aspect-[4/5] w-[260px] rounded-3xl object-cover object-top shadow-md" />
+  </div>
+  <div>
+    <h2 class="text-[25px] font-semibold text-primary md:text-[35px]" set:html={d.name.replace(/\n/g, '<br />')} />
+    {d.code && <h2 class="mt-1 text-[16px] font-medium text-text">{d.code}</h2>}
+    <h2 class="mt-4 text-[19px] font-semibold text-accent-dark">{d.profileTitle}</h2>
+    <ul class="mt-2 space-y-1 text-[15px] leading-relaxed text-text">
+      {d.profile.map((line) => <li>{line}</li>)}
+    </ul>
+  </div>
+</article>

@@ -1,0 +1,13 @@
+---
+import { Image } from 'astro:assets';
+
+// `image` es opcional: la tarjeta de "escleroterapia" no tiene imagen porque la del sitio
+// original devuelve 404 y no se descargó (ver src/content.config.ts). En ese caso se
+// renderiza solo el bloque de la etiqueta, sin picture.
+interface Props { label: string; href: string; image: ImageMetadata | undefined }
+const { label, href, image } = Astro.props;
+---
+<a href={href} class="group block overflow-hidden rounded-3xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-lg">
+  {image && <Image src={image} alt={label} width={600} height={400} class="aspect-[3/2] w-full object-cover" />}
+  <h2 class="px-4 py-4 text-center text-[19px] font-semibold text-primary group-hover:text-accent-dark">{label}</h2>
+</a>
