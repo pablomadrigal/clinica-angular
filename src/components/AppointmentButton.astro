@@ -1,8 +1,12 @@
 ---
 import Button from './Button.astro';
+import Contact from './icons/Contact.astro';
 import { CHAT_URL } from '../lib/whatsapp';
 
 interface Props { class?: string }
 const { class: cls = '' } = Astro.props;
 ---
-<Button href={CHAT_URL} variant="accent" target="_blank" class={cls}>Agendar cita</Button>
+<Button href={CHAT_URL} variant="appointment" shape="rounded" caps={false} target="_blank" class={cls}>
+  <Contact name="whatsapp" class="h-5 w-5" slot="icon" />
+  Agendar cita
+</Button>

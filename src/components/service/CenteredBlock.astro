@@ -1,0 +1,35 @@
+---
+// Bloque de una sola columna centrada (encabezado opcional + imagen opcional + contenido +
+// botones de acción), compartido por ConditionSection ("padecimiento") y TopicsSection en su
+// modo "compact" (imagen + títulos sin checklist, ej. medicina general). El contenido intermedio
+// (subtítulo/párrafos en ConditionSection, lista de títulos en TopicsSection) difiere entre
+// ambos usos, así que lo aporta el slot por defecto; solo el "esqueleto" común vive aquí.
+import { Image } from 'astro:assets';
+import { nl2br } from '../../lib/text';
+import ActionButtons from './ActionButtons.astro';
+
+interface Props {
+  heading?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  imageClass?: string;
+  bg?: 'white' | 'purple';
+  showChat?: boolean;
+  showAppointment?: boolean;
+}
+const {
+  heading,
+  image,
+  imageAlt = heading ?? '',
+  imageClass = 'mb-6 w-full max-w-[420px] rounded-2xl object-cover',
+  bg = 'white',
+  showChat = false,
+  showAppointment = false,
+} = Astro.props;
+---
+<div class:list={['flex flex-col items-center px-6 py-14 text-center sm:px-10 md:px-14', bg === 'purple' && 'bg-primary text-white']}>
+  {heading && <h3 class="mb-6 text-[20px] font-bold text-accent md:text-[24px]" set:html={nl2br(heading)} />}
+  {image && <Image src={image} alt={imageAlt} width={640} height={480} class={imageClass} />}
+  <slot />
+  <ActionButtons showChat={showChat} showAppointment={showAppointment} class="mt-6" />
+</div>

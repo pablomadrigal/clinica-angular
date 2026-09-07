@@ -3,29 +3,29 @@
 // párrafos. Siempre se pinta sobre fondo blanco: en los datos reales las secciones `condition`
 // y `treatments` se alternan estrictamente C,T,T,C, lo que ya reproduce el tablero de ajedrez
 // blanco/morado del sitio original (ver [...slug].astro) sin necesitar un índice de posición.
-import { Image } from 'astro:assets';
-import ChatButton from '../ChatButton.astro';
+// Comparte el "esqueleto" de columna centrada con TopicsSection (modo "compact") vía
+// CenteredBlock; aquí solo se define el contenido intermedio (subtítulo + párrafos).
+import CenteredBlock from './CenteredBlock.astro';
 
 interface Props {
   heading: string;
   image?: ImageMetadata;
   subheading?: string;
   body: string[];
+  // Definido en el esquema de contenido (`content.config.ts`) para las secciones `condition`,
+  // pero este layout es de una sola columna centrada: no hay una imagen a un lado que reordenar,
+  // así que se acepta el prop (para no perder el dato silenciosamente) pero no tiene efecto
+  // visual aquí. Compárese con TopicsSection en modo "split", que sí usa `imageSide` en un
+  // layout de dos columnas real.
+  imageSide: 'left' | 'right';
   showChat: boolean;
 }
 const { heading, image, subheading, body, showChat } = Astro.props;
 ---
 
-<div class="flex flex-col items-center px-6 py-14 text-center sm:px-10 md:px-14">
-  {
-    heading && (
-      <h3 class="mb-6 text-[20px] font-bold text-accent md:text-[24px]" set:html={heading.replace(/\n/g, '<br />')} />
-    )
-  }
-  {image && <Image src={image} alt={heading || subheading || ''} width={640} height={480} class="mb-6 w-full max-w-[420px] rounded-2xl object-cover" />}
+<CenteredBlock heading={heading} image={image} imageAlt={heading || subheading || ''} showChat={showChat}>
   {subheading && <p class="mb-4 text-[17px] font-medium text-accent md:text-[19px]">{subheading}</p>}
   <div class="max-w-[540px] space-y-4">
     {body.map((p) => <p class="text-[15px] leading-relaxed text-primary/80">{p}</p>)}
   </div>
-  {showChat && <ChatButton class="mt-6" />}
-</div>
+</CenteredBlock>

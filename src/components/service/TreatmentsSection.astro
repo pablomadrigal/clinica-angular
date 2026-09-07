@@ -2,7 +2,7 @@
 // Panel de "tratamientos": fondo morado (primary) con lista de ítems (icono check + título +
 // párrafos) y botón "Agendar cita". Siempre se pinta sobre fondo morado: ver nota en
 // ConditionSection.astro sobre por qué no hace falta un índice de posición.
-import AppointmentButton from '../AppointmentButton.astro';
+import ActionButtons from './ActionButtons.astro';
 
 interface Props {
   heading?: string;
@@ -32,5 +32,5 @@ const { heading, items, showAppointment } = Astro.props;
       ))
     }
   </div>
-  {showAppointment && <div class="mt-8 text-center"><AppointmentButton /></div>}
+  <ActionButtons showAppointment={showAppointment} class="mt-8" />
 </div>

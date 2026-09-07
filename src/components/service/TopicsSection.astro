@@ -3,14 +3,19 @@
 // bandera explícita en el contenido:
 // - "split": tiene imagen + ítems con checklist (body con líneas "✓ …", ej. psicología). Ocupa
 //   la fila completa: mitad imagen (blanco) / mitad checklist (morado), lado según `imageSide`.
+//   Entre cada fila y la anterior (todas menos la primera de la página) el original pinta un
+//   pequeño divisor naranja en la esquina superior izquierda de la fila; se controla con `first`
+//   (lo calcula [...slug].astro a partir del índice de la sección dentro de `d.sections`).
 // - "compact": tiene imagen pero los ítems son solo un título narrativo, sin checklist (ej.
 //   medicina general). Es una sola celda (como ConditionSection) coloreada por `bg`, que
-//   [...slug].astro calcula por posición en el tablero de ajedrez.
+//   [...slug].astro calcula por posición en el tablero de ajedrez. Comparte el "esqueleto" de
+//   columna centrada con ConditionSection vía CenteredBlock.
 // - "list": no tiene imagen propia (ej. fisioterapia, estética). Columna única a todo el ancho
 //   con los ítems apilados (título opcional + párrafos) y los botones al final.
 import { Image } from 'astro:assets';
-import AppointmentButton from '../AppointmentButton.astro';
-import ChatButton from '../ChatButton.astro';
+import { nl2br } from '../../lib/text';
+import ActionButtons from './ActionButtons.astro';
+import CenteredBlock from './CenteredBlock.astro';
 
 interface Props {
   heading?: string;
@@ -20,8 +25,12 @@ interface Props {
   showAppointment: boolean;
   showChat: boolean;
   bg?: 'white' | 'purple';
+  // Solo se usa en modo "split": si es la primera sección "topics" de la página, no se dibuja el
+  // divisor superior (ver nota arriba). Por defecto true para que un caller que no lo pase nunca
+  // muestre un divisor "huérfano".
+  first?: boolean;
 }
-const { heading, image, imageSide, items, showAppointment, showChat, bg = 'white' } = Astro.props;
+const { heading, image, imageSide, items, showAppointment, showChat, bg = 'white', first = true } = Astro.props;
 
 const hasChecklist = items.some((it) => it.body.length > 0);
 const mode = image ? (hasChecklist ? 'split' : 'compact') : 'list';
@@ -29,9 +38,10 @@ const mode = image ? (hasChecklist ? 'split' : 'compact') : 'list';
 
 {
   mode === 'split' && (
-    <div class="grid md:grid-cols-2">
+    <div class="relative grid md:grid-cols-2">
+      {!first && <span class="absolute left-6 top-0 h-0.5 w-24 bg-accent sm:left-10 md:left-14" aria-hidden="true" />}
       <div class:list={['flex flex-col items-center justify-center gap-4 bg-white px-6 py-14 text-center sm:px-10 md:px-14', imageSide === 'right' && 'md:order-2']}>
-        {heading && <h2 class="text-[20px] font-bold text-accent md:text-[24px]" set:html={heading.replace(/\n/g, '<br />')} />}
+        {heading && <h2 class="text-[20px] font-bold text-accent md:text-[24px]" set:html={nl2br(heading)} />}
         <Image src={image!} alt={heading ?? ''} width={640} height={480} class="w-full max-w-[420px] rounded-2xl object-cover" />
       </div>
       <div class="flex flex-col justify-center gap-6 bg-primary px-6 py-14 text-white sm:px-10 md:px-14">
@@ -43,12 +53,7 @@ const mode = image ? (hasChecklist ? 'split' : 'compact') : 'list';
             </div>
           </div>
         ))}
-        {(showChat || showAppointment) && (
-          <div class="mt-2 flex flex-wrap justify-center gap-3">
-            {showChat && <ChatButton />}
-            {showAppointment && <AppointmentButton />}
-          </div>
-        )}
+        <ActionButtons showChat={showChat} showAppointment={showAppointment} class="mt-2" />
       </div>
     </div>
   )
@@ -56,40 +61,39 @@ const mode = image ? (hasChecklist ? 'split' : 'compact') : 'list';
 
 {
   mode === 'compact' && (
-    <div class:list={['flex flex-col items-center px-6 py-14 text-center sm:px-10 md:px-14', bg === 'purple' ? 'bg-primary text-white' : 'bg-white']}>
-      {heading && <h3 class="mb-6 text-[20px] font-bold text-accent md:text-[24px]">{heading}</h3>}
-      <Image src={image!} alt={heading ?? ''} width={640} height={480} class="mb-6 w-full max-w-[300px] rounded-2xl object-cover" />
+    <CenteredBlock
+      heading={heading}
+      image={image}
+      bg={bg}
+      showChat={showChat}
+      showAppointment={showAppointment}
+      imageClass="mb-6 w-full max-w-[300px] rounded-2xl object-cover"
+    >
       <div class="max-w-[480px] space-y-2">
-        {items.map((it) => it.title && <p class:list={['text-[15px] font-semibold leading-relaxed', bg === 'purple' ? 'text-accent' : 'text-primary']} set:html={it.title.replace(/\n/g, '<br />')} />)}
+        {items.map(
+          (it) =>
+            it.title && (
+              <p class:list={['text-[15px] font-semibold leading-relaxed', bg === 'purple' ? 'text-accent' : 'text-primary']} set:html={nl2br(it.title)} />
+            ),
+        )}
       </div>
-      {(showChat || showAppointment) && (
-        <div class="mt-6 flex flex-wrap justify-center gap-3">
-          {showChat && <ChatButton />}
-          {showAppointment && <AppointmentButton />}
-        </div>
-      )}
-    </div>
+    </CenteredBlock>
   )
 }
 
 {
   mode === 'list' && (
     <div class="mx-auto max-w-[820px] px-6 py-10 text-center">
-      {heading && <h2 class="mb-8 text-[20px] font-bold text-accent md:text-[24px]" set:html={heading.replace(/\n/g, '<br />')} />}
+      {heading && <h2 class="mb-8 text-[20px] font-bold text-accent md:text-[24px]" set:html={nl2br(heading)} />}
       <div class="space-y-8">
         {items.map((it) => (
           <div>
-            {it.title && <h3 class="mb-2 text-[19px] font-bold text-accent md:text-[22px]" set:html={it.title.replace(/\n/g, '<br />')} />}
+            {it.title && <h3 class="mb-2 text-[19px] font-bold text-accent md:text-[22px]" set:html={nl2br(it.title)} />}
             {it.body.map((p) => <p class="text-left text-[15px] leading-relaxed text-primary/80">{p}</p>)}
           </div>
         ))}
       </div>
-      {(showChat || showAppointment) && (
-        <div class="mt-8 flex flex-col items-center gap-6">
-          {showChat && <ChatButton />}
-          {showAppointment && <AppointmentButton />}
-        </div>
-      )}
+      <ActionButtons showChat={showChat} showAppointment={showAppointment} layout="col" class="mt-8" />
     </div>
   )
 }

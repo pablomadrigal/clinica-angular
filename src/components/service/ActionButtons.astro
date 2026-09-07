@@ -1,0 +1,26 @@
+---
+// Fila de botones de acción ("Chat directo" / "Agendar cita") que se repetía casi idéntica en
+// las secciones de servicio (ConditionSection, TreatmentsSection, TopicsSection). No renderiza
+// nada si ambos botones están desactivados.
+import ChatButton from '../ChatButton.astro';
+import AppointmentButton from '../AppointmentButton.astro';
+
+interface Props {
+  showChat?: boolean;
+  showAppointment?: boolean;
+  // 'row' (por defecto): lado a lado, con wrap. 'col': apilados verticalmente (usado en
+  // TopicsSection modo "list", donde fisioterapia muestra ambos botones uno debajo del otro).
+  layout?: 'row' | 'col';
+  class?: string;
+}
+const { showChat = false, showAppointment = false, layout = 'row', class: cls = '' } = Astro.props;
+const layoutClass = layout === 'col' ? 'flex flex-col items-center gap-6' : 'flex flex-wrap justify-center gap-3';
+---
+{
+  (showChat || showAppointment) && (
+    <div class:list={[layoutClass, cls]}>
+      {showChat && <ChatButton />}
+      {showAppointment && <AppointmentButton />}
+    </div>
+  )
+}

@@ -50,7 +50,7 @@ function isCompactTopics(s: (typeof d.sections)[number]) {
 
   <div class="mt-10 grid md:grid-cols-2">
     {
-      d.sections.map((s) => {
+      d.sections.map((s, i) => {
         if (s.type === 'condition') {
           cellIndex++;
           return <ConditionSection {...s} />;
@@ -68,7 +68,7 @@ function isCompactTopics(s: (typeof d.sections)[number]) {
         }
         return (
           <div class="md:col-span-2">
-            <TopicsSection {...s} />
+            <TopicsSection {...s} first={i === 0} />
           </div>
         );
       })
