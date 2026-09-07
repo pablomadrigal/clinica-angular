@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import Button from '../components/Button.astro';
 import BackHome from '../components/BackHome.astro';
 import ContactForm from '../components/ContactForm.astro';
-import heroBg from '../assets/Foto5-Angular-Podologia-Costa-Rica-1.jpg';
+import heroBg from '../assets/Foto5-Angular-Podologia-Costa-Rica-1-2.jpg';
 import medismart from '../assets/Logo-Boton2-MediSmart-Angular-Clinica-del-pie-Costa-Rica-1.png';
 import i1 from '../assets/Group-245464941.png';
 import i2 from '../assets/Group-245464930.png';
@@ -16,19 +16,42 @@ import pion from '../assets/Captura-de-pantalla-2026-03-16-121826.png';
 // Los cinco `Group-2454649xx.png` son tarjetas completas (foto + título + viñetas) ya
 // maquetadas en el propio PNG (confirmado al inspeccionarlas); el orden replica el de
 // la captura nuestros-beneficios-desktop.png: fila de 3 + fila de 2 centrada.
-const icons = [i1, i2, i3, i4, i5];
+// El texto de cada tarjeta va horneado en la imagen, así que el `alt` transcribe
+// literalmente el título y las viñetas visibles (leídos abriendo cada PNG).
+const icons = [
+  {
+    src: i1,
+    alt: 'Somos una opción accesible para la clase media: Posibilidad de abarcar mayor porción de mercado. Percibido como un médico dedicado a la comunidad. Facilidad económica, por ende, posibilidad de mayor adherencia consultas y tratamientos.',
+  },
+  {
+    src: i2,
+    alt: 'Últimas tendencias podológicas y de heridas: El paciente recibe tratamientos de punta. Posee reconocimiento nacional e internacional por la comunidad clínica. Le permite ser vocero y transmitir sus conocimientos en podología y heridas.',
+  },
+  {
+    src: i3,
+    alt: 'Diagnóstico clínicointegral: Creamos vínculo. Creamos flujo de pacientes a red de contactos de especialistas. Atención integral para resolución pronta y correcta. Identificamos padecimientos y comorbilidades no necesariamente podológicas o de heridas.',
+  },
+  {
+    src: i4,
+    alt: 'Posgrado en heridas: Posibilidad de abarcar mayor porción de mercado. Percibido como un médico dedicado a la comunidad. Facilidad económica, por ende, posibilidad de mayor adherencia consultas y tratamientos.',
+  },
+  {
+    src: i5,
+    alt: 'Uso de canales digitales: Mayor alcance publicitario y captación de pacientes/prospectos. Información de la clínica se encuentra con facilidad. Retroalimentación de clientes previos.',
+  },
+];
 ---
 <Base title="Nuestros Beneficios - Clínica Angular">
   <section class="container-site py-12 text-center">
     <h2 class="text-[35px] font-semibold text-primary md:text-[45px]">NUESTROS BENEFICIOS</h2>
   </section>
 
-  <section class="relative overflow-hidden bg-accent py-14">
+  <section class="relative isolate overflow-hidden bg-accent py-14">
     <Image src={heroBg} alt="" width={1440} class="absolute inset-0 -z-10 h-full w-full object-cover" />
     <div class="container-site relative grid items-center gap-10 lg:grid-cols-[1fr_380px]">
       <div class="text-center">
         <h2 class="text-[35px] font-semibold leading-none text-primary md:text-[45px]">PAGUE UN</h2>
-        <h2 class="text-[65px] font-bold leading-none text-accent md:text-[90px] [text-shadow:0_0_20px_rgba(255,255,255,0.85)]">50% MENOS</h2>
+        <h2 class="text-[65px] font-bold leading-none text-accent md:text-[90px] [text-shadow:0_0_23px_#FFFFFF]">50% MENOS</h2>
         <h2 class="text-[25px] font-semibold text-primary md:text-[35px]">EN SU CONSULTA MÉDICA</h2>
         <Image src={medismart} alt="MediSmart" width={220} class="mx-auto mt-6 w-[220px]" />
       </div>
@@ -44,7 +67,7 @@ const icons = [i1, i2, i3, i4, i5];
       <h2 class="text-[30px] font-semibold text-white md:text-[35px]">¿Por qué elegir Nuestros Servicios?</h2>
       <h2 class="mt-2 text-[20px] font-medium text-accent md:text-[25px]">Somos una opción accesible para la clase media</h2>
       <div class="mt-10 flex flex-wrap justify-center gap-8">
-        {icons.map((ic) => <Image src={ic} alt="" width={340} class="w-[280px] drop-shadow-lg sm:w-[320px]" />)}
+        {icons.map((ic) => <Image src={ic.src} alt={ic.alt} width={340} class="w-[280px] drop-shadow-lg sm:w-[320px]" />)}
       </div>
     </div>
   </section>

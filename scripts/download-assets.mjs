@@ -28,6 +28,8 @@ const EXTRA = [
   'https://angular.cr/wp-content/uploads/2024/02/por_que_fazer_terapia.width-1920.jpg',
   // fondo "Conozca nuestros Beneficios"
   'https://angular.cr/wp-content/uploads/2023/09/patoient-osteopatia-recibiendo-masaje-tratamiento-scaled.jpg',
+  // nuestros-beneficios hero
+  'https://angular.cr/wp-content/uploads/2023/10/Foto5-Angular-Podologia-Costa-Rica-1-2.jpg',
 ];
 
 const listed = (await readFile('reference/images.txt', 'utf8')).split('\n').map((l) => l.trim()).filter(Boolean);
