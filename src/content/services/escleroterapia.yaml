@@ -1,0 +1,27 @@
+title: Escleroterapia
+slug: escleroterapia
+menuLabel: Escleroterapia
+order: 7
+seoTitle: Escleroterapia - Clínica Angular
+card:
+  label: Escleroterapia
+showTreatmentsHeader: true
+showBackHome: false
+sections:
+  - type: condition
+    heading: ""
+    subheading: "- Escleroterapia -"
+    body:
+      - "Tratamiento médico para mejorar la apariencia y la circulación de las venas superficiales, ayudando a reducir arañitas vasculares y pequeñas várices"
+  - type: treatments
+    items:
+      - title: Tratamiento estético
+        body:
+          - "Reduce la apariencia de arañitas vasculares y venas visibles."
+      - title: Mejora circulatoria
+        body:
+          - "Ayuda a disminuir molestias asociadas a venas superficiales."
+      - title: Manejo progresivo
+        body:
+          - "Sesiones controladas según la evaluación de cada paciente."
+related: []

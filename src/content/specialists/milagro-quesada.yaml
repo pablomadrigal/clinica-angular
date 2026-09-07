@@ -1,0 +1,16 @@
+name: Dra. Milagro Quesada Villegas
+shortName: Dra. Milagro Quesada
+role: Psicóloga Clínica
+code: "Código: #1030"
+photo: ../../assets/consultorio.jpg
+featuredPhoto: ../../assets/Mila-fondo-bl-seria.jpg
+profile:
+  - Maestría en Psicología Clínica. Universidad iberoamericana UNIBE.
+  - Licenciada en Psicología. Universidad de Costa Rica.
+  - Experiencia de 32 años en terapia individual, pareja, familia y grupo.
+  - Miembro del Colegio de Profesionales en Psicología de Costa Rica
+  - "Autora del Programa “Crianza sin culpa” basado en el Modelo “Crianza Plena”, que considera al individuo como un ser tripartito e involucra el área espiritual en la crianza y las relaciones."
+group: clinico
+order: 2
+featured: true
+featuredRole: Psicología

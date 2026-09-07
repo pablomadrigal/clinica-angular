@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { nl2br } from '../lib/text';
+
+interface Props { entry: CollectionEntry<'specialists'> }
+const { entry } = Astro.props;
+const d = entry.data;
+---
+<article class="grid gap-8 border-b border-accent/30 py-10 last:border-b-0 md:grid-cols-[320px_1fr]">
+  <div class="flex flex-col items-center text-center">
+    <h6 class="mb-3 text-[16px] font-semibold text-accent-dark" set:html={nl2br(d.role)} />
+    <Image src={d.photo} alt={d.name} width={350} height={350} class="h-[175px] w-[175px] rounded-full object-cover object-top shadow-md" />
+    <h2 class="mt-4 text-[20px] font-semibold text-primary" set:html={nl2br(d.name)} />
+    {d.code && <p class="mt-1 text-[12px] text-text">{d.code}</p>}
+  </div>
+  <div>
+    <h2 class="text-center text-[20px] font-semibold text-accent-dark">{d.profileTitle}</h2>
+    <ul class="mt-3 list-disc space-y-1 pl-5 text-[15px] leading-relaxed text-text marker:text-primary">
+      {d.profile.map((line) => <li>{line}</li>)}
+    </ul>
+  </div>
+</article>

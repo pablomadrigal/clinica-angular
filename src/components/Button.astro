@@ -1,0 +1,34 @@
+---
+interface Props {
+  href: string;
+  variant?: 'accent' | 'primary' | 'white' | 'chat' | 'appointment';
+  // 'pill' (por defecto, comportamiento previo) = radio completo + mayúsculas.
+  // 'rounded' = esquinas redondeadas moderadas (10px) + texto tal cual (usado por "Agendar cita").
+  shape?: 'pill' | 'rounded';
+  caps?: boolean;
+  class?: string;
+  target?: string;
+}
+const { href, variant = 'accent', shape = 'pill', caps = true, class: cls = '', target } = Astro.props;
+const styles = {
+  accent: 'bg-accent text-primary hover:bg-accent-dark hover:text-white',
+  primary: 'bg-primary text-white hover:bg-purple-dark',
+  white: 'bg-white text-primary hover:bg-accent',
+  chat: 'bg-chat text-white hover:bg-[#2fb878]',
+  // Mismo tono que `accent`, pero con texto blanco: así se ve "Agendar cita" en la referencia
+  // (a diferencia de `accent`, pensado para texto oscuro sobre el naranja en otros contextos).
+  appointment: 'bg-accent text-white hover:bg-accent-dark',
+};
+---
+<a
+  href={href}
+  target={target}
+  rel={target === '_blank' ? 'noopener' : undefined}
+  class:list={[
+    'inline-flex items-center gap-2 px-7 py-3 text-[13px] font-semibold transition-colors',
+    shape === 'pill' ? 'rounded-full' : 'rounded-[10px]',
+    caps && 'uppercase tracking-wide',
+    styles[variant],
+    cls,
+  ]}
+><slot name="icon" /><slot /></a>

@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SpecialistCard from '../components/SpecialistCard.astro';
+import BackHome from '../components/BackHome.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { site } from '../data/site';
+
+const all = (await getCollection('specialists')).sort((a, b) => a.data.order - b.data.order);
+const clinico = all.filter((s) => s.data.group === 'clinico');
+const admin = all.filter((s) => s.data.group === 'administrativo');
+---
+<Base title="Nuestros Especialistas - Clínica Angular">
+  <section class="container-site py-12">
+    <h2 class="text-center text-[35px] font-semibold text-primary md:text-[45px]">NUESTRO EQUIPO DE TRABAJO</h2>
+    <div class="divide-y divide-accent/30">
+      {clinico.map((s) => <SpecialistCard entry={s} />)}
+    </div>
+  </section>
+  <div class="bg-primary py-6">
+    <h2 class="text-center text-[24px] font-semibold text-white md:text-[28px]">Nuestro Equipo Administrativo</h2>
+  </div>
+  <section class="container-site py-12">
+    <div class="divide-y divide-accent/30">
+      {admin.map((s) => <SpecialistCard entry={s} />)}
+    </div>
+  </section>
+  <BackHome />
+  <ContactSection address={site.addresses.especialistas} />
+</Base>

@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import { nav } from '../data/site';
+
+const services = (await getCollection('services'))
+  .filter((s) => s.data.inMenu)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((s) => ({ label: s.data.menuLabel, href: `/${s.data.slug}/` }));
+
+const items = nav
+  .map((i) => (i.label === 'Especialidades' ? { ...i, children: services } : i))
+  .map((i) => ({ ...i, children: i.children && i.children.length > 0 ? i.children : undefined }));
+const current = Astro.url.pathname;
+const isActive = (href: string) => href !== '#' && (href === '/' ? current === '/' : current.startsWith(href));
+---
+<header class="sticky top-0 z-40 border-t-[3px] border-accent bg-primary text-white shadow">
+  <div class="flex w-full items-center justify-between px-5">
+    <button
+      id="menu-toggle"
+      class="grid h-10 w-10 place-items-center rounded lg:hidden"
+      aria-controls="main-nav"
+      aria-expanded="false"
+      aria-label="Abrir menú"
+    >
+      <span class="block h-[2px] w-6 bg-white shadow-[0_7px_0_#fff,0_-7px_0_#fff]"></span>
+    </button>
+    <nav id="main-nav" class="hidden w-full lg:block" aria-label="Principal">
+      <ul class="flex flex-col lg:flex-row lg:justify-between">
+        {items.map((item) => (
+          <li class="group relative">
+            <a
+              href={item.href}
+              class:list={[
+                'flex items-center justify-between gap-1 px-[30px] py-[18px] text-[12px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-primary',
+                isActive(item.href) && 'bg-accent text-primary',
+              ]}
+              aria-haspopup={item.children ? 'true' : undefined}
+            >
+              {item.label}
+              {item.children && <svg class="ml-1 h-3 w-3 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.5 7.5 10 12l4.5-4.5z" /></svg>}
+            </a>
+            {item.children && (
+              <ul class="bg-white text-primary lg:invisible lg:absolute lg:left-0 lg:top-full lg:min-w-[260px] lg:opacity-0 lg:shadow-lg lg:transition lg:group-hover:visible lg:group-hover:opacity-100 lg:group-focus-within:visible lg:group-focus-within:opacity-100">
+                {item.children.map((c) => (
+                  <li>
+                    <a href={c.href} class="block border-b border-gray-100 py-3 pl-10 pr-5 text-[12px] font-medium hover:bg-accent lg:pl-5">{c.label}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('menu-toggle');
+  const navEl = document.getElementById('main-nav');
+  btn?.addEventListener('click', () => {
+    const open = navEl!.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  });
+  // "Tecnología" (y cualquier otro ítem sin página propia) usa href="#": no debe navegar,
+  // solo actuar como encabezado de su submenú (que ya está siempre visible en móvil).
+  document.querySelectorAll('#main-nav a[href="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => e.preventDefault());
+  });
+</script>

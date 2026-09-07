@@ -1,0 +1,36 @@
+---
+import ContactForm from './ContactForm.astro';
+import ChatButton from './ChatButton.astro';
+import Contact from './icons/Contact.astro';
+import { site } from '../data/site';
+
+interface Props { address: string; showMap?: boolean; showChat?: boolean; title?: string; subtitle?: string }
+const { address, showMap = true, showChat = true, title = '¡Contáctenos!', subtitle = '¡OBTENGA SU CITA YA!' } = Astro.props;
+---
+<section class="bg-accent py-14">
+  <div class="container-site grid items-start gap-10 lg:grid-cols-2">
+    <div>
+      <h3 class="text-[45px] font-semibold leading-none text-white md:text-[65px]">{title}</h3>
+      <p class="mb-6 mt-3 text-center text-[16px] font-bold uppercase text-primary">{subtitle}</p>
+      <ContactForm />
+    </div>
+    <div class="rounded-md bg-white p-6">
+      {showMap && (
+        <iframe src={site.mapEmbedUrl} title="Ubicación de Clínica Angular" class="h-[290px] w-full rounded border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      )}
+      <h3 class="mt-5 flex items-start gap-3 text-[15px] font-medium text-primary">
+        <Contact name="pin" class="mt-0.5 h-5 w-5 shrink-0" />
+        {address}
+      </h3>
+      <h3 class="mt-2 flex items-center gap-3 text-[15px] font-medium text-primary">
+        <Contact name="phone" class="h-5 w-5 shrink-0" />
+        <a href={site.phoneHref}>{site.phoneIntl}</a>
+      </h3>
+      {showChat && (
+        <div class="mt-5 flex justify-center">
+          <ChatButton />
+        </div>
+      )}
+    </div>
+  </div>
+</section>

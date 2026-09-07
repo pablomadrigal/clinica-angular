@@ -1,0 +1,13 @@
+---
+import { Image } from 'astro:assets';
+import bg from '../../assets/patoient-osteopatia-recibiendo-masaje-tratamiento-scaled.jpg';
+import Button from '../Button.astro';
+---
+<section class="relative flex min-h-[420px] items-center md:min-h-[520px]">
+  <Image src={bg} alt="" width={1920} height={800} class="absolute inset-0 h-full w-full object-cover" />
+  <div class="absolute inset-0 bg-black/25"></div>
+  <div class="container-site relative">
+    <h2 class="max-w-[420px] text-[45px] font-semibold leading-none text-white md:text-[65px]">Conozca nuestros Beneficios</h2>
+    <Button href="/nuestros-beneficios/" variant="primary" shape="rounded" caps={false} class="mt-6">Más información</Button>
+  </div>
+</section>

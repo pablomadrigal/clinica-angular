@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import podologia from '../../assets/Podologo-y-Podiatra-1024x692-1.jpg';
+import psicologia from '../../assets/testes-psicologicos-1.jpg';
+import fisioterapia from '../../assets/Fisioterapia-deportiva-que-es-tipos-ventajas-y-desventajas.jpg';
+import medicina from '../../assets/7xm.xyz934175.jpg';
+import estetica from '../../assets/1661351690796.jpg';
+import { site } from '../../data/site';
+
+// Las 5 tarjetas usan las imágenes propias de esta página (distintas de `card.image` en
+// src/content/services/*.yaml, que se usan en el carrusel del inicio). Los hrefs coinciden
+// con el campo `slug` de cada servicio.
+const cards = [
+  { label: 'Podología', href: '/especialidades/podologia/', image: podologia },
+  { label: 'Psicología', href: '/especialidades/psicologia/', image: psicologia },
+  { label: 'Fisioterapia', href: '/fisioterapia/', image: fisioterapia },
+  { label: 'Medicina General y Trastornos de Sueño', href: '/medicina-general/', image: medicina },
+  { label: 'Servicio de Estética', href: '/servicio-de-estetica/', image: estetica },
+];
+---
+<Base title="Especialidades - Clínica Angular">
+  <section class="container-site py-12 text-center">
+    <h2 class="text-[35px] font-semibold text-primary md:text-[45px]">ESPECIALIDADES</h2>
+    <h4 class="mt-3 text-[16px] font-semibold uppercase leading-snug text-primary md:text-[18px]">Conozca nuestras especialidades<br />y agende cita con nosotros</h4>
+    <div class="mx-auto mt-10 grid max-w-[900px] grid-cols-1 gap-x-[250px] gap-y-14 sm:grid-cols-2 [&>*:last-child]:sm:col-span-2 [&>*:last-child]:sm:mx-auto [&>*:last-child]:sm:max-w-[325px]">
+      {cards.map((c) => <ServiceCard {...c} />)}
+    </div>
+  </section>
+  <ContactSection address={site.addresses.especialidades} />
+</Base>

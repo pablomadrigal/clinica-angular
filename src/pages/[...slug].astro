@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ChatButton from '../components/ChatButton.astro';
+import BackHome from '../components/BackHome.astro';
+import RelatedServices from '../components/RelatedServices.astro';
+import ConditionSection from '../components/service/ConditionSection.astro';
+import TreatmentsSection from '../components/service/TreatmentsSection.astro';
+import TopicsSection from '../components/service/TopicsSection.astro';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+const { entry } = Astro.props as { entry: CollectionEntry<'services'> };
+const d = entry.data;
+
+// El sitio original alterna secciones "padecimiento"/"tratamientos" (o temas homogéneos, ej.
+// medicina general) en un tablero de ajedrez blanco/morado de 2 columnas. En los datos reales
+// `condition` y `treatments` siempre se alternan C,T,T,C, así que alcanza con pintarlas siempre
+// blanco/morado respectivamente; para temas "compact" (imagen + solo título, sin checklist) no
+// hay tipo que distinga el color, así que se calcula por posición con la misma fórmula de
+// tablero (fila+columna par → blanco). Los temas "split" (imagen + checklist, ej. psicología) y
+// "list" (sin imagen, ej. fisioterapia/estética) ocupan la fila completa y no participan del
+// tablero.
+let cellIndex = 0;
+function isCompactTopics(s: (typeof d.sections)[number]) {
+  return s.type === 'topics' && !!s.image && !s.items.some((it) => it.body.length > 0);
+}
+---
+
+<Base title={d.seoTitle}>
+  <section class="container-site pt-12 text-center">
+    <h2 class="text-[22px] font-bold text-accent md:text-[26px]">{d.title}</h2>
+    {
+      d.showTreatmentsHeader && (
+        <>
+          <h2 class="mt-2 text-[24px] font-bold text-primary md:text-[30px]">Padecimientos y Tratamientos</h2>
+          <div class="mt-5">
+            <ChatButton />
+          </div>
+        </>
+      )
+    }
+    {d.heroImage && <Image src={d.heroImage} alt={d.title} width={900} height={520} class="mx-auto mt-8 w-full max-w-[700px] rounded-3xl object-cover shadow-md" />}
+    {d.showChatAfterHero && <div class="mt-6"><ChatButton /></div>}
+  </section>
+
+  <div class="mt-10 grid md:grid-cols-2">
+    {
+      d.sections.map((s, i) => {
+        if (s.type === 'condition') {
+          cellIndex++;
+          return <ConditionSection {...s} />;
+        }
+        if (s.type === 'treatments') {
+          cellIndex++;
+          return <TreatmentsSection {...s} />;
+        }
+        if (isCompactTopics(s)) {
+          const row = Math.floor(cellIndex / 2);
+          const col = cellIndex % 2;
+          const bg = (row + col) % 2 === 0 ? 'white' : 'purple';
+          cellIndex++;
+          return <TopicsSection {...s} bg={bg} />;
+        }
+        return (
+          <div class="md:col-span-2">
+            <TopicsSection {...s} first={i === 0} />
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <RelatedServices ids={d.related} />
+  {d.showBackHome && <BackHome />}
+</Base>

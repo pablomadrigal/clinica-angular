@@ -1,0 +1,89 @@
+title: PSICOLOGÍA CLÍNICA
+slug: especialidades/psicologia
+menuLabel: Psicología
+order: 2
+seoTitle: Psicología - Clínica Angular
+card:
+  label: Psicología
+  image: ../../assets/Como_se_diagnostica_la_diabetes-scaled-1.jpg
+sections:
+  - type: topics
+    heading: "PSICOTERAPIA DE PAREJA"
+    image: ../../assets/terapia-de-pareja-1.jpg
+    imageSide: left
+    showAppointment: true
+    items:
+      - body:
+          - "✓ Reconocimiento del problema."
+          - "✓ Comprensión de sus pautas de funcionamiento (habitualmente repetitivas y contaminantes)."
+          - "✓ Establecimiento de una nueva alianza para la renovación de la relación."
+          - "✓ Modificación de sus actitudes."
+          - "✓ Comunicación renovada y sana."
+          - "✓ Establecimiento de acuerdos."
+          - "✓ Crisis de Pareja."
+          - "✓ Procesos de Divorcio."
+  - type: topics
+    heading: "PSICOTERAPIA DE FAMILIA"
+    image: ../../assets/102146568_xl-scaled-1.jpg
+    imageSide: right
+    showAppointment: true
+    items:
+      - body:
+          - "✓ Disfunción familiar."
+          - "✓ Enfermedades crónicas."
+          - "✓ Dificultades escolares."
+          - "✓ Problemas en la infancia o adolescencia."
+          - "✓ Compañía en la toma de decisiones necesarias para elaborarlo y encontrar un nuevo sentido de vida."
+  - type: topics
+    heading: "DIAGNÓSTICO Y TRATAMIENTO DEL\nTRASTORNO POR DÉFICIT DE ATENCIÓN (TDA)"
+    image: ../../assets/92956.jpg
+    imageSide: left
+    showAppointment: true
+    items:
+      - body:
+          - "✓ Dificultades para concentrarse."
+          - "✓ Dificultad para completar tareas (compromisos en la función ejecutiva)."
+          - "✓ Cambios de humor."
+          - "✓ Impaciencia."
+          - "✓ Dificultades para mantener las relaciones."
+          - "✓ Dificultad para iniciar tareas –procrastinación."
+  - type: topics
+    heading: "ATENCIÓN DEL DUELO"
+    image: ../../assets/121901-quando-e-hora-de-procurar-um-psicoterapeuta-740x500-1.jpg
+    imageSide: right
+    showAppointment: true
+    items:
+      - body:
+          - "✓ Dolor por las pérdidas significativas que no nos permiten continuar la vida."
+          - "✓ Duelos por pérdida."
+          - "✓ Duelos complejos."
+          - "✓ Ayuda para asumir tres trabajos emocionales: sentir, comprender y trascender el duelo."
+          - "✓ Compañía en la toma de decisiones necesarias para elaborarlo y encontrar un nuevo sentido de vida."
+  - type: topics
+    heading: "DEPRESIÓN, ANSIEDAD Y ESTRÉS"
+    image: ../../assets/mujer-deprimida-que-busca-consuelo-su-psicoterapeuta-2.jpg
+    imageSide: left
+    showAppointment: true
+    items:
+      - body:
+          - "✓ Tristeza continua desde hace años."
+          - "✓ Nivel de depresión que ya altera mi vida cotidiana y las relaciones."
+          - "✓ Sentimientos repentinos, intensos y no provocados de terror y pavor."
+          - "✓ Fobias o miedos intensos."
+          - "✓ Manejo de estrés."
+  - type: topics
+    heading: "PSICOLOGÍA INDIVIDUAL"
+    image: ../../assets/por_que_fazer_terapia.width-1920-1.jpg
+    imageSide: right
+    showAppointment: true
+    items:
+      - body:
+          - "✓ Inseguridades y pobre autoestima."
+          - "✓ Dificultad para poner límites o decir que no."
+          - "✓ Problemas de la infancia o adolescencia."
+          - "✓ Problemas afectivos."
+          - "✓ Traumas físicos o emocionales."
+          - "✓ Aceptación y manejo de enfermedades crónicas."
+          - "✓ Dificultades académicas o laborales."
+          - "✓ Historia de relaciones abusivas o codependencia."
+related: [fisioterapia, podologia, medicina-general, servicio-de-estetica]

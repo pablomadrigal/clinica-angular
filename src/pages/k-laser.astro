@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import AppointmentButton from '../components/AppointmentButton.astro';
+import BackHome from '../components/BackHome.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { nl2br } from '../lib/text';
+import pisada from '../assets/pisada.jpg';
+import cube from '../assets/Cube4conombra_d37fe5ad-f6f0-4952-9c6f-e24dd9420413_740x.webp';
+import img16 from '../assets/image-16.png';
+import img17 from '../assets/image-17.png';
+import img18 from '../assets/image-18.png';
+import { site } from '../data/site';
+
+const tratamiento = [
+  '✓ Valoración en estática o en camilla',
+  '✓ Valoración dinámica en una plataforma digital computarizada conocida como Baropodómetro',
+  '✓ Escaneo del pie con el Podoscan',
+  '✓ Se toman las medidas de los piess',
+  '✓ Se diseñan las plantillas con base en las particularidades de cada pie',
+  '✓ Confección de la plantilla personalizada',
+];
+const tecnologias = [
+  { title: 'TECNOLOGÍAS: NEC Easy Foot Care', text: 'NEC© el método de reconstrucción ungueal y única clínica podológica en Centroamérica que cuenta con el moderno sistema europeo.' },
+  { title: 'TECNOLOGÍAS: OZONOTERAPIA', text: 'Equipo de grado médico útil en úlceras infectadas y de dificil cicatrización, especialmente en pie diabético.' },
+  { title: 'TECNOLOGÍAS: ALTA FRECUENCIA', text: 'Tecnología que estimula la producción de colágeno en la piel sana y en la regeneración de heridas. Mejora la limpieza facial.' },
+  { title: 'PLASMA RICO EN PLAQUETAS', text: 'El Plasma Rico en Plaquetas es una tecnología innovadora, natural y segura para el cuidado de la piel que utiliza las plaquetas de su propia sangre para rejuvenecerla. También la utilizamos para generar una rápida curación de heridas' },
+  { title: 'TECNOLOGÍAS: K-LASER CUBE 4', text: 'Nuestra clínica es la única que cuenta con esta tecnología en todo Centroamérica. En heridas puede ayudar a cicatrizar, prevenir infecciones y reducir la apariencia de las cicatrices. Es el primer tratamiento aprobado por la FDA que utiliza la terapia láser para atacar las infecciones bacterianas y los hongos en las uñas.' },
+];
+const usos = [
+  { title: 'Hongo en la Uña', image: img16, text: 'El tratamiento de la onicomicosis es un tratamiento rápido, seguro e indoloro. La terapia se realiza por efecto térmico, ya que tanto el hongo como las esporas son eliminadas en contacto con el calor, empleando el principio de la fototermolisis selectiva. Para lograr el calentamiento el K-laser emplea la longitud de onda de 970 nm, que es muy absorbida por el agua de los tejidos, de manera que seatransformada en calor.' },
+  { title: 'Papilomas', image: img17, text: 'Al igual que en el caso de la onicomicosis el láser actúa mediante efecto térmico.La terapia láser tiene la ventaja de permitir controlar la zona tratada con mucha precisión, siendo muy selectivos en el tejido que vamos a eliminar. El K-Laser Cube puede emplearse también en la reducción del dolor de los helomas e ipk.' },
+  { title: 'Uso en heridas y úlceras de\nPie Diabético', image: img18, text: 'La luz láser ha demostrado su efectividad en la mejora de la curación de heridasabiertas, en la reducción del dolor y en la disminución del riesgo de infección. La laserterapia es empleada en el tratamiento de úlceras de pie diabético, úlceras por presión, quemaduras así como en heridas infectadas, traumáticas y post- quirúrgicas, que no cicatrizan correctamente.\nLa luz láser acelera el proceso de estimula la producción de fibroblastos (los fibroblastos son los bloques que forman el colágeno, predominante en la curación de heridas) del tejido dañado y reduce la formación de tejido cicatrizal que ennumerosos casos acaba siendo una fuente de dolor crónico.\nEl K-Laser Cube mejora la actividad vascular, incrementando significativamente la formación de nuevos capilares y la vasodilatación en el tejido dañado, acelerando el proceso de curación y reduciendo la formación de tejido fibroso. Un mayor riegosanguíneo equivale a una curación más rápida y a un menor dolor.' },
+];
+---
+<Base title="K-laser - Clínica Angular">
+  <section class="container-site pt-14 pb-10 text-center">
+    <h2 class="text-[30px] font-semibold text-primary md:text-[45px]">TECNOLOGÍA DE AVANZADA</h2>
+  </section>
+  <div class="grid md:grid-cols-2">
+    <div class="flex flex-col justify-center gap-4 bg-primary px-6 py-14 text-white sm:px-10 md:px-14">
+      <div class="flex items-center gap-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-6 w-6 shrink-0 text-accent" aria-hidden="true">
+          <circle cx="12" cy="12" r="9.5" />
+          <path d="m8 12.5 2.5 2.5 5.5-5.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <h3 class="text-[19px] font-semibold">Tratamiento:</h3>
+      </div>
+      <p class="text-[15px] text-white/90">El estudio de pisada consiste en:</p>
+      <ul class="space-y-1 text-[15px] leading-relaxed text-white/90">{tratamiento.map((t) => <li>{t}</li>)}</ul>
+      <div><AppointmentButton /></div>
+    </div>
+    <div class="flex flex-col items-center justify-center gap-4 bg-white px-6 py-14 text-center sm:px-10 md:px-14">
+      <Image src={pisada} alt="Laboratorio de pisada" width={520} class="w-full max-w-[440px] rounded-2xl object-cover shadow-md" />
+      <h3 class="text-[18px] font-semibold uppercase text-accent-dark">Laboratorio de pisada</h3>
+    </div>
+  </div>
+  <section class="container-site max-w-[820px] space-y-10 py-14 text-center">
+    {tecnologias.map((t) => (
+      <div>
+        <h2 class="text-[20px] font-semibold text-accent-dark md:text-[24px]">{t.title}</h2>
+        <p class="mt-3 text-[15px] leading-relaxed text-text">{t.text}</p>
+      </div>
+    ))}
+  </section>
+  <section class="container-site grid items-center gap-10 py-14 md:grid-cols-2">
+    <div>
+      <h2 class="text-[28px] font-semibold text-primary md:text-[34px]">K-LASER CUBE 4</h2>
+      <div class="mt-4 h-[3px] w-20 bg-accent" aria-hidden="true"></div>
+      <p class="mt-6 text-[15px] leading-relaxed text-text">El K-Laser Cube es un equipo multiláser, capaz de aplicar longitudes de onda diferentes, permitiendo realizar tratamientos en distintos campos de la podología, tanto bioestimulativos y de tratamiento del dolor (talalgias, espolón calcáreo, fascitis plantar, esguinces), de cicatrización de heridas (pie diabético, úlceras, tratamientos post- quirúrgicos) y tratamientos térmicos de onicomicosis y verrugas plantares. Una nueva pieza quirúrgica amplía aún más la versatilidad del K-Laser Cube para la cirugía de uña encarnada, reduciendo los tiempos de curación y las posibilidades de recidiva.</p>
+    </div>
+    <Image src={cube} alt="K-Laser Cube 4" width={640} class="mx-auto w-full max-w-[420px]" />
+  </section>
+  <section class="container-site max-w-[820px] py-14 text-center">
+    <h2 class="text-[20px] font-semibold text-accent-dark md:text-[24px]">Especialidades donde aplicamos el K-Láser Cube 4</h2>
+    <h2 class="mt-6 text-[24px] font-semibold text-primary md:text-[28px]">Laserterapia</h2>
+    <p class="mx-auto mt-3 text-[15px] leading-relaxed text-text">La laserterapia es una modalidad de tratamiento no invasivo, seguro y efectivo donde la luz se emplea para aliviar el dolor, reducir la inflamación, y estimular la cicatrización de heridas y curación de tejidos blandos. La terapia laser de alta potencia penetra en profundidad en los tejidos y acelera el tiempo de recuperación, regeneración de células y reparación de los tejidos.</p>
+  </section>
+  <section class="bg-primary py-6 text-center">
+    <h2 class="text-[24px] font-semibold text-accent md:text-[28px]">Usos en Podología</h2>
+  </section>
+  <section class="container-site py-14">
+    <div class="grid gap-10 md:grid-cols-3">
+      {usos.map((u) => (
+        <div class="text-center">
+          <h2 class="text-[19px] font-semibold text-primary" set:html={nl2br(u.title)} />
+          <Image src={u.image} alt={u.title.replace(/\n/g, ' ')} width={260} class="mx-auto my-5 aspect-square w-full max-w-[220px] rounded-full border-4 border-accent object-cover" />
+          {u.text.split('\n').map((p) => <p class="mb-3 text-left text-[15px] leading-relaxed text-text">{p}</p>)}
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 text-center"><AppointmentButton /></div>
+  </section>
+  <BackHome />
+  <ContactSection address={site.addresses.kLaser} />
+</Base>

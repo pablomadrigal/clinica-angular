@@ -1,0 +1,8 @@
+---
+import Button from './Button.astro';
+import { CHAT_URL } from '../lib/whatsapp';
+
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<Button href={CHAT_URL} variant="chat" target="_blank" class={cls}>Chat directo</Button>

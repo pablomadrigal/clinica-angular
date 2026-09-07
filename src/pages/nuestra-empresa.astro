@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import BackHome from '../components/BackHome.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Pilar from '../components/icons/Pilar.astro';
+import foto from '../assets/Foto2-Angular-Podologia-Costa-Rica-2.jpg';
+import { site } from '../data/site';
+
+// "Los Pilares de Nuestra Empresa": el dump en Markdown solo trae los 7 párrafos sueltos;
+// la agrupación icono + título + texto y el orden se reconstruyen de
+// reference/source/nuestra-empresa.html (7 widgets icon + text-editor, en dos filas de
+// 3 y 4) y de la captura nuestra-empresa-desktop.png (títulos "Sostenibilidad",
+// "Innovación", "Adaptabilidad", "Efectividad", "Solidaridad", "Respeto" y
+// "Escucha Activa", ausentes del dump). Los tres textos "Es obligatorio unirse..." se
+// copian tal cual: están repetidos en el original.
+const pilaresFila1 = [
+  { icon: 'sostenibilidad', title: 'Sostenibilidad', text: 'Es obligatorio unirse al movimiento mundial para optimizar el uso de recursos en nuestros procesos.' },
+  { icon: 'innovacion', title: 'Innovación', text: 'Es obligatorio unirse al movimiento mundial para optimizar el uso de recursos en nuestros procesos.' },
+  { icon: 'adaptabilidad', title: 'Adaptabilidad', text: 'Porque los tiempos lo requieren y nosotros lo ofrecemos.' },
+] as const;
+const pilaresFila2 = [
+  { icon: 'efectividad', title: 'Efectividad', text: 'Es obligatorio unirse al movimiento mundial para optimizar el uso de recursos en nuestros procesos.' },
+  { icon: 'solidaridad', title: 'Solidaridad', text: 'Creemos en ayudar a nuestros clientes con cada una de sus necesidades con un toque humano.' },
+  { icon: 'respeto', title: 'Respeto', text: 'Por lo que hacemos y a quién atendemos.' },
+  { icon: 'escucha', title: 'Escucha Activa', text: 'No solo creamos listas de patologías, escuchamos y atendemos a las personas con conciencia plena.' },
+] as const;
+---
+<Base title="Nuestra Empresa - Clínica Angular">
+  <section class="container-site py-12">
+    <h2 class="text-center text-[35px] font-semibold text-primary md:text-[45px]">NUESTRA EMPRESA</h2>
+    <div class="mt-8 grid items-center gap-8 md:grid-cols-2 md:gap-12">
+      <Image src={foto} alt="Clínica Angular" width={640} height={430} class="w-full rounded-3xl object-cover shadow-md" />
+      <div>
+        <h2 class="text-[25px] font-semibold text-primary md:text-[32px]">La clínica ANGULAR con el transcurso de los años ha logrado...</h2>
+        <p class="mt-4 text-[15px] leading-relaxed text-text">Acuñar una cartera de clientes robusta gracias a, la relación de confianza construida y a la excelencia incluida en cada trabajo, realizado por un equipo de profesionales de la salud altamente calificado.</p>
+        <p class="mt-3 text-[15px] leading-relaxed text-text">Somos parte de los drásticos cambios típicos de la era moderna en que vivimos, sin perder nuestra esencia, lo que nos ha permitido marcar la diferencia en el mercado. ¡Estamos listos para dar el siguiente paso!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-primary py-14">
+    <div class="container-site grid gap-8 md:grid-cols-2">
+      <div class="text-center">
+        <h2 class="text-[28px] font-semibold text-accent-dark md:text-[32px]">Misión</h2>
+        <div class="mt-5 rounded-2xl border border-accent-dark px-6 py-8">
+          <p class="text-[15px] leading-relaxed text-white">Brindar atención especializada y resolutiva en el área de podología y tratamiento de heridas, a través de una valoración humana y personalizada que garantice nuestro compromiso por generar soluciones perdurables en la calidad de vida de los pacientes.</p>
+        </div>
+      </div>
+      <div class="text-center">
+        <h2 class="text-[28px] font-semibold text-accent-dark md:text-[32px]">Visión</h2>
+        <div class="mt-5 rounded-2xl border border-accent-dark px-6 py-8">
+          <p class="text-[15px] leading-relaxed text-white">Consolidar la clínica integral de podología líder del país en atención, docencia, investigación e innovación, bajo una sólida cultura multidisciplinaria, enfoque y compromiso en la resolución de las necesidades de los pacientes, brindando soluciones integrales en vanguardia y tecnología.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-site py-14">
+    <h2 class="text-center text-[28px] font-semibold text-primary md:text-[35px]">Los Pilares de Nuestra Empresa</h2>
+    <div class="mx-auto mt-10 grid max-w-3xl gap-x-10 gap-y-12 sm:grid-cols-2 md:max-w-4xl md:grid-cols-3">
+      {pilaresFila1.map((p) => (
+        <div class="text-center">
+          <Pilar name={p.icon} class="mx-auto h-16 w-16" />
+          <h3 class="mt-4 text-[20px] font-semibold text-primary">{p.title}</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-text">{p.text}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mx-auto mt-12 grid max-w-3xl gap-x-10 gap-y-12 sm:grid-cols-2 md:max-w-5xl md:grid-cols-4">
+      {pilaresFila2.map((p) => (
+        <div class="text-center">
+          <Pilar name={p.icon} class="mx-auto h-16 w-16" />
+          <h3 class="mt-4 text-[20px] font-semibold text-primary">{p.title}</h3>
+          <p class="mt-2 text-[14px] leading-relaxed text-text">{p.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <BackHome />
+  <ContactSection address={site.addresses.empresa} />
+</Base>

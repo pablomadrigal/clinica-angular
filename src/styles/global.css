@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/montserrat';
+
+@theme {
+  --color-primary: #3d387f;
+  --color-accent: #efb37d;
+  --color-accent-dark: #ce8d3b;
+  --color-text: #54595f;
+  --color-secondary: #ffffff;
+  --color-whatsapp: #25d366;
+  --color-chat: #3ad18c;
+  --color-purple-dark: #130455;
+  --color-slide: #2a2525;
+  --font-sans: 'Montserrat Variable', 'Montserrat', sans-serif;
+}
+
+@layer base {
+  html { font-family: var(--font-sans); color: var(--color-text); scroll-behavior: smooth; }
+  body { background: #fff; }
+  h1, h2, h3, h4, h5, h6 { color: var(--color-primary); font-weight: 600; line-height: 1.2; }
+  img { max-width: 100%; height: auto; }
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: 15px;
+}

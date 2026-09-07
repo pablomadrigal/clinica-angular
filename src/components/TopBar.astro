@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/Logo-Angular-2-e1770681953456.png';
+import { site } from '../data/site';
+import Social, { socialLabels } from './icons/Social.astro';
+import Contact from './icons/Contact.astro';
+import { WHATSAPP_NUMBER } from '../lib/whatsapp';
+
+const items: { icon: 'phone' | 'whatsapp' | 'mail' | 'clock'; title: string; lines: readonly string[]; href?: string }[] = [
+  { icon: 'phone', title: 'Teléfono', lines: [site.phone], href: site.phoneHref },
+  { icon: 'whatsapp', title: 'Whatsapp', lines: [site.whatsapp], href: `https://wa.me/${WHATSAPP_NUMBER}` },
+  { icon: 'mail', title: 'Correo', lines: [site.email], href: `mailto:${site.email}` },
+  { icon: 'clock', title: 'Horario', lines: site.hours },
+];
+---
+<div class="border-b border-gray-100 bg-white">
+  <div class="flex w-full items-center justify-between gap-4 px-5 py-3">
+    <a href="/" class="mx-auto shrink-0 lg:mx-0" aria-label="Clínica Angular">
+      <Image src={logo} alt="Clínica Angular" height={70} class="h-16 w-auto" loading="eager" />
+    </a>
+    <ul class="hidden items-start gap-8 lg:flex">
+      {items.map((it) => (
+        <li class="flex items-start gap-2">
+          <Contact name={it.icon} class="mt-0.5 h-[18px] w-[18px] shrink-0 text-accent" />
+          <div>
+            <h3 class="text-[15px] font-semibold text-primary">{it.title}</h3>
+            {it.lines.map((l) => (
+              <p class="text-[12px] leading-4 text-text">{it.href ? <a href={it.href} class="hover:text-primary">{l}</a> : l}</p>
+            ))}
+          </div>
+        </li>
+      ))}
+    </ul>
+    <ul class="hidden items-center gap-2 lg:flex">
+      {(['facebook', 'instagram', 'tiktok'] as const).map((n) => (
+        <li>
+          <a href={site.social[n]} target="_blank" rel="noopener" class="grid h-7 w-7 place-items-center rounded-md bg-primary text-white hover:bg-accent hover:text-primary" aria-label={socialLabels[n]}>
+            <Social name={n} class="h-3.5 w-3.5" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

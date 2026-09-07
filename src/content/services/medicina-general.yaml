@@ -1,0 +1,40 @@
+title: MEDICINA GENERAL Y TRASTORNOS DEL SUEÑO
+slug: medicina-general
+menuLabel: Medicina General y Trastornos de Sueño
+order: 3
+seoTitle: Medicina General - Clínica Angular
+card:
+  label: Medicina General
+  image: ../../assets/DPC-2-1.jpg
+sections:
+  - type: topics
+    heading: DICTAMEN MÉDICO
+    image: ../../assets/7xm.xyz934175.jpg
+    showAppointment: true
+    items:
+      - title: "Exámenes para licencia, control médico, dictamen médico,\nseguros u otros fines"
+  - type: topics
+    heading: ENFERMEDADES CRÓNICAS
+    image: ../../assets/rheumatoid-arthritis-1-1.jpg
+    showAppointment: true
+    items:
+      - title: Hipertensión Arterial, Diabetes, Artritis y otros
+  - type: topics
+    heading: ENFERMEDADES AGUDAS
+    image: ../../assets/7xmxyz379062.jpg
+    showAppointment: true
+    items:
+      - title: Resfríos, infecciones, cuadros virales, etc
+  - type: topics
+    heading: TRASTORNOS DEL SUEÑO
+    image: ../../assets/WhatsApp-Image-2024-03-15-at-20.35.57.jpeg
+    showAppointment: true
+    items:
+      - title: Insomnio y Apnea del sueño
+  - type: topics
+    heading: CIRUGÍA MENOR
+    image: ../../assets/WhatsApp-Image-2024-03-15-at-20.57.39.jpeg
+    showAppointment: true
+    items:
+      - title: "Curación avanzada de heridas y úlceras varicosas.\nSuturas, retiro de suturas, retiro de lunares, verrugas y tomas de biopsias de piel.\nCuración de Heridas Escleroterapia, doppler venoso, entre otros."
+related: [fisioterapia, psicologia, podologia, servicio-de-estetica]

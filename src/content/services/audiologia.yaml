@@ -1,0 +1,29 @@
+title: Audiología
+slug: audiologia
+menuLabel: Audiología
+order: 6
+seoTitle: Audiología - Clínica Angular
+card:
+  label: Audiología
+  image: ../../assets/7xmxyz379062.jpg
+showTreatmentsHeader: true
+showBackHome: false
+sections:
+  - type: condition
+    heading: ""
+    image: ../../assets/7xmxyz379062.jpg
+    subheading: "- Audiología -"
+    body:
+      - "Evaluación y cuidado profesional de la audición para detectar alteraciones, prevenir problemas auditivos y mejorar la calidad de escucha"
+  - type: treatments
+    items:
+      - title: Evaluación auditiva
+        body:
+          - "Pruebas especializadas para identificar pérdida o alteraciones en la audición."
+      - title: Prevención y seguimiento
+        body:
+          - "Control periódico para proteger la salud auditiva y detectar cambios a tiempo."
+      - title: Soluciones auditivas
+        body:
+          - "Orientación y manejo profesional según la necesidad de cada paciente."
+related: []
