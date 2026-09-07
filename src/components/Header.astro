@@ -40,7 +40,7 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
               {item.children && <svg class="ml-1 h-3 w-3 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.5 7.5 10 12l4.5-4.5z" /></svg>}
             </a>
             {item.children && (
-              <ul class="submenu bg-white text-primary lg:invisible lg:absolute lg:left-0 lg:top-full lg:min-w-[260px] lg:opacity-0 lg:shadow-lg lg:transition lg:group-hover:visible lg:group-hover:opacity-100">
+              <ul class="bg-white text-primary lg:invisible lg:absolute lg:left-0 lg:top-full lg:min-w-[260px] lg:opacity-0 lg:shadow-lg lg:transition lg:group-hover:visible lg:group-hover:opacity-100 lg:group-focus-within:visible lg:group-focus-within:opacity-100">
                 {item.children.map((c) => (
                   <li>
                     <a href={c.href} class="block border-b border-gray-100 py-3 pl-10 pr-5 text-[12px] font-medium hover:bg-accent lg:pl-5">{c.label}</a>
@@ -61,6 +61,7 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
   btn?.addEventListener('click', () => {
     const open = navEl!.classList.toggle('hidden') === false;
     btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
   });
   // "Tecnología" (y cualquier otro ítem sin página propia) usa href="#": no debe navegar,
   // solo actuar como encabezado de su submenú (que ya está siempre visible en móvil).

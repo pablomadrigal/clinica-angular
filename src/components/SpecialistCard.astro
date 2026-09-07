@@ -3,9 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { nl2br } from '../lib/text';
 
-// `reverse` se mantiene en la interfaz por compatibilidad, pero es un no-op visual:
-// la referencia nunca alterna el layout izquierda/derecha entre especialistas.
-interface Props { entry: CollectionEntry<'specialists'>; reverse?: boolean }
+interface Props { entry: CollectionEntry<'specialists'> }
 const { entry } = Astro.props;
 const d = entry.data;
 ---

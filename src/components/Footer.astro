@@ -4,7 +4,7 @@ import logo from '../assets/Logo-Angular-1.png';
 import payments from '../assets/Contactenos-footer.png';
 import cards from '../assets/Group-245464935-1.png';
 import { site } from '../data/site';
-import Social from './icons/Social.astro';
+import Social, { socialLabels } from './icons/Social.astro';
 import Contact from './icons/Contact.astro';
 ---
 <footer class="bg-primary text-white">
@@ -39,7 +39,7 @@ import Contact from './icons/Contact.astro';
       <ul class="mt-5 flex gap-2">
         {(['facebook', 'instagram', 'tiktok'] as const).map((n) => (
           <li>
-            <a href={site.social[n]} target="_blank" rel="noopener" aria-label={n} class="grid h-8 w-8 place-items-center rounded-md bg-white/20 text-white hover:bg-white hover:text-primary">
+            <a href={site.social[n]} target="_blank" rel="noopener" aria-label={socialLabels[n]} class="grid h-8 w-8 place-items-center rounded-md bg-white/20 text-white hover:bg-white hover:text-primary">
               <Social name={n} class="h-4 w-4" />
             </a>
           </li>

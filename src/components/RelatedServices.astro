@@ -8,9 +8,11 @@ const all = await getCollection('services');
 // El loader `glob()` usa el campo `slug` del frontmatter como `id` de la entrada cuando existe
 // (p. ej. "especialidades/podologia"), así que `related` —que usa el nombre corto del archivo,
 // como en el resto de los YAML— debe compararse contra el último segmento de esa ruta.
-const items = ids
-  .map((id) => all.find((s) => s.id.split('/').pop() === id))
-  .filter((s): s is NonNullable<typeof s> => Boolean(s));
+const items = ids.map((id) => {
+  const found = all.find((s) => s.id.split('/').pop() === id);
+  if (!found) throw new Error(`related: no existe el servicio "${id}"`);
+  return found;
+});
 ---
 
 {

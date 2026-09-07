@@ -7,6 +7,6 @@ export default defineConfig({
   site: 'https://angular.cr',
   trailingSlash: 'always',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.endsWith('/404/') && !page.endsWith('/404') })],
   vite: { plugins: [tailwindcss()] },
 });

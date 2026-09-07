@@ -2,12 +2,13 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/Logo-Angular-2-e1770681953456.png';
 import { site } from '../data/site';
-import Social from './icons/Social.astro';
+import Social, { socialLabels } from './icons/Social.astro';
 import Contact from './icons/Contact.astro';
+import { WHATSAPP_NUMBER } from '../lib/whatsapp';
 
 const items: { icon: 'phone' | 'whatsapp' | 'mail' | 'clock'; title: string; lines: readonly string[]; href?: string }[] = [
   { icon: 'phone', title: 'Teléfono', lines: [site.phone], href: site.phoneHref },
-  { icon: 'whatsapp', title: 'Whatsapp', lines: [site.whatsapp], href: `https://wa.me/506${site.whatsapp.replace('-', '')}` },
+  { icon: 'whatsapp', title: 'Whatsapp', lines: [site.whatsapp], href: `https://wa.me/${WHATSAPP_NUMBER}` },
   { icon: 'mail', title: 'Correo', lines: [site.email], href: `mailto:${site.email}` },
   { icon: 'clock', title: 'Horario', lines: site.hours },
 ];
@@ -33,7 +34,7 @@ const items: { icon: 'phone' | 'whatsapp' | 'mail' | 'clock'; title: string; lin
     <ul class="hidden items-center gap-2 lg:flex">
       {(['facebook', 'instagram', 'tiktok'] as const).map((n) => (
         <li>
-          <a href={site.social[n]} target="_blank" rel="noopener" class="grid h-7 w-7 place-items-center rounded-md bg-primary text-white hover:bg-accent hover:text-primary" aria-label={n}>
+          <a href={site.social[n]} target="_blank" rel="noopener" class="grid h-7 w-7 place-items-center rounded-md bg-primary text-white hover:bg-accent hover:text-primary" aria-label={socialLabels[n]}>
             <Social name={n} class="h-3.5 w-3.5" />
           </a>
         </li>

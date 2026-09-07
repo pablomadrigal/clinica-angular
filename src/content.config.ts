@@ -72,6 +72,8 @@ const specialists = defineCollection({
       role: z.string(),
       code: z.string().optional(), // línea "Código: …" tal cual
       photo: image(),
+      // Foto alternativa para "Nuestro Equipo" del home (recortada distinto a `photo`).
+      featuredPhoto: image().optional(),
       profileTitle: z.string().default('Perfil Profesional'),
       profile: z.array(z.string()),
       group: z.enum(['clinico', 'administrativo']),
