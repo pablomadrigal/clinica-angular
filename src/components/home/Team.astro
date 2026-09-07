@@ -5,7 +5,7 @@ import Button from '../Button.astro';
 
 const featured = (await getCollection('specialists')).filter((s) => s.data.featured).sort((a, b) => a.data.order - b.data.order);
 ---
-<section class="bg-primary py-16 text-center text-white">
+<section class="bg-primary py-12 text-center text-white md:py-16">
   <div class="container-site">
     <h4 class="text-[30px] font-semibold text-white md:text-[35px]">Nuestro Equipo</h4>
     <div class="mt-10 grid gap-10 sm:grid-cols-3">

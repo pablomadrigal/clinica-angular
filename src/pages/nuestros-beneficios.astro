@@ -46,12 +46,12 @@ const icons = [
     <h2 class="text-[35px] font-semibold text-primary md:text-[45px]">NUESTROS BENEFICIOS</h2>
   </section>
 
-  <section class="relative isolate overflow-hidden bg-accent py-14">
+  <section class="relative isolate overflow-hidden bg-accent py-10 md:py-14">
     <Image src={heroBg} alt="" width={1440} class="absolute inset-0 -z-10 h-full w-full object-cover" />
     <div class="container-site relative grid items-center gap-10 lg:grid-cols-[1fr_380px]">
       <div class="text-center">
         <h2 class="text-[35px] font-semibold leading-none text-primary md:text-[45px]">PAGUE UN</h2>
-        <h2 class="text-[65px] font-bold leading-none text-accent md:text-[90px] [text-shadow:0_0_23px_#FFFFFF]">50% MENOS</h2>
+        <h2 class="text-[48px] font-bold leading-none text-accent sm:text-[65px] md:text-[90px] [text-shadow:0_0_23px_#FFFFFF]">50% MENOS</h2>
         <h2 class="text-[25px] font-semibold text-primary md:text-[35px]">EN SU CONSULTA MÉDICA</h2>
         <Image src={medismart} alt="MediSmart" width={220} class="mx-auto mt-6 w-[220px]" />
       </div>
@@ -62,7 +62,7 @@ const icons = [
     </div>
   </section>
 
-  <section class="bg-primary py-14 text-center">
+  <section class="bg-primary py-10 text-center md:py-14">
     <div class="container-site">
       <h2 class="text-[30px] font-semibold text-white md:text-[35px]">¿Por qué elegir Nuestros Servicios?</h2>
       <h2 class="mt-2 text-[20px] font-medium text-accent md:text-[25px]">Somos una opción accesible para la clase media</h2>
@@ -72,7 +72,7 @@ const icons = [
     </div>
   </section>
 
-  <section class="bg-white py-14">
+  <section class="bg-white py-10 md:py-14">
     <div class="container-site">
       <h2 class="text-center text-[30px] font-semibold text-accent md:text-[35px]">Contamos con Tecnología Actualizada</h2>
       <div class="mt-10 grid items-center gap-10 md:grid-cols-2">
@@ -82,8 +82,10 @@ const icons = [
           <Button href="/k-laser/" variant="appointment" shape="rounded" caps={false} class="mt-5">Más Información</Button>
         </div>
         <Image src={kLaser} alt="K-Laser Cube 4" width={640} class="w-full" />
-        <Image src={pion} alt="Láser Pion" width={640} class="w-full" />
-        <div class="text-center md:text-left">
+        {/* En una sola columna el grid apilaría la foto del Pion antes de su propio texto
+            (queda pegada a la tarjeta del K-Laser); en móvil se invierte el par. */}
+        <Image src={pion} alt="Láser Pion" width={640} class="order-2 w-full md:order-none" />
+        <div class="order-1 text-center md:order-none md:text-left">
           <h2 class="text-[25px] font-semibold text-primary">Láser Pion</h2>
           <p class="mt-3 text-[15px] leading-relaxed text-text">Usada para tratar onicomicosis, verrugas plantares, helomas y aliviar dolores como la fascitis plantar.</p>
           <Button href="/laser-pion/" variant="appointment" shape="rounded" caps={false} class="mt-5">Más Información</Button>
