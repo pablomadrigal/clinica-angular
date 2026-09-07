@@ -63,7 +63,7 @@ Nota: la dirección del footer en Especialidades ("Edificio sur de la Clínica C
 
 ## Arquitectura
 
-- **Astro 5**, `output: 'static'`, adaptador Vercel solo para redirects y headers.
+- **Astro 5**, `output: 'static'`, sin adaptador. Redirects y headers van en `vercel.json`.
 - **Tailwind v4** con tokens tomados del kit de Elementor:
   - `primary: #3D387F`, `accent: #EFB37D`, `text: #54595F`, `secondary: #FFFFFF`, `whatsapp: #25d366`.
   - Fuente única Montserrat (pesos 400, 500, 600, 700), autohospedada con `@fontsource-variable/montserrat`.
@@ -111,7 +111,8 @@ Esquema (`zod`):
 ```
 title        string   ej. "PODOLOGÍA"
 slug         string   ruta final, ej. "especialidades/podologia" o "fisioterapia"
-menuLabel    string   texto en el menú
+menuLabel    string   texto en el menú (ej. "Medicina General y Trastornos de Sueño")
+inMenu       boolean  false para Servicio de Estética, que no aparece en el submenú pero sí en Inicio y Especialidades
 order        number   orden en el menú y en la página Especialidades
 card         { image, blurb? }         tarjeta para Inicio y Especialidades
 intro        string?  párrafo bajo el título
