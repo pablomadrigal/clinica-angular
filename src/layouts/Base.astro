@@ -1,0 +1,49 @@
+---
+import '../styles/global.css';
+import TopBar from '../components/TopBar.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { site } from '../data/site';
+
+// El sitio original no tiene meta description en ninguna página; se usa una genérica.
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: ImageMetadata;
+}
+const {
+  title,
+  description = 'Clínica Angular: podología clínica, tratamiento avanzado de heridas, fisioterapia, psicología y medicina general en Guadalupe, San José, Costa Rica.',
+  ogImage,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+// Sin transformación de Sharp: usa el asset tal cual fue importado (mismo criterio que el resto del layout).
+const ogImageUrl = new URL(ogImage ? ogImage.src : '/favicon.png', site.url).href;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="es_CR" />
+  </head>
+  <body class="min-h-screen bg-white">
+    <a href="#contenido" class="sr-only focus:not-sr-only">Omitir e ir al contenido</a>
+    <TopBar />
+    <Header />
+    <main id="contenido"><slot /></main>
+    <Footer />
+    <WhatsAppButton />
+  </body>
+</html>
