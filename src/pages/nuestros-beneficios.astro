@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import BackHome from '../components/BackHome.astro';
+import ContactForm from '../components/ContactForm.astro';
+import heroBg from '../assets/Foto5-Angular-Podologia-Costa-Rica-1.jpg';
+import medismart from '../assets/Logo-Boton2-MediSmart-Angular-Clinica-del-pie-Costa-Rica-1.png';
+import i1 from '../assets/Group-245464941.png';
+import i2 from '../assets/Group-245464930.png';
+import i3 from '../assets/Group-245464931.png';
+import i4 from '../assets/Group-245464932.png';
+import i5 from '../assets/Group-245464933.png';
+import kLaser from '../assets/antisel-physio-k-laser-cube-4-f.jpg';
+import pion from '../assets/Captura-de-pantalla-2026-03-16-121826.png';
+// Los cinco `Group-2454649xx.png` son tarjetas completas (foto + título + viñetas) ya
+// maquetadas en el propio PNG (confirmado al inspeccionarlas); el orden replica el de
+// la captura nuestros-beneficios-desktop.png: fila de 3 + fila de 2 centrada.
+const icons = [i1, i2, i3, i4, i5];
+---
+<Base title="Nuestros Beneficios - Clínica Angular">
+  <section class="container-site py-12 text-center">
+    <h2 class="text-[35px] font-semibold text-primary md:text-[45px]">NUESTROS BENEFICIOS</h2>
+  </section>
+
+  <section class="relative overflow-hidden bg-accent py-14">
+    <Image src={heroBg} alt="" width={1440} class="absolute inset-0 -z-10 h-full w-full object-cover" />
+    <div class="container-site relative grid items-center gap-10 lg:grid-cols-[1fr_380px]">
+      <div class="text-center">
+        <h2 class="text-[35px] font-semibold leading-none text-primary md:text-[45px]">PAGUE UN</h2>
+        <h2 class="text-[65px] font-bold leading-none text-accent md:text-[90px] [text-shadow:0_0_20px_rgba(255,255,255,0.85)]">50% MENOS</h2>
+        <h2 class="text-[25px] font-semibold text-primary md:text-[35px]">EN SU CONSULTA MÉDICA</h2>
+        <Image src={medismart} alt="MediSmart" width={220} class="mx-auto mt-6 w-[220px]" />
+      </div>
+      <div class="rounded-3xl bg-accent p-8 shadow-md">
+        <h3 class="mb-5 text-[32px] font-semibold leading-none text-white md:text-[40px]">¡Contáctenos!</h3>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-primary py-14 text-center">
+    <div class="container-site">
+      <h2 class="text-[30px] font-semibold text-white md:text-[35px]">¿Por qué elegir Nuestros Servicios?</h2>
+      <h2 class="mt-2 text-[20px] font-medium text-accent md:text-[25px]">Somos una opción accesible para la clase media</h2>
+      <div class="mt-10 flex flex-wrap justify-center gap-8">
+        {icons.map((ic) => <Image src={ic} alt="" width={340} class="w-[280px] drop-shadow-lg sm:w-[320px]" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14">
+    <div class="container-site">
+      <h2 class="text-center text-[30px] font-semibold text-accent md:text-[35px]">Contamos con Tecnología Actualizada</h2>
+      <div class="mt-10 grid items-center gap-10 md:grid-cols-2">
+        <div class="text-center md:text-left">
+          <h2 class="text-[25px] font-semibold text-primary">Cube 4 K-Laser</h2>
+          <p class="mt-3 text-[15px] leading-relaxed text-text">Sinónimo de terapia dinámica. El software intuitivo k-laser consta de varias etapas dinámicas que caracterizan el tratamiento seleccionado.</p>
+          <Button href="/k-laser/" variant="appointment" shape="rounded" caps={false} class="mt-5">Más Información</Button>
+        </div>
+        <Image src={kLaser} alt="K-Laser Cube 4" width={640} class="w-full" />
+        <Image src={pion} alt="Láser Pion" width={640} class="w-full" />
+        <div class="text-center md:text-left">
+          <h2 class="text-[25px] font-semibold text-primary">Láser Pion</h2>
+          <p class="mt-3 text-[15px] leading-relaxed text-text">Usada para tratar onicomicosis, verrugas plantares, helomas y aliviar dolores como la fascitis plantar.</p>
+          <Button href="/laser-pion/" variant="appointment" shape="rounded" caps={false} class="mt-5">Más Información</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <BackHome />
+</Base>
