@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import ServiceCard from './ServiceCard.astro';
+
+interface Props { ids: string[] }
+const { ids } = Astro.props;
+const all = await getCollection('services');
+// El loader `glob()` usa el campo `slug` del frontmatter como `id` de la entrada cuando existe
+// (p. ej. "especialidades/podologia"), así que `related` —que usa el nombre corto del archivo,
+// como en el resto de los YAML— debe compararse contra el último segmento de esa ruta.
+const items = ids
+  .map((id) => all.find((s) => s.id.split('/').pop() === id))
+  .filter((s): s is NonNullable<typeof s> => Boolean(s));
+---
+
+{
+  items.length > 0 && (
+    <section class="py-12">
+      <div class="container-site">
+        <h2 class="mb-6 text-center text-[17px] font-bold text-accent md:text-[19px]">Ver más especialidades</h2>
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((s) => <ServiceCard label={s.data.card.label} href={`/${s.data.slug}/`} image={s.data.card.image} />)}
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,36 @@
+---
+// Panel de "tratamientos": fondo morado (primary) con lista de ítems (icono check + título +
+// párrafos) y botón "Agendar cita". Siempre se pinta sobre fondo morado: ver nota en
+// ConditionSection.astro sobre por qué no hace falta un índice de posición.
+import AppointmentButton from '../AppointmentButton.astro';
+
+interface Props {
+  heading?: string;
+  items: { title: string; body: string[] }[];
+  showAppointment: boolean;
+}
+const { heading, items, showAppointment } = Astro.props;
+---
+
+<div class="bg-primary px-6 py-14 text-white sm:px-10 md:px-14">
+  {heading && <h3 class="mb-6 text-center text-[20px] font-bold text-accent md:text-[24px]">{heading}</h3>}
+  <div class="space-y-6">
+    {
+      items.map((it) => (
+        <div class="flex gap-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5" />
+            <path d="m8 12.5 2.5 2.5 5.5-5.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div>
+            <h4 class="text-[17px] font-bold text-white md:text-[19px]">{it.title}</h4>
+            {it.body.map((p) => (
+              <p class="mt-1 text-[15px] leading-relaxed text-white/80">{p}</p>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  {showAppointment && <div class="mt-8 text-center"><AppointmentButton /></div>}
+</div>
