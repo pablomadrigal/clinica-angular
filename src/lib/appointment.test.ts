@@ -15,7 +15,9 @@ const full: WizardData = {
   origen: '/hongos-unas-onicomicosis/',
 };
 
-const hoy = new Date('2026-09-08T12:00:00Z');
+// Se construye con componentes locales, no con una cadena UTC: así la prueba da igual
+// en cualquier zona horaria donde corra la suite.
+const hoy = new Date(2026, 8, 8, 12, 0, 0);
 
 describe('validateStep', () => {
   it('paso 1 exige servicio', () => {
@@ -47,6 +49,13 @@ describe('validateStep', () => {
 
   it('paso 4 acepta la fecha de hoy', () => {
     expect(validateStep(4, { fecha: '2026-09-08', hora: '10:00 am' }, hoy)).toEqual([]);
+  });
+
+  it('paso 4 acepta hoy también de noche, cuando en UTC ya es mañana', () => {
+    // Costa Rica es UTC-6: a las 7 de la noche del 8, en UTC ya son las 1 del 9.
+    // Calcular el límite con `toISOString()` rechazaría "hoy" durante esas horas.
+    const nocheEnCostaRica = new Date(2026, 8, 8, 19, 0, 0);
+    expect(validateStep(4, { fecha: '2026-09-08', hora: '4:00 pm' }, nocheEnCostaRica)).toEqual([]);
   });
 
   it('paso 5 valida nombre, correo, celular y consentimiento', () => {

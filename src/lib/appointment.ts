@@ -34,10 +34,17 @@ export const STEP_FIELDS: Record<Step, Array<keyof WizardData>> = {
 
 const isBlank = (v: unknown): boolean => typeof v !== 'string' || v.trim() === '';
 
-// Compara solo la parte de fecha, para que "hoy" siga siendo válido a cualquier hora.
+// El `<input type="date">` entrega la fecha en la zona del paciente, así que el límite
+// tiene que calcularse en esa misma zona. `toISOString()` daría la fecha UTC y en Costa
+// Rica (UTC-6) rechazaría "hoy" como pasada entre las 6 y las 12 de la noche.
+function localDateString(d: Date): string {
+  const mes = String(d.getMonth() + 1).padStart(2, '0');
+  const dia = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${mes}-${dia}`;
+}
+
 function isPastDate(value: string, today: Date): boolean {
-  const limit = today.toISOString().slice(0, 10);
-  return value < limit;
+  return value < localDateString(today);
 }
 
 export function validateStep(step: Step, data: Partial<WizardData>, today: Date = new Date()): FieldError[] {
