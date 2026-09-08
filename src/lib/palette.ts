@@ -17,6 +17,10 @@ export const palette = {
   bgAlt: '#F3EEF9',
   white: '#FFFFFF',
   border: '#E4DCEF',
+  // Borde de los campos de formulario. `border` (#E4DCEF) da 1.33 sobre blanco: como el relleno
+  // del campo es del mismo blanco que la tarjeta, el borde es lo único que identifica el control
+  // y WCAG 1.4.11 le exige 3.0. Este gris da 4.54.
+  borderField: '#767676',
   evidenceStrong: '#1E7A4C',
   // Agosto traía #B5860B (3.29 sobre blanco); oscurecido para llegar a AA.
   evidenceMixed: '#8A6508',

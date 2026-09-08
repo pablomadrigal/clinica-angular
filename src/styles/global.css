@@ -17,6 +17,9 @@
   --color-bg-alt: #f3eef9;
   --color-secondary: #ffffff;
   --color-border-soft: #e4dcef;
+  /* Borde de los campos de formulario: `border-soft` es decorativo y no llega al 3.0 que
+     WCAG 1.4.11 exige al límite de un control. Ver la nota en palette.ts. */
+  --color-border-field: #767676;
   --color-evidence-strong: #1e7a4c;
   --color-evidence-mixed: #8a6508;
   --color-evidence-clinical: #6b21a8;

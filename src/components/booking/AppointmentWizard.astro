@@ -33,7 +33,7 @@ const pasos = ['Servicio', 'Profesional', 'Sede', 'Fecha y hora', 'Tus datos'];
     <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿Qué servicio necesitás?</legend>
     <label class="block">
       <span class="mb-1 block font-medium">Servicio</span>
-      <select name="servicio" aria-describedby="err-servicio" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]">
+      <select name="servicio" aria-describedby="err-servicio" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]">
         <option value="">Seleccioná un servicio</option>
         {servicios.map((s) => <option value={s}>{s}</option>)}
       </select>
@@ -48,7 +48,7 @@ const pasos = ['Servicio', 'Profesional', 'Sede', 'Fecha y hora', 'Tus datos'];
     <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿Preferís algún profesional?</legend>
     <label class="block">
       <span class="mb-1 block font-medium">Profesional (opcional)</span>
-      <select name="profesional" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]">
+      <select name="profesional" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]">
         <option value="">Sin preferencia — el equipo asigna según disponibilidad</option>
         {profesionales.map((p) => <option value={p}>{p}</option>)}
       </select>
@@ -63,7 +63,7 @@ const pasos = ['Servicio', 'Profesional', 'Sede', 'Fecha y hora', 'Tus datos'];
     <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿En cuál sede?</legend>
     <label class="block">
       <span class="mb-1 block font-medium">Sede</span>
-      <select name="sede" aria-describedby="err-sede" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]">
+      <select name="sede" aria-describedby="err-sede" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]">
         <option value="">Seleccioná una sede</option>
         {site.locations.map((l) => <option value={l.label}>{l.label}</option>)}
       </select>
@@ -79,12 +79,12 @@ const pasos = ['Servicio', 'Profesional', 'Sede', 'Fecha y hora', 'Tus datos'];
     <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿Cuándo te queda bien?</legend>
     <label class="block">
       <span class="mb-1 block font-medium">Fecha preferida</span>
-      <input type="date" name="fecha" aria-describedby="err-fecha" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]" />
+      <input type="date" name="fecha" aria-describedby="err-fecha" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]" />
     </label>
     <p id="err-fecha" data-error-for="fecha" hidden class="mt-1 text-[15px] font-medium text-error"></p>
     <label class="mt-4 block">
       <span class="mb-1 block font-medium">Hora preferida</span>
-      <select name="hora" aria-describedby="err-hora" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]">
+      <select name="hora" aria-describedby="err-hora" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]">
         <option value="">Seleccioná un horario</option>
         {horarios.map((h) => <option value={h}>{h}</option>)}
       </select>
@@ -101,22 +101,22 @@ const pasos = ['Servicio', 'Profesional', 'Sede', 'Fecha y hora', 'Tus datos'];
     <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿Cómo te contactamos?</legend>
     <label class="block">
       <span class="mb-1 block font-medium">Tu nombre completo</span>
-      <input type="text" name="nombre" autocomplete="name" aria-describedby="err-nombre" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]" />
+      <input type="text" name="nombre" autocomplete="name" aria-describedby="err-nombre" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]" />
     </label>
     <p id="err-nombre" data-error-for="nombre" hidden class="mt-1 text-[15px] font-medium text-error"></p>
     <label class="mt-4 block">
       <span class="mb-1 block font-medium">Correo electrónico</span>
-      <input type="email" name="email" autocomplete="email" aria-describedby="err-email" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]" />
+      <input type="email" name="email" autocomplete="email" aria-describedby="err-email" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]" />
     </label>
     <p id="err-email" data-error-for="email" hidden class="mt-1 text-[15px] font-medium text-error"></p>
     <label class="mt-4 block">
       <span class="mb-1 block font-medium">Celular (8 dígitos)</span>
-      <input type="tel" name="celular" inputmode="numeric" autocomplete="tel" aria-describedby="err-celular" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]" />
+      <input type="tel" name="celular" inputmode="numeric" autocomplete="tel" aria-describedby="err-celular" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]" />
     </label>
     <p id="err-celular" data-error-for="celular" hidden class="mt-1 text-[15px] font-medium text-error"></p>
     <label class="mt-4 block">
       <span class="mb-1 block font-medium">Contanos brevemente tu consulta (opcional)</span>
-      <textarea name="mensaje" rows="4" maxlength="500" class="w-full rounded-[var(--radius-sm)] border border-border-soft bg-secondary px-4 py-3 text-[16px]"></textarea>
+      <textarea name="mensaje" rows="4" maxlength="500" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]"></textarea>
     </label>
     <label class="mt-4 flex items-start gap-3">
       <input type="checkbox" name="consentimiento" aria-describedby="err-consentimiento" class="mt-1.5 h-5 w-5 shrink-0" />
