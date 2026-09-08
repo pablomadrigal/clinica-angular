@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import ContactForm from '../components/ContactForm.astro';
+import AppointmentWizard from '../components/booking/AppointmentWizard.astro';
 import BackHome from '../components/BackHome.astro';
 import Contact from '../components/icons/Contact.astro';
 import Social from '../components/icons/Social.astro';
@@ -26,11 +26,11 @@ const pills = [
   <section class="container-site pt-14 pb-10 text-center">
     <h2 class="text-[30px] font-semibold text-primary md:text-[45px]">CONTÁCTENOS</h2>
   </section>
-  <section class="bg-accent py-10 md:py-14">
+  <section class="bg-bg-alt py-10 md:py-14">
     <div class="container-site grid items-start gap-8 lg:grid-cols-2">
-      <div class="rounded-3xl bg-white p-8 shadow-sm">
-        <p class="mb-6 text-center text-[16px] font-bold uppercase text-primary">¡Obtenga su cita ya!</p>
-        <ContactForm />
+      <div>
+        <h2 class="mb-4 text-[26px] md:text-[32px]">Agendá tu cita en pocos pasos</h2>
+        <AppointmentWizard />
       </div>
       <div class="rounded-md bg-white p-6">
         <iframe src={site.mapEmbedUrl} title="Ubicación de Clínica Angular" class="h-[290px] w-full rounded border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
@@ -60,7 +60,7 @@ const pills = [
       </div>
       <div class="flex flex-col items-center gap-4">
         {pills.map((p) => (
-          <a href={p.href} target={p.target} rel={p.target === '_blank' ? 'noopener' : undefined} class="flex w-full max-w-[240px] items-center justify-center gap-3 rounded-full bg-primary px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-purple-dark">
+          <a href={p.href} target={p.target} rel={p.target === '_blank' ? 'noopener' : undefined} class="flex w-full max-w-[240px] items-center justify-center gap-3 rounded-full bg-primary px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-primary-dark">
             <Contact name={p.name} class="h-4 w-4 shrink-0" />
             {p.label}
           </a>
@@ -75,7 +75,7 @@ const pills = [
         <li>
           <a href={s.href} target="_blank" rel="noopener" class="flex flex-col items-center gap-3">
             <span class="grid h-14 w-14 place-items-center rounded-xl bg-primary text-white"><Social name={s.name} class="h-6 w-6" /></span>
-            <span class="text-[15px] font-semibold text-accent-dark">{s.label}</span>
+            <span class="text-[15px] font-semibold text-accent-text">{s.label}</span>
           </a>
         </li>
       ))}
