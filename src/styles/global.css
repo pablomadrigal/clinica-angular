@@ -3,7 +3,8 @@
 @import '@fontsource-variable/work-sans';
 
 /* Los hex de aquí se mantienen sincronizados a mano con src/lib/palette.ts, que es donde
-   las pruebas verifican el contraste. Si cambiás uno, cambialo en ambos lados. */
+   las pruebas verifican el contraste. Si cambiás uno, cambialo en ambos lados:
+   src/lib/palette-sync.test.ts compara los dos lados y falla si se separan. */
 @theme {
   --color-primary: #6b21a8;
   --color-primary-dark: #4c1578;
