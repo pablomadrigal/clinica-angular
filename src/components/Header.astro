@@ -56,6 +56,9 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
     class="absolute left-0 top-full hidden max-h-[75dvh] w-full overflow-y-auto overscroll-contain border-t border-white/10 bg-primary shadow-2xl lg:static lg:block lg:max-h-none lg:overflow-visible lg:border-0 lg:shadow-none"
     aria-label="Principal"
   >
+    {/* Los 7 ítems tienen que caber en una sola línea desde 1024px: `lg:text-[13px]` con
+        `lg:px-[18px]` es el techo que entra sin generar scroll horizontal a ese ancho. Si se
+        agrega un ítem al menú, hay que volver a medir antes de subir cualquiera de los dos. */}
     <ul class="flex flex-col lg:flex-row lg:justify-between lg:px-5">
       {items.map((item, i) => (
         <li class="group relative border-b border-white/10 last:border-b-0 lg:border-0">
@@ -63,7 +66,7 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
             <a
               href={item.href}
               class:list={[
-                'flex flex-1 items-center justify-between gap-1 px-5 py-4 text-[15px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-text lg:px-[30px] lg:py-[18px] lg:text-[14px]',
+                'flex flex-1 items-center justify-between gap-1 px-5 py-4 text-[15px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-text lg:px-[18px] lg:py-[18px] lg:text-[13px]',
                 isActive(item.href) && 'bg-accent text-text',
               ]}
               aria-haspopup={item.children ? 'true' : undefined}
