@@ -666,10 +666,32 @@ En `src/components/TopBar.astro` y `src/components/Footer.astro`, reemplazar las
 
 Ejecutar para encontrarlas: `grep -n "purple-dark\|accent-dark" src/components/TopBar.astro src/components/Footer.astro`
 
-- [ ] **Paso 4: Verificar que no quedaron tokens viejos en todo el repo**
+- [ ] **Paso 4: Barrer los tokens viejos de los componentes compartidos y las páginas**
 
-Ejecutar: `grep -rn "purple-dark\|accent-dark\|color-slide" src/`
-Esperado: sin resultados. Si aparece alguno en otro componente, corregirlo igual.
+Además de la cabecera, quedan 23 referencias a tokens que ya no existen. Esta tarea se
+lleva las de los componentes compartidos y las páginas; `src/components/home/` es de la
+Tarea 10 y `src/pages/contactenos.astro` de la Tarea 9.
+
+Archivos de esta tarea: `src/components/ServiceCard.astro`, `SpecialistCard.astro`,
+`BackHome.astro`, `ContactForm.astro`, `icons/Pilar.astro` (solo un comentario),
+`src/pages/nuestra-empresa.astro`, `k-laser.astro`, `laser-pion.astro`.
+
+Mapeo, según el rol del color:
+
+| Uso viejo | Reemplazo | Motivo |
+|---|---|---|
+| `hover:bg-purple-dark` | `hover:bg-primary-dark` | mismo rol, token renombrado |
+| `text-accent-dark`, `border-accent-dark` | `text-accent-text`, `border-accent-text` | dorado como texto o borde sobre fondo claro: 5.02 contra blanco |
+| `bg-accent text-white hover:bg-accent-dark` | `bg-accent text-text hover:bg-accent-light` | blanco sobre dorado da 3.19; texto oscuro da 5.15 |
+| `hover:text-accent-dark` | `hover:text-accent-text` | dorado como texto |
+
+Ejecutar para encontrarlas: `grep -rn "purple-dark\|accent-dark" src/components src/pages --include=*.astro`
+
+- [ ] **Paso 4b: Verificar que no quedan tokens viejos fuera de las tareas 9 y 10**
+
+Ejecutar: `grep -rn "purple-dark\|accent-dark\|text-slide\|bg-slide" src/ | grep -v "src/components/home/" | grep -v "src/pages/contactenos.astro"`
+Esperado: sin resultados. El patrón excluye `swiper-slide`, que es una clase de la
+librería Swiper y no tiene nada que ver con el token `--color-slide`.
 
 - [ ] **Paso 5: Verificar compilación y enlaces**
 
@@ -1355,6 +1377,9 @@ git commit -m "feat: Contáctenos usa el asistente de agenda de 5 pasos"
 - [ ] **Paso 1: Encontrar todos los colores viejos del Inicio**
 
 Ejecutar: `grep -rn "purple-dark\|accent-dark\|text-slide\|bg-slide\|#3d387f\|#efb37d" src/pages/index.astro src/components/home/`
+
+Ojo: `swiper-slide` es una clase de la librería Swiper, no el token `--color-slide`. No la toques.
+El mapeo de `text-slide` (gris oscuro del slider) es `text-text`.
 Anotar cada línea: son las que hay que cambiar en el paso siguiente.
 
 - [ ] **Paso 2: Reemplazar los colores viejos**
@@ -1367,8 +1392,9 @@ En `src/components/home/HeroSlider.astro`, agregar `data-parallax` a la etiqueta
 
 - [ ] **Paso 4: Verificar que no quedaron tokens viejos**
 
-Ejecutar: `grep -rn "purple-dark\|accent-dark\|color-slide" src/`
-Esperado: sin resultados en todo `src/`.
+Ejecutar: `grep -rn "purple-dark\|accent-dark\|text-slide\|bg-slide" src/`
+Esperado: sin resultados en todo `src/`. El patrón excluye `swiper-slide`, que es de la
+librería Swiper.
 
 - [ ] **Paso 5: Verificar compilación, enlaces y pruebas**
 
