@@ -10,7 +10,9 @@
 
 ## Restricciones globales
 
-- Node >= 22.12.0.
+- Node >= 22.12.0. El gestor de paquetes del repo es **pnpm** (`pnpm-lock.yaml`): las
+  instalaciones van con `pnpm add`/`pnpm remove`. Los scripts se pueden invocar con
+  `npm run <script>` indistintamente.
 - El sitio es estático (`output: 'static'`) y `trailingSlash: 'always'`. Toda ruta interna lleva barra final.
 - No se agregan enlaces a Google Fonts ni a ningún CDN: las fuentes se sirven locales vía fontsource.
 - **Nunca se promete al paciente una cita confirmada.** El asistente genera un mensaje de WhatsApp; no existe backend. Todo el copy de confirmación debe reflejarlo.
@@ -304,8 +306,8 @@ git commit -m "feat: paleta del diseño de agosto con contraste verificado"
 - [ ] **Paso 1: Instalar las fuentes y GSAP, quitar Montserrat**
 
 ```bash
-npm uninstall @fontsource-variable/montserrat
-npm install @fontsource-variable/fraunces@5.3.0 @fontsource-variable/work-sans@5.3.0 gsap@3.15.0
+pnpm remove @fontsource-variable/montserrat
+pnpm add @fontsource-variable/fraunces@5.3.0 @fontsource-variable/work-sans@5.3.0 gsap@3.15.0
 ```
 
 - [ ] **Paso 2: Reemplazar el bloque `@theme` y la capa base**
@@ -414,7 +416,7 @@ Esperado: sin resultados.
 - [ ] **Paso 5: Commit**
 
 ```bash
-git add package.json package-lock.json src/styles/global.css
+git add package.json pnpm-lock.yaml src/styles/global.css
 git commit -m "feat: tokens y capa base del diseño de agosto"
 ```
 
