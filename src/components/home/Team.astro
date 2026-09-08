@@ -11,7 +11,7 @@ const featured = (await getCollection('specialists')).filter((s) => s.data.featu
     <div class="mt-10 grid gap-10 sm:grid-cols-3">
       {featured.map((s) => (
         <div>
-          <h6 class="text-[15px] font-semibold text-accent">{s.data.featuredRole}</h6>
+          <h6 class="text-[15px] font-semibold text-accent-light">{s.data.featuredRole}</h6>
           <Image src={s.data.featuredPhoto ?? s.data.photo} alt={s.data.name} width={160} height={210} class="mx-auto mt-3 h-[190px] w-[150px] rounded-full object-cover object-top" />
           <h2 class="mt-3 text-[16px] font-semibold text-white">{s.data.shortName ?? s.data.name}</h2>
         </div>

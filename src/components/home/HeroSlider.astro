@@ -63,7 +63,7 @@ const slides: Slide[] = [
 ];
 
 const textClass: Record<TextColor, string> = {
-  dark: 'text-slide',
+  dark: 'text-text',
   primary: 'text-primary',
   white: 'text-white',
 };
@@ -87,6 +87,7 @@ const scrimClass: Record<TextColor, string> = {
           alt=""
           width={1920}
           height={640}
+          data-parallax
           class:list={['absolute inset-0 h-full w-full object-cover', s.bgMobile && 'hidden md:block']}
           loading={i === 0 ? 'eager' : 'lazy'}
         />
@@ -115,7 +116,7 @@ const scrimClass: Record<TextColor, string> = {
             <a
               href={s.href}
               class:list={[
-                'mt-6 inline-block rounded-[22px] bg-accent px-7 py-3.5 text-[13px] font-semibold text-primary shadow-sm hover:bg-accent-dark hover:text-white',
+                'mt-6 inline-block rounded-[22px] bg-accent px-7 py-3.5 text-[13px] font-semibold text-text shadow-sm hover:bg-accent-light',
                 i === 0 && 'uppercase',
               ]}
             >{s.cta}</a>
@@ -125,16 +126,16 @@ const scrimClass: Record<TextColor, string> = {
     ))}
   </div>
   <div class="swiper-pagination !bottom-4"></div>
-  <button type="button" class="hero-prev absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent hover:text-accent-dark md:block" aria-label="Anterior">
+  <button type="button" class="hero-prev absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent hover:text-accent-text md:block" aria-label="Anterior">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-8 w-8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
   </button>
-  <button type="button" class="hero-next absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent hover:text-accent-dark md:block" aria-label="Siguiente">
+  <button type="button" class="hero-next absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent hover:text-accent-text md:block" aria-label="Siguiente">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-8 w-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
   </button>
 </section>
 
 <style is:global>
-  .hero-swiper .swiper-pagination-bullet { background: #efb37d; opacity: 1; width: 10px; height: 10px; }
+  .hero-swiper .swiper-pagination-bullet { background: var(--color-accent-light); opacity: 1; width: 10px; height: 10px; }
   .hero-swiper .swiper-pagination-bullet-active { background: #2a2525; }
 </style>
 
