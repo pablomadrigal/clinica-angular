@@ -1,0 +1,30 @@
+# Clínica Angular
+> Clínica podológica y de tratamiento avanzado de heridas en San José,
+> Costa Rica, dirigida por el Dr. Marvin Madrigal Chaves.
+
+## Especialidades
+- Podología clínica: onicomicosis, uña encarnada, verruga plantar,
+  pie diabético, pie geriátrico, pie pediátrico, callos y durezas
+- Curación avanzada de heridas y úlceras crónicas
+- Fisioterapia especializada
+- Psicología clínica
+- Medicina general
+
+## Páginas clave
+- /especialidades/podologia/
+- /fisioterapia/
+- /especialidades/psicologia/
+- /medicina-general/
+- /k-laser/
+- /laser-pion/
+- /nuestros-especialistas/
+- /contactenos/
+
+## Credenciales
+Dr. Marvin Madrigal Chaves — Podólogo Clínico, Doctor en Enfermería
+(tratamiento social, Colegio de Enfermeras de Costa Rica), Experto en
+Tratamiento Avanzado de Heridas, CEO de Clínica Angular.
+
+## Contacto
+WhatsApp: +506 8305-6444
+Guadalupe, San José, Costa Rica

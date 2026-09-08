@@ -39,12 +39,29 @@ const ogImageUrl = new URL(ogImageSrc, site.url).href;
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:locale" content="es_CR" />
   </head>
-  <body class="min-h-screen bg-white">
+  <body class="min-h-screen">
     <a href="#contenido" class="sr-only focus:not-sr-only">Omitir e ir al contenido</a>
     <TopBar />
     <Header />
     <main id="contenido"><slot /></main>
     <Footer />
     <WhatsAppButton />
+    <script>
+      import type { GsapLike } from '../lib/motion';
+      import { initParallax, prefersReducedMotion } from '../lib/motion';
+
+      // GSAP pesa ~50 KB y solo sirve para un efecto decorativo: no se descarga si el usuario
+      // pidió movimiento reducido o si la página no tiene ningún elemento con [data-parallax].
+      if (!prefersReducedMotion() && document.querySelector('[data-parallax]')) {
+        const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+          import('gsap'),
+          import('gsap/ScrollTrigger'),
+        ]);
+        // GsapLike se tipa con `unknown` a propósito para no importar los tipos de gsap en
+        // motion.ts (así se prueba sin cargar la librería real); el gsap real es más estricto
+        // (TweenTarget, TweenVars), de ahí el cast puntual acá, en el único lugar donde se tocan.
+        initParallax(gsap as unknown as GsapLike, ScrollTrigger);
+      }
+    </script>
   </body>
 </html>

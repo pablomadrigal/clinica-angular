@@ -16,7 +16,7 @@ const images = [
 ---
 <section class="bg-accent py-10 md:py-14">
   <div class="container-site text-center">
-    <h2 class="text-[30px] font-semibold text-white md:text-[35px]">Conozca nuestras especialidades</h2>
+    <h2 class="text-[30px] font-semibold text-text md:text-[35px]">Conozca nuestras especialidades</h2>
     <div class="specialties-swiper swiper mt-8">
       <div class="swiper-wrapper">
         {images.map((im) => (
@@ -33,7 +33,7 @@ const images = [
 
 <style is:global>
   .specialties-swiper .swiper-pagination-bullet { background: #fff; opacity: .7; }
-  .specialties-swiper .swiper-pagination-bullet-active { background: #3d387f; opacity: 1; }
+  .specialties-swiper .swiper-pagination-bullet-active { background: var(--color-primary-dark); opacity: 1; }
 </style>
 
 <script>

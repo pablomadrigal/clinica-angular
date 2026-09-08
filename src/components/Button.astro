@@ -10,14 +10,15 @@ interface Props {
   target?: string;
 }
 const { href, variant = 'accent', shape = 'pill', caps = true, class: cls = '', target } = Astro.props;
+// El dorado (--color-accent) solo llega a AA con texto oscuro encima: 5.15 contra
+// --color-text, pero 3.19 contra blanco y 2.74 contra púrpura. Por eso todas las
+// variantes doradas llevan `text-text` y ninguna `text-white` ni `text-primary`.
 const styles = {
-  accent: 'bg-accent text-primary hover:bg-accent-dark hover:text-white',
-  primary: 'bg-primary text-white hover:bg-purple-dark',
-  white: 'bg-white text-primary hover:bg-accent',
-  chat: 'bg-chat text-white hover:bg-[#2fb878]',
-  // Mismo tono que `accent`, pero con texto blanco: así se ve "Agendar cita" en la referencia
-  // (a diferencia de `accent`, pensado para texto oscuro sobre el naranja en otros contextos).
-  appointment: 'bg-accent text-white hover:bg-accent-dark',
+  accent: 'bg-accent text-text hover:bg-accent-light',
+  primary: 'bg-primary text-secondary hover:bg-primary-dark',
+  white: 'bg-secondary text-primary hover:bg-accent hover:text-text',
+  chat: 'bg-chat text-text hover:bg-whatsapp',
+  appointment: 'bg-accent text-text hover:bg-accent-light',
 };
 ---
 <a
@@ -25,8 +26,8 @@ const styles = {
   target={target}
   rel={target === '_blank' ? 'noopener' : undefined}
   class:list={[
-    'inline-flex items-center gap-2 px-7 py-3 text-[13px] font-semibold transition-colors',
-    shape === 'pill' ? 'rounded-full' : 'rounded-[10px]',
+    'inline-flex items-center gap-2 px-7 py-3 text-[15px] font-semibold transition-colors',
+    shape === 'pill' ? 'rounded-full' : 'rounded-[var(--radius-sm)]',
     caps && 'uppercase tracking-wide',
     styles[variant],
     cls,

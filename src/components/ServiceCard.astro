@@ -9,5 +9,5 @@ const { label, href, image } = Astro.props;
 ---
 <a href={href} class="group block">
   {image && <Image src={image} alt={label} width={600} height={400} class="aspect-[3/2] w-full object-cover" />}
-  <h2 class="mt-4 text-center text-[18px] font-semibold text-primary group-hover:text-accent-dark">{label}</h2>
+  <h2 class="mt-4 text-center text-[18px] font-semibold text-primary group-hover:text-accent-text">{label}</h2>
 </a>

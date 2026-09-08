@@ -1,0 +1,150 @@
+---
+import { getCollection } from 'astro:content';
+import { site } from '../../data/site';
+
+// Los servicios y los profesionales salen de las colecciones: si mañana se agrega uno,
+// aparece en el asistente sin tocar este archivo.
+const servicios = (await getCollection('services'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((s) => s.data.menuLabel);
+
+const profesionales = (await getCollection('specialists'))
+  .filter((s) => s.data.group === 'clinico')
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((s) => `${s.data.name} — ${s.data.role}`);
+
+const horarios = ['9:00 am', '10:00 am', '11:00 am', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm'];
+const pasos = ['Servicio', 'Profesional', 'Sede', 'Fecha y hora', 'Tus datos'];
+---
+<form id="booking-form" novalidate class="rounded-[var(--radius-lg)] bg-secondary p-6 shadow-[var(--shadow-soft)] md:p-8">
+  <ol class="mb-6 flex flex-wrap gap-2" aria-label="Pasos del formulario">
+    {pasos.map((p, i) => (
+      <li
+        data-step={i + 1}
+        class="step-pill rounded-full border border-border-soft px-4 py-1.5 text-[14px] font-semibold text-text/70"
+      >{i + 1}. {p}</li>
+    ))}
+  </ol>
+
+  {/* Región que anuncia los errores a los lectores de pantalla al intentar avanzar. */}
+  <p data-wizard-status role="status" aria-live="polite" class="sr-only"></p>
+
+  <fieldset data-panel="1" class="border-0 p-0">
+    <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿Qué servicio necesitás?</legend>
+    <label class="block">
+      <span class="mb-1 block font-medium">Servicio</span>
+      <select name="servicio" aria-describedby="err-servicio" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]">
+        <option value="">Seleccioná un servicio</option>
+        {servicios.map((s) => <option value={s}>{s}</option>)}
+      </select>
+    </label>
+    <p id="err-servicio" data-error-for="servicio" hidden class="mt-1 text-[15px] font-medium text-error"></p>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <button type="button" data-next="2" class="rounded-[var(--radius-sm)] bg-primary px-7 py-3 font-semibold text-secondary hover:bg-primary-dark">Continuar</button>
+    </div>
+  </fieldset>
+
+  <fieldset data-panel="2" hidden class="border-0 p-0">
+    <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿Preferís algún profesional?</legend>
+    <label class="block">
+      <span class="mb-1 block font-medium">Profesional (opcional)</span>
+      <select name="profesional" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]">
+        <option value="">Sin preferencia — el equipo asigna según disponibilidad</option>
+        {profesionales.map((p) => <option value={p}>{p}</option>)}
+      </select>
+    </label>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <button type="button" data-prev="1" class="rounded-[var(--radius-sm)] border border-primary px-7 py-3 font-semibold text-primary">Atrás</button>
+      <button type="button" data-next="3" class="rounded-[var(--radius-sm)] bg-primary px-7 py-3 font-semibold text-secondary hover:bg-primary-dark">Continuar</button>
+    </div>
+  </fieldset>
+
+  <fieldset data-panel="3" hidden class="border-0 p-0">
+    <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿En cuál sede?</legend>
+    <label class="block">
+      <span class="mb-1 block font-medium">Sede</span>
+      <select name="sede" aria-describedby="err-sede" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]">
+        <option value="">Seleccioná una sede</option>
+        {site.locations.map((l) => <option value={l.label}>{l.label}</option>)}
+      </select>
+    </label>
+    <p id="err-sede" data-error-for="sede" hidden class="mt-1 text-[15px] font-medium text-error"></p>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <button type="button" data-prev="2" class="rounded-[var(--radius-sm)] border border-primary px-7 py-3 font-semibold text-primary">Atrás</button>
+      <button type="button" data-next="4" class="rounded-[var(--radius-sm)] bg-primary px-7 py-3 font-semibold text-secondary hover:bg-primary-dark">Continuar</button>
+    </div>
+  </fieldset>
+
+  <fieldset data-panel="4" hidden class="border-0 p-0">
+    <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿Cuándo te queda bien?</legend>
+    <label class="block">
+      <span class="mb-1 block font-medium">Fecha preferida</span>
+      <input type="date" name="fecha" aria-describedby="err-fecha" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]" />
+    </label>
+    <p id="err-fecha" data-error-for="fecha" hidden class="mt-1 text-[15px] font-medium text-error"></p>
+    <label class="mt-4 block">
+      <span class="mb-1 block font-medium">Hora preferida</span>
+      <select name="hora" aria-describedby="err-hora" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]">
+        <option value="">Seleccioná un horario</option>
+        {horarios.map((h) => <option value={h}>{h}</option>)}
+      </select>
+    </label>
+    <p id="err-hora" data-error-for="hora" hidden class="mt-1 text-[15px] font-medium text-error"></p>
+    <p class="mt-3 text-[15px] text-text/80">Es una preferencia: el equipo confirma el horario final según la agenda real.</p>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <button type="button" data-prev="3" class="rounded-[var(--radius-sm)] border border-primary px-7 py-3 font-semibold text-primary">Atrás</button>
+      <button type="button" data-next="5" class="rounded-[var(--radius-sm)] bg-primary px-7 py-3 font-semibold text-secondary hover:bg-primary-dark">Continuar</button>
+    </div>
+  </fieldset>
+
+  <fieldset data-panel="5" hidden class="border-0 p-0">
+    <legend class="mb-3 text-[20px] font-semibold text-primary-dark">¿Cómo te contactamos?</legend>
+    <label class="block">
+      <span class="mb-1 block font-medium">Tu nombre completo</span>
+      <input type="text" name="nombre" autocomplete="name" aria-describedby="err-nombre" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]" />
+    </label>
+    <p id="err-nombre" data-error-for="nombre" hidden class="mt-1 text-[15px] font-medium text-error"></p>
+    <label class="mt-4 block">
+      <span class="mb-1 block font-medium">Correo electrónico</span>
+      <input type="email" name="email" autocomplete="email" aria-describedby="err-email" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]" />
+    </label>
+    <p id="err-email" data-error-for="email" hidden class="mt-1 text-[15px] font-medium text-error"></p>
+    <label class="mt-4 block">
+      <span class="mb-1 block font-medium">Celular (8 dígitos)</span>
+      <input type="tel" name="celular" inputmode="numeric" autocomplete="tel" aria-describedby="err-celular" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]" />
+    </label>
+    <p id="err-celular" data-error-for="celular" hidden class="mt-1 text-[15px] font-medium text-error"></p>
+    <label class="mt-4 block">
+      <span class="mb-1 block font-medium">Contanos brevemente tu consulta (opcional)</span>
+      <textarea name="mensaje" rows="4" maxlength="500" class="w-full rounded-[var(--radius-sm)] border border-border-field bg-secondary px-4 py-3 text-[16px]"></textarea>
+    </label>
+    <label class="mt-4 flex items-start gap-3">
+      <input type="checkbox" name="consentimiento" aria-describedby="err-consentimiento" class="mt-1.5 h-5 w-5 shrink-0" />
+      <span>Autorizo a Clínica Angular a usar estos datos para coordinar mi cita.</span>
+    </label>
+    <p id="err-consentimiento" data-error-for="consentimiento" hidden class="mt-1 text-[15px] font-medium text-error"></p>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <button type="button" data-prev="4" class="rounded-[var(--radius-sm)] border border-primary px-7 py-3 font-semibold text-primary">Atrás</button>
+      <button type="submit" class="rounded-[var(--radius-sm)] bg-accent px-7 py-3 font-semibold text-text hover:bg-accent-light">Preparar mi solicitud</button>
+    </div>
+  </fieldset>
+
+  {/* Copy deliberado: NO dice que la cita quedó registrada. No hay backend — el mensaje de
+      WhatsApp es el único canal por el que esta solicitud llega a la clínica. */}
+  <div data-panel="confirmacion" hidden tabindex="-1" class="border-0 p-0">
+    <div class="rounded-[var(--radius-md)] bg-bg-alt p-6">
+      <h3 class="text-[22px]">Tu resumen está listo</h3>
+      <p class="mt-2">Todavía no enviaste nada. Tocá el botón para abrir WhatsApp con estos datos ya escritos: la cita se coordina por ese chat.</p>
+      <p data-resumen class="mt-3 font-semibold"></p>
+    </div>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <a data-wizard-send href="#" target="_blank" rel="noopener" class="rounded-[var(--radius-sm)] bg-whatsapp px-7 py-3 font-semibold text-text">Enviar por WhatsApp</a>
+      <button type="button" data-prev="5" class="rounded-[var(--radius-sm)] border border-primary px-7 py-3 font-semibold text-primary">Corregir datos</button>
+    </div>
+  </div>
+</form>
+
+<script>
+  import { initWizard } from './wizard';
+  initWizard();
+</script>
