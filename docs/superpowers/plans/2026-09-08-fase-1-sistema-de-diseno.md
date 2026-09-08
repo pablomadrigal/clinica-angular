@@ -763,7 +763,9 @@ const full: WizardData = {
   origen: '/hongos-unas-onicomicosis/',
 };
 
-const hoy = new Date('2026-09-08T12:00:00Z');
+// Se construye con componentes locales, no con una cadena UTC: así la prueba da igual
+// en cualquier zona horaria donde corra la suite.
+const hoy = new Date(2026, 8, 8, 12, 0, 0);
 
 describe('validateStep', () => {
   it('paso 1 exige servicio', () => {
@@ -795,6 +797,13 @@ describe('validateStep', () => {
 
   it('paso 4 acepta la fecha de hoy', () => {
     expect(validateStep(4, { fecha: '2026-09-08', hora: '10:00 am' }, hoy)).toEqual([]);
+  });
+
+  it('paso 4 acepta hoy también de noche, cuando en UTC ya es mañana', () => {
+    // Costa Rica es UTC-6: a las 7 de la noche del 8, en UTC ya son las 1 del 9.
+    // Calcular el límite con `toISOString()` rechazaría "hoy" durante esas horas.
+    const nocheEnCostaRica = new Date(2026, 8, 8, 19, 0, 0);
+    expect(validateStep(4, { fecha: '2026-09-08', hora: '4:00 pm' }, nocheEnCostaRica)).toEqual([]);
   });
 
   it('paso 5 valida nombre, correo, celular y consentimiento', () => {
@@ -900,10 +909,17 @@ export const STEP_FIELDS: Record<Step, Array<keyof WizardData>> = {
 
 const isBlank = (v: unknown): boolean => typeof v !== 'string' || v.trim() === '';
 
-// Compara solo la parte de fecha, para que "hoy" siga siendo válido a cualquier hora.
+// El `<input type="date">` entrega la fecha en la zona del paciente, así que el límite
+// tiene que calcularse en esa misma zona. `toISOString()` daría la fecha UTC y en Costa
+// Rica (UTC-6) rechazaría "hoy" como pasada entre las 6 y las 12 de la noche.
+function localDateString(d: Date): string {
+  const mes = String(d.getMonth() + 1).padStart(2, '0');
+  const dia = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${mes}-${dia}`;
+}
+
 function isPastDate(value: string, today: Date): boolean {
-  const limit = today.toISOString().slice(0, 10);
-  return value < limit;
+  return value < localDateString(today);
 }
 
 export function validateStep(step: Step, data: Partial<WizardData>, today: Date = new Date()): FieldError[] {
