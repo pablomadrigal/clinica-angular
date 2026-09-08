@@ -386,6 +386,9 @@ Reemplazar el contenido completo de `src/styles/global.css` por:
   h1, h2, h3 { overflow-wrap: break-word; }
   /* Medida de lectura cómoda; las clases de Tailwind la pueden anular donde estorbe. */
   p { max-width: 68ch; }
+  /* El pie no es texto de lectura: su copyright ocupa el ancho de la franja y la medida
+     de 68ch lo dejaría corto y centrado por margen automático. */
+  footer p { max-width: none; }
   img { max-width: 100%; height: auto; }
   /* Foco dorado visible sobre cualquier fondo del sitio. */
   a:focus-visible, button:focus-visible, input:focus-visible,
@@ -466,7 +469,10 @@ describe('motion', () => {
 
   it('no anima nada si el usuario pidió movimiento reducido', () => {
     stubMatchMedia(true);
-    vi.stubGlobal('document', { querySelectorAll: () => [] });
+    // Hay elementos que animar a propósito: si el stub devolviera una lista vacía, la
+    // guarda de `targets.length === 0` cortaría igual y la prueba pasaría aunque alguien
+    // borrara la guarda de movimiento reducido, que es justo lo que acá se verifica.
+    vi.stubGlobal('document', { querySelectorAll: () => [{ id: 'a' }, { id: 'b' }] });
     const g = fakeGsap();
     initParallax(g);
     expect(g.registerPlugin).not.toHaveBeenCalled();
