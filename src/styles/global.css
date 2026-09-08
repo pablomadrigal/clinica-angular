@@ -15,9 +15,26 @@
 }
 
 @layer base {
-  html { font-family: var(--font-sans); color: var(--color-text); scroll-behavior: smooth; }
-  body { background: #fff; }
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    scroll-behavior: smooth;
+    /* Safari en iPhone agranda el texto al girar el teléfono si no se fija. */
+    -webkit-text-size-adjust: 100%;
+    /* El header es sticky: sin esto los anclajes quedan escondidos debajo de él. */
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: #fff;
+    /* Red de seguridad contra un desborde puntual en pantallas muy angostas. Se usa `clip`
+       y no `hidden` porque `hidden` convertiría al body en contenedor de scroll y rompería
+       el `position: sticky` del header. */
+    overflow-x: clip;
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
   h1, h2, h3, h4, h5, h6 { color: var(--color-primary); font-weight: 600; line-height: 1.2; }
+  /* Los títulos grandes (45–65 px) no caben en una palabra en pantallas angostas. */
+  h1, h2, h3 { overflow-wrap: break-word; }
   img { max-width: 100%; height: auto; }
 }
 

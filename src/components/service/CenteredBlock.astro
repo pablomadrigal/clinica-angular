@@ -27,7 +27,7 @@ const {
   showAppointment = false,
 } = Astro.props;
 ---
-<div class:list={['flex flex-col items-center px-6 py-14 text-center sm:px-10 md:px-14', bg === 'purple' && 'bg-primary text-white']}>
+<div class:list={['flex flex-col items-center px-5 py-10 text-center sm:px-10 md:px-14 md:py-14', bg === 'purple' && 'bg-primary text-white']}>
   {heading && <h3 class="mb-6 text-[20px] font-bold text-accent md:text-[24px]" set:html={nl2br(heading)} />}
   {image && <Image src={image} alt={imageAlt} width={640} height={480} class={imageClass} />}
   <slot />

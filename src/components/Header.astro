@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import { nav } from '../data/site';
+import { nav, site } from '../data/site';
+import Contact from './icons/Contact.astro';
+import { CHAT_URL } from '../lib/whatsapp';
 
 const services = (await getCollection('services'))
   .filter((s) => s.data.inMenu)
@@ -14,58 +16,138 @@ const current = Astro.url.pathname;
 const isActive = (href: string) => href !== '#' && (href === '/' ? current === '/' : current.startsWith(href));
 ---
 <header class="sticky top-0 z-40 border-t-[3px] border-accent bg-primary text-white shadow">
-  <div class="flex w-full items-center justify-between px-5">
+  {/* Barra móvil: el menú de escritorio no cabe en un teléfono, así que aquí solo van el botón
+      del menú y los dos accesos que más se usan desde el celular (llamar y WhatsApp). */}
+  <div class="flex items-center justify-between gap-2 px-3 py-2 lg:hidden">
     <button
       id="menu-toggle"
-      class="grid h-10 w-10 place-items-center rounded lg:hidden"
+      type="button"
+      class="grid h-11 w-11 shrink-0 place-items-center rounded"
       aria-controls="main-nav"
       aria-expanded="false"
       aria-label="Abrir menú"
     >
       <span class="block h-[2px] w-6 bg-white shadow-[0_7px_0_#fff,0_-7px_0_#fff]"></span>
     </button>
-    <nav id="main-nav" class="hidden w-full lg:block" aria-label="Principal">
-      <ul class="flex flex-col lg:flex-row lg:justify-between">
-        {items.map((item) => (
-          <li class="group relative">
+    <div class="flex items-center gap-2">
+      <a
+        href={site.phoneHref}
+        class="inline-flex h-11 items-center gap-2 rounded-full bg-white/15 px-4 text-[13px] font-semibold text-white active:bg-white/25"
+      >
+        <Contact name="phone" class="h-4 w-4" />
+        Llamar
+      </a>
+      <a
+        href={CHAT_URL}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex h-11 items-center gap-2 rounded-full bg-whatsapp px-4 text-[13px] font-semibold text-white active:brightness-95"
+      >
+        <Contact name="whatsapp" class="h-4 w-4" />
+        WhatsApp
+      </a>
+    </div>
+  </div>
+
+  {/* En móvil el menú es un panel desplegable anclado bajo la barra (con scroll propio si no
+      cabe); a partir de `lg` vuelve a ser la barra horizontal de siempre. */}
+  <nav
+    id="main-nav"
+    class="absolute left-0 top-full hidden max-h-[75dvh] w-full overflow-y-auto overscroll-contain border-t border-white/10 bg-primary shadow-2xl lg:static lg:block lg:max-h-none lg:overflow-visible lg:border-0 lg:shadow-none"
+    aria-label="Principal"
+  >
+    <ul class="flex flex-col lg:flex-row lg:justify-between lg:px-5">
+      {items.map((item, i) => (
+        <li class="group relative border-b border-white/10 last:border-b-0 lg:border-0">
+          <div class="flex items-stretch">
             <a
               href={item.href}
               class:list={[
-                'flex items-center justify-between gap-1 px-[30px] py-[18px] text-[12px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-primary',
+                'flex flex-1 items-center justify-between gap-1 px-5 py-4 text-[13px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-primary lg:px-[30px] lg:py-[18px] lg:text-[12px]',
                 isActive(item.href) && 'bg-accent text-primary',
               ]}
               aria-haspopup={item.children ? 'true' : undefined}
             >
               {item.label}
-              {item.children && <svg class="ml-1 h-3 w-3 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.5 7.5 10 12l4.5-4.5z" /></svg>}
+              {item.children && <svg class="ml-1 hidden h-3 w-3 shrink-0 lg:block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.5 7.5 10 12l4.5-4.5z" /></svg>}
             </a>
             {item.children && (
-              <ul class="bg-white text-primary lg:invisible lg:absolute lg:left-0 lg:top-full lg:min-w-[260px] lg:opacity-0 lg:shadow-lg lg:transition lg:group-hover:visible lg:group-hover:opacity-100 lg:group-focus-within:visible lg:group-focus-within:opacity-100">
-                {item.children.map((c) => (
-                  <li>
-                    <a href={c.href} class="block border-b border-gray-100 py-3 pl-10 pr-5 text-[12px] font-medium hover:bg-accent lg:pl-5">{c.label}</a>
-                  </li>
-                ))}
-              </ul>
+              <button
+                type="button"
+                class="submenu-toggle grid w-14 shrink-0 place-items-center border-l border-white/10 text-white lg:hidden"
+                aria-controls={`submenu-${i}`}
+                aria-expanded="false"
+                aria-label={`Mostrar ${item.label}`}
+                data-target={`submenu-${i}`}
+              >
+                <svg class="h-4 w-4 transition-transform" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.5 7.5 10 12l4.5-4.5z" /></svg>
+              </button>
             )}
-          </li>
-        ))}
-      </ul>
-    </nav>
-  </div>
+          </div>
+          {item.children && (
+            <ul id={`submenu-${i}`} class="hidden bg-white text-primary lg:invisible lg:absolute lg:left-0 lg:top-full lg:block lg:min-w-[260px] lg:opacity-0 lg:shadow-lg lg:transition lg:group-hover:visible lg:group-hover:opacity-100 lg:group-focus-within:visible lg:group-focus-within:opacity-100">
+              {item.children.map((c) => (
+                <li>
+                  <a
+                    href={c.href}
+                    class:list={[
+                      'block border-b border-gray-100 py-4 pl-10 pr-5 text-[13px] font-medium hover:bg-accent lg:py-3 lg:pl-5 lg:text-[12px]',
+                      isActive(c.href) && 'bg-accent/40',
+                    ]}
+                  >{c.label}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav>
 </header>
 
 <script>
   const btn = document.getElementById('menu-toggle');
   const navEl = document.getElementById('main-nav');
-  btn?.addEventListener('click', () => {
-    const open = navEl!.classList.toggle('hidden') === false;
+
+  function setOpen(open: boolean) {
+    if (!btn || !navEl) return;
+    navEl.classList.toggle('hidden', !open);
     btn.setAttribute('aria-expanded', String(open));
     btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  }
+
+  btn?.addEventListener('click', () => setOpen(navEl!.classList.contains('hidden')));
+
+  // Cerrar el panel con Escape o al tocar fuera de él (solo aplica en móvil: en `lg` el menú
+  // es la barra horizontal y `lg:block` lo mantiene visible pase lo que pase con `hidden`).
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
   });
-  // "Tecnología" (y cualquier otro ítem sin página propia) usa href="#": no debe navegar,
-  // solo actuar como encabezado de su submenú (que ya está siempre visible en móvil).
-  document.querySelectorAll('#main-nav a[href="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => e.preventDefault());
+  document.addEventListener('click', (e) => {
+    if (!navEl || navEl.classList.contains('hidden')) return;
+    const t = e.target as Element;
+    if (t.closest('#main-nav') || t.closest('#menu-toggle')) return;
+    setOpen(false);
+  });
+
+  // Submenús en acordeón: en móvil no caben todos abiertos a la vez, así que arrancan cerrados
+  // y se abren con el botón de la flecha (en `lg` los muestra el hover, sin tocar `hidden`).
+  document.querySelectorAll<HTMLButtonElement>('.submenu-toggle').forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const panel = document.getElementById(toggle.dataset.target!);
+      if (!panel) return;
+      const open = panel.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.querySelector('svg')?.classList.toggle('rotate-180', open);
+    });
+  });
+
+  // "Tecnología" (y cualquier otro ítem sin página propia) usa href="#": no debe navegar; en
+  // móvil abre/cierra su submenú, que es lo único que representa.
+  document.querySelectorAll<HTMLAnchorElement>('#main-nav a[href="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      a.parentElement?.querySelector<HTMLButtonElement>('.submenu-toggle')?.click();
+    });
   });
 </script>
