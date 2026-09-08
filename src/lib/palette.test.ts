@@ -21,6 +21,10 @@ const pairs: Array<{ fg: keyof typeof palette; bg: keyof typeof palette; min: nu
   { fg: 'evidenceClinical', bg: 'white', min: 4.5, note: 'etiqueta de criterio clínico' },
   { fg: 'error', bg: 'white', min: 4.5, note: 'errores de formulario sobre tarjeta blanca' },
   { fg: 'error', bg: 'bgAlt', min: 4.5, note: 'errores de formulario sobre sección lila' },
+  { fg: 'accentLight', bg: 'primary', min: 4.5, note: 'dorado como texto sobre fondo púrpura' },
+  { fg: 'text', bg: 'accentLight', min: 4.5, note: 'texto sobre el dorado claro del hover' },
+  { fg: 'text', bg: 'chat', min: 4.5, note: 'texto sobre el botón de chat' },
+  { fg: 'text', bg: 'whatsapp', min: 4.5, note: 'texto sobre el botón de WhatsApp' },
 ];
 
 describe('palette', () => {
