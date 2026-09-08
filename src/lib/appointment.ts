@@ -14,7 +14,6 @@ export interface WizardData {
   celular: string;
   mensaje: string;
   consentimiento: boolean;
-  origen: string;
 }
 
 export type Step = 1 | 2 | 3 | 4 | 5;
@@ -29,7 +28,8 @@ export const STEP_FIELDS: Record<Step, Array<keyof WizardData>> = {
   2: ['profesional'],
   3: ['sede'],
   4: ['fecha', 'hora'],
-  5: ['nombre', 'email', 'celular', 'mensaje', 'consentimiento'],
+  // `mensaje` es opcional y nunca genera error: no tiene <p data-error-for> que respaldarlo.
+  5: ['nombre', 'email', 'celular', 'consentimiento'],
 };
 
 const isBlank = (v: unknown): boolean => typeof v !== 'string' || v.trim() === '';
@@ -100,8 +100,6 @@ export function buildWizardMessage(data: WizardData): string {
   push('Correo', data.email);
   push('Celular', data.celular);
   push('Mensaje', data.mensaje);
-  // `origen` queda fuera a propósito: sirve para saber de qué página vino la consulta,
-  // no es información que el paciente tenga que ver en su propio mensaje.
   return lines.join('\n');
 }
 

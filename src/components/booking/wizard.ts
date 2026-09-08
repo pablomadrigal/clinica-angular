@@ -23,7 +23,6 @@ export function initWizard(): void {
       celular: value('celular'),
       mensaje: value('mensaje'),
       consentimiento: form!.querySelector<HTMLInputElement>('[name="consentimiento"]')?.checked ?? false,
-      origen: value('origen'),
     };
   }
 
@@ -34,17 +33,25 @@ export function initWizard(): void {
         el.hidden = true;
         el.textContent = '';
       }
+      form!.querySelector<HTMLElement>(`[name="${field}"]`)?.removeAttribute('aria-invalid');
     }
   }
 
-  function showPanel(panel: string): void {
+  // `focus` queda en false para el estado inicial: al cargar la página hay que marcar el paso 1
+  // como actual, pero mover el foco ahí saltaría por encima del contenido que está más arriba.
+  function showPanel(panel: string, focus = true): void {
     panels.forEach((p) => { p.hidden = p.dataset.panel !== panel; });
     pills.forEach((pill) => {
       const active = pill.dataset.step === panel;
       pill.classList.toggle('bg-primary', active);
+      // Las dos clases de color se alternan juntas. `text-text/70` viene en el atributo `class`
+      // de la píldora y Tailwind la emite después de `text-secondary`, así que agregar solo la
+      // segunda no cambiaba nada: la píldora activa quedaba en 1.62 sobre el púrpura.
+      pill.classList.toggle('text-text/70', !active);
       pill.classList.toggle('text-secondary', active);
       pill.setAttribute('aria-current', active ? 'step' : 'false');
     });
+    if (!focus) return;
     const target = form!.querySelector<HTMLElement>(`[data-panel="${panel}"]`);
     // Mover el foco al panel nuevo: sin esto, quien navega con teclado o lector de pantalla
     // queda en el botón anterior y no se entera de que la pantalla cambió.
@@ -62,6 +69,7 @@ export function initWizard(): void {
           el.textContent = message;
           el.hidden = false;
         }
+        form!.querySelector<HTMLElement>(`[name="${field}"]`)?.setAttribute('aria-invalid', 'true');
       }
       status.textContent = `Revisá ${errors.length === 1 ? 'un campo' : `${errors.length} campos`} para continuar.`;
       form!.querySelector<HTMLElement>(`[name="${errors[0].field}"]`)?.focus();
@@ -82,16 +90,12 @@ export function initWizard(): void {
     btn.addEventListener('click', () => showPanel(btn.dataset.prev!));
   });
 
-  // De qué página llegó la consulta. Sirve para saber qué contenido trae pacientes.
-  const origen = form.querySelector<HTMLInputElement>('[name="origen"]');
-  if (origen) {
-    const params = new URLSearchParams(window.location.search);
-    origen.value = params.get('servicio') ?? document.referrer ?? 'directo';
-    const servicio = form.querySelector<HTMLSelectElement>('[name="servicio"]');
-    const pedido = params.get('servicio');
-    if (servicio && pedido && Array.from(servicio.options).some((o) => o.value === pedido)) {
-      servicio.value = pedido;
-    }
+  // Los enlaces "Agendar cita" de cada especialidad traen ?servicio=… para dejar el primer
+  // paso ya resuelto. Solo se acepta un valor que exista entre las opciones del select.
+  const servicio = form.querySelector<HTMLSelectElement>('[name="servicio"]');
+  const pedido = new URLSearchParams(window.location.search).get('servicio');
+  if (servicio && pedido && Array.from(servicio.options).some((o) => o.value === pedido)) {
+    servicio.value = pedido;
   }
 
   form.addEventListener('submit', (e) => {
@@ -113,4 +117,8 @@ export function initWizard(): void {
     if (send) send.href = buildWizardUrl(data);
     showPanel('confirmacion');
   });
+
+  // `showPanel` solo corría en las transiciones, así que al cargar la página el paso 1 no
+  // aparecía marcado como actual ni visualmente ni con `aria-current`.
+  showPanel('1', false);
 }

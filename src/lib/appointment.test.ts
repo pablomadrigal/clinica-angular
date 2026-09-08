@@ -12,7 +12,6 @@ const full: WizardData = {
   celular: '88881234',
   mensaje: 'Uña dolorosa hace dos semanas',
   consentimiento: true,
-  origen: '/hongos-unas-onicomicosis/',
 };
 
 // Se construye con componentes locales, no con una cadena UTC: así la prueba da igual
@@ -98,10 +97,6 @@ describe('buildWizardMessage', () => {
     expect(msg).not.toContain('Profesional:');
     expect(msg).not.toContain('Mensaje:');
     expect(msg).toContain('Servicio: Podología');
-  });
-
-  it('no incluye el origen: es para analítica, no para el paciente', () => {
-    expect(buildWizardMessage(full)).not.toContain('/hongos-unas-onicomicosis/');
   });
 });
 
