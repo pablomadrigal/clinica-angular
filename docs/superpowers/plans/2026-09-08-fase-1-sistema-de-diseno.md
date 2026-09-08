@@ -684,6 +684,10 @@ Mapeo, según el rol del color:
 | `text-accent-dark`, `border-accent-dark` | `text-accent-text`, `border-accent-text` | dorado como texto o borde sobre fondo claro: 5.02 contra blanco |
 | `bg-accent text-white hover:bg-accent-dark` | `bg-accent text-text hover:bg-accent-light` | blanco sobre dorado da 3.19; texto oscuro da 5.15 |
 | `hover:text-accent-dark` | `hover:text-accent-text` | dorado como texto |
+| dorado como texto **sobre fondo púrpura** | `text-accent-light` | `accent-text` sobre púrpura da 1.74 y `accent` da 2.74; `accent-light` da 5.43 |
+
+El rol manda sobre el nombre: `accent-text` es para fondo **claro**. Sobre `bg-primary` el
+único dorado que llega a AA es `accent-light`.
 
 Ejecutar para encontrarlas: `grep -rn "purple-dark\|accent-dark" src/components src/pages --include=*.astro`
 
