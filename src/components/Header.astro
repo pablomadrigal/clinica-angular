@@ -63,8 +63,8 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
             <a
               href={item.href}
               class:list={[
-                'flex flex-1 items-center justify-between gap-1 px-5 py-4 text-[13px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-primary lg:px-[30px] lg:py-[18px] lg:text-[12px]',
-                isActive(item.href) && 'bg-accent text-primary',
+                'flex flex-1 items-center justify-between gap-1 px-5 py-4 text-[15px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-text lg:px-[30px] lg:py-[18px] lg:text-[14px]',
+                isActive(item.href) && 'bg-accent text-text',
               ]}
               aria-haspopup={item.children ? 'true' : undefined}
             >
@@ -91,7 +91,7 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
                   <a
                     href={c.href}
                     class:list={[
-                      'block border-b border-gray-100 py-4 pl-10 pr-5 text-[13px] font-medium hover:bg-accent lg:py-3 lg:pl-5 lg:text-[12px]',
+                      'block border-b border-gray-100 py-4 pl-10 pr-5 text-[15px] font-medium hover:bg-accent hover:text-text lg:py-3 lg:pl-5 lg:text-[14px]',
                       isActive(c.href) && 'bg-accent/40',
                     ]}
                   >{c.label}</a>

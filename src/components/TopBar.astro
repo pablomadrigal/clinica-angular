@@ -34,7 +34,7 @@ const items: { icon: 'phone' | 'whatsapp' | 'mail' | 'clock'; title: string; lin
     <ul class="hidden items-center gap-2 lg:flex">
       {(['facebook', 'instagram', 'tiktok'] as const).map((n) => (
         <li>
-          <a href={site.social[n]} target="_blank" rel="noopener" class="grid h-7 w-7 place-items-center rounded-md bg-primary text-white hover:bg-accent hover:text-primary" aria-label={socialLabels[n]}>
+          <a href={site.social[n]} target="_blank" rel="noopener" class="grid h-7 w-7 place-items-center rounded-md bg-primary text-white hover:bg-accent hover:text-text" aria-label={socialLabels[n]}>
             <Social name={n} class="h-3.5 w-3.5" />
           </a>
         </li>
