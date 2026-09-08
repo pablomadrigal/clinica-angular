@@ -69,6 +69,9 @@
   h1, h2, h3 { overflow-wrap: break-word; }
   /* Medida de lectura cómoda; las clases de Tailwind la pueden anular donde estorbe. */
   p { max-width: 68ch; }
+  /* El pie no es texto de lectura: su copyright ocupa el ancho de la franja y la medida
+     de 68ch lo dejaría corto y centrado por margen automático. */
+  footer p { max-width: none; }
   img { max-width: 100%; height: auto; }
   /* Foco dorado visible sobre cualquier fondo del sitio. */
   a:focus-visible, button:focus-visible, input:focus-visible,
