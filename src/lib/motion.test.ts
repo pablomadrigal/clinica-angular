@@ -26,7 +26,10 @@ describe('motion', () => {
 
   it('no anima nada si el usuario pidió movimiento reducido', () => {
     stubMatchMedia(true);
-    vi.stubGlobal('document', { querySelectorAll: () => [] });
+    // Hay elementos que animar a propósito: si el stub devolviera una lista vacía, la
+    // guarda de `targets.length === 0` cortaría igual y la prueba pasaría aunque alguien
+    // borrara la guarda de movimiento reducido, que es justo lo que acá se verifica.
+    vi.stubGlobal('document', { querySelectorAll: () => [{ id: 'a' }, { id: 'b' }] });
     const g = fakeGsap();
     initParallax(g);
     expect(g.registerPlugin).not.toHaveBeenCalled();
