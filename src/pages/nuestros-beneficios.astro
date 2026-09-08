@@ -56,8 +56,12 @@ const icons = [
         <Image src={medismart} alt="MediSmart" width={220} class="mx-auto mt-6 w-[220px]" />
       </div>
       <div class="rounded-3xl bg-accent p-8 shadow-md">
-        <h3 class="mb-5 text-[32px] font-semibold leading-none text-white md:text-[40px]">¡Contáctenos!</h3>
-        <ContactForm />
+        <h3 class="mb-5 text-[32px] font-semibold leading-none text-text md:text-[40px]">¡Contáctenos!</h3>
+        {/* Ver la nota de ContactSection: el formulario necesita fondo blanco para que su
+            texto de error y su enlace de respaldo cumplan contraste. */}
+        <div class="rounded-3xl bg-white p-8 shadow-sm">
+          <ContactForm />
+        </div>
       </div>
     </div>
   </section>

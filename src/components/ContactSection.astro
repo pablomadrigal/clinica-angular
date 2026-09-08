@@ -10,9 +10,14 @@ const { address, showMap = true, showChat = true, title = '¡Contáctenos!', sub
 <section class="bg-accent py-10 md:py-14">
   <div class="container-site grid items-start gap-10 lg:grid-cols-2">
     <div>
-      <h3 class="text-[34px] font-semibold leading-none text-white sm:text-[45px] md:text-[65px]">{title}</h3>
+      <h3 class="text-[34px] font-semibold leading-none text-text sm:text-[45px] md:text-[65px]">{title}</h3>
       <p class="mb-6 mt-3 text-center text-[16px] font-bold uppercase text-text">{subtitle}</p>
-      <ContactForm />
+      {/* La tarjeta blanca no es decorativa: sobre el dorado de la franja, el texto de error
+          del formulario queda en 2.05 y el enlace de respaldo púrpura en 2.74. Sobre blanco
+          los dos vuelven a cumplir. */}
+      <div class="rounded-3xl bg-white p-8 shadow-sm">
+        <ContactForm />
+      </div>
     </div>
     <div class="rounded-md bg-white p-6">
       {showMap && (
