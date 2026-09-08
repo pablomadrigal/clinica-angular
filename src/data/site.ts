@@ -31,6 +31,10 @@ export const site = {
     especialistas: '75 mts oeste del Estadio Colleya Fonseca, Guadalupe, Goicoechea, San José, Costa Rica.',
     footer: ['Clínica Angular,', 'Guadalupe, San José.'],
   },
+  locations: [
+    { id: 'guadalupe', label: 'Guadalupe, San José (sede principal)' },
+    { id: 'la-catolica', label: 'Edificio sur del Hospital La Católica, Guadalupe' },
+  ],
   mapEmbedUrl:
     'https://maps.google.com/maps?q=Angular%20Cl%C3%ADnica%20del%20Pie%2C%20guadalupe%2C%20san%20jos%C3%A9%2C%20costa%20rica&t=m&z=15&output=embed&iwloc=near',
   copyright: '© Copyright Pablo Madrigal 2024. All rights reserved.',
