@@ -1,0 +1,27 @@
+title: "Traumatismo de uñas"
+slug: traumatismo-de-unas
+service: podologia
+menuLabel: "Traumatismo de uñas"
+order: 9
+seoTitle: "Traumatismo de uñas - Clínica Angular"
+hero:
+  image: ../../assets/gettyimages-142097294-1-1531839264.jpg
+  lead:
+    - "Se refiere a golpes en el pie o directamente en la uña. Pueden deberse a aplastamiento, golpe directo, perforación, desgarro, o desprendimiento de la lámina ungueal. El no tratarlas oportuna y adecuadamente puede ocasionar complicaciones como infecciones bacterianas o fúngica."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "✓ Valoración integral de la condición de la uña o del aparato ungueal"
+      - "✓ Aplicación de tratamientos tópicos"
+      - "✓ Aplicación de terapia laser"
+      - "✓ Drenaje de hematoma subungueal"
+      - "✓ Retiro de fragmentos de uña no viable"
+faq: []
+evidence: []
+related:
+  - hongos-unas-onicomicosis
+  - una-incarnada-onicocriptosis
+  - pie-geriatrico

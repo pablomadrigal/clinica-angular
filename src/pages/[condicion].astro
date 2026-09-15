@@ -1,0 +1,135 @@
+---
+// Una página por padecimiento, en la raíz del sitio (/pie-diabetico/, /fascitis-plantar/…).
+// La estructura sale del entregable de agosto (site/hongos-unas-onicomicosis/index.html):
+// migas → hero a dos columnas → síntomas/causas/diagnóstico → tratamiento → FAQ → evidencia →
+// padecimientos relacionados → franja de marca. Las secciones sin material no se pintan: esa
+// decisión vive dentro de cada componente de src/components/condition/, no acá.
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import Contact from '../components/icons/Contact.astro';
+import SymptomList from '../components/condition/SymptomList.astro';
+import CauseList from '../components/condition/CauseList.astro';
+import DiagnosisBlock from '../components/condition/DiagnosisBlock.astro';
+import TreatmentList from '../components/condition/TreatmentList.astro';
+import FaqAccordion from '../components/condition/FaqAccordion.astro';
+import EvidenceTable from '../components/condition/EvidenceTable.astro';
+import { WHATSAPP_NUMBER } from '../lib/whatsapp';
+import { breadcrumb, faqPage, medicalWebPage } from '../lib/schema';
+
+export async function getStaticPaths() {
+  const conditions = await getCollection('conditions');
+  return conditions
+    .sort((a, b) => a.data.order - b.data.order)
+    .map((entry) => ({ params: { condicion: entry.data.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'conditions'> };
+const d = entry.data;
+const url = `/${d.slug}/`;
+
+// Los relacionados se resuelven acá (no en un componente aparte) porque es la única página que
+// los usa y son tres tarjetas.
+const all = await getCollection('conditions');
+const related = d.related.map((slug) => {
+  const found = all.find((c) => c.data.slug === slug);
+  if (!found) throw new Error(`related: no existe el padecimiento "${slug}" (en ${entry.id})`);
+  return found;
+});
+
+// Meta description: la entradilla recortada a un largo razonable para el buscador.
+const lead = d.hero.lead[0] ?? '';
+const description = lead.length > 160 ? `${lead.slice(0, 157).trimEnd()}…` : lead;
+
+const wa = (texto: string) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+const waConsulta = wa(`Hola, quiero consultar sobre ${d.title.toLowerCase()}.`);
+const waCita = wa(`Hola, quiero agendar una valoración por ${d.title.toLowerCase()}.`);
+const agendar = `/contactenos/?servicio=${d.slug}`;
+
+const schema = [
+  medicalWebPage({ name: d.title, description, url }),
+  faqPage(d.faq),
+  breadcrumb([
+    { name: 'Inicio', url: '/' },
+    { name: 'Podología', url: '/especialidades/podologia/' },
+    { name: d.title, url },
+  ]),
+];
+---
+
+<Base title={d.seoTitle} description={description} ogImage={d.hero.image} schema={schema}>
+  <nav class="container-site pt-8 text-[16px] text-muted" aria-label="Ruta de navegación">
+    <a href="/" class="hover:text-accent-text">Inicio</a>
+    <span aria-hidden="true"> / </span>
+    <a href="/especialidades/podologia/" class="hover:text-accent-text">Podología</a>
+    <span aria-hidden="true"> / </span>
+    <span class="text-text">{d.title}</span>
+  </nav>
+
+  <section class="container-site pb-8 pt-6 md:pt-10">
+    <div class="grid items-center gap-10 md:grid-cols-[1.1fr_1fr]">
+      <div data-animate>
+        {d.hero.subheading && <p class="text-[17px] font-semibold text-accent-text md:text-[19px]">{d.hero.subheading}</p>}
+        <h1 class="title-hero mt-2">{d.title}</h1>
+        <div class="mt-6 space-y-4">
+          {d.hero.lead.map((p) => <p class="prose-measure">{p}</p>)}
+        </div>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href={agendar} variant="accent" shape="rounded" caps={false}>Agendar cita</Button>
+          <Button href={waConsulta} variant="whatsapp" shape="rounded" caps={false} target="_blank">
+            <Contact name="whatsapp" class="h-5 w-5" slot="icon" />
+            Preguntar por WhatsApp
+          </Button>
+        </div>
+      </div>
+      {
+        d.hero.image && (
+          <div data-reveal-media class="overflow-hidden rounded-panel shadow-lift">
+            <Image src={d.hero.image} alt={d.title} width={800} height={600} class="w-full object-cover" />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <SymptomList items={d.symptoms} />
+  <CauseList items={d.causes} />
+  <DiagnosisBlock items={d.diagnosis} />
+  <TreatmentList items={d.treatments} />
+  <FaqAccordion items={d.faq} />
+  <EvidenceTable items={d.evidence} />
+
+  {
+    related.length > 0 && (
+      <section class="section-y bg-bg-alt">
+        <div class="container-site" data-animate>
+          <h2 class="title-section">Padecimientos relacionados</h2>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((c) => (
+              <a href={`/${c.data.slug}/`} class="group overflow-hidden rounded-card bg-white shadow-soft transition-shadow hover:shadow-lift">
+                {c.data.hero.image && <Image src={c.data.hero.image} alt={c.data.title} width={600} height={400} class="aspect-[3/2] w-full object-cover" />}
+                <h3 class="px-6 py-5 text-[19px] font-semibold text-primary group-hover:text-accent-text">{c.data.title}</h3>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="bg-primary section-y text-white" data-animate>
+    <div class="container-site text-center">
+      <h2 class="title-section text-white">Agendemos tu valoración</h2>
+      <p class="mx-auto mt-4 max-w-[52ch] text-accent-light">Una cita con nuestro profesional en podología clínica define el tratamiento que corresponde a su caso.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href={agendar} variant="white" shape="rounded" caps={false}>Agendar cita</Button>
+        <Button href={waCita} variant="whatsapp" shape="rounded" caps={false} target="_blank">
+          <Contact name="whatsapp" class="h-5 w-5" slot="icon" />
+          WhatsApp: +(506) 8305-6444
+        </Button>
+      </div>
+    </div>
+  </section>
+</Base>

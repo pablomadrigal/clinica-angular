@@ -1,0 +1,15 @@
+---
+// Cómo se diagnostica: prosa, no lista. No pinta nada si el array viene vacío.
+interface Props { items: string[] }
+const { items } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="section-y bg-bg-alt">
+    <div class="container-site" data-animate>
+      <h2 class="title-section">Diagnóstico</h2>
+      <div class="mt-6 space-y-4">
+        {items.map((p) => <p class="prose-measure">{p}</p>)}
+      </div>
+    </div>
+  </section>
+)}

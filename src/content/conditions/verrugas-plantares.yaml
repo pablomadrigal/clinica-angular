@@ -1,0 +1,28 @@
+# PENDIENTE: el texto de origen describe otro padecimiento; espera material del Dr. Madrigal.
+title: "Verrugas plantares"
+slug: verrugas-plantares
+service: podologia
+menuLabel: "Verrugas plantares"
+order: 6
+seoTitle: "Verrugas plantares - Clínica Angular"
+hero:
+  image: ../../assets/verruga_plantar.jpg
+  lead:
+    - "El “pie diabético” aparece cuando existen niveles inadecuados de glucosa en sangre por un tiempo prolongado, que se unen con otros factores, entre ellos la mala circulación y la pérdida de la sensibilidad en el pie."
+    - "El conjunto de estos factores más, deformidad en el pie, calzado inadecuado o una lesión, pueden conllevar a la aparición o desarrollo de ulceraciones. Esto se conoce como “pie diabético”. La ulceración en la persona que vive con diabetes puede conllevar a complicaciones severas como la amputación."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "Generalmente requiere un tratamiento integral entre:"
+      - "✓Tratamiento oral"
+      - "✓ Tratamientos con ácidos (para reducir la verruga)"
+      - "✓ Terapia láser"
+faq: []
+evidence: []
+related:
+  - callos-y-durezas
+  - hongos-unas-onicomicosis
+  - pies-secos-sudoracion-mal-olor

@@ -12,7 +12,11 @@ import TopicsSection from '../components/service/TopicsSection.astro';
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
-  return services.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+  // Podología tiene página propia (src/pages/especialidades/podologia.astro): es el índice de sus
+  // 12 padecimientos, no una página de secciones. Se excluye para no generar la ruta dos veces.
+  return services
+    .filter((entry) => entry.data.slug !== 'especialidades/podologia')
+    .map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
 }
 const { entry } = Astro.props as { entry: CollectionEntry<'services'> };
 const d = entry.data;

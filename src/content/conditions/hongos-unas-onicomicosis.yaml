@@ -1,0 +1,43 @@
+title: "Hongos en uñas y hongos en pies"
+slug: hongos-unas-onicomicosis
+service: podologia
+menuLabel: "Hongos en uñas y pies"
+order: 1
+seoTitle: "Hongos en uñas y hongos en pies - Clínica Angular"
+hero:
+  image: ../../assets/Foto5-Angular-Podologia-Costa-Rica-1.jpg
+  subheading: "- Onicomicosis y Dermatomicosis -"
+  lead:
+    - "Los hongos en uñas (onicomicosis) son infecciones que suelen comenzar en el borde de la uña y se extienden poco a poco hasta la base. Tienden a tomar un largo tiempo para desarrollarse. Los signos más notables son la alteración del color y el deterioro de la uña, afectado también el tejido circundante. Cuando la infección ha tomado fuerza, puede llegar a ser muy doloroso usar zapatos, ya que las uñas suelen engrosarse y desprenderse. La infección por hongos en las uñas puede ser ocasionada por el pie de atleta que se haya extendido hacia esta zona del pie."
+    - "El pie de atleta es una de las infecciones fúngicas de la piel (tinea pedis) más frecuentes. Es causada por un hongo que crece en áreas cálidas y húmedas, por ejemplo, entre los dedos y planta del pie. La infección puede ocurrir al caminar descalzo sobre suelos húmedos y contaminados, tales como en duchas, piscinas o saunas."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: Tratamiento para ambas
+    body:
+      - "Cita de valoración con nuestro profesional en Podología Clínica para determinar su problema de salud."
+  - title: Tratamiento Onicomicosis (hongos en uñas)
+    body:
+      - "Tras la valoración integral, se toma un cultivo de la uña. Con base al resultado se ofrecen las alternativas de tratamiento, entre ellas tópico o láser."
+  - title: Dermatomicosis (Hongos en la piel de los pies)
+    body:
+      - "Tras la cita de valoración el profesional en podología dará generalmente un tratamiento tópico. La toma de cultivo se hace en casos en donde se requiera determinar el tipo de hongo para aplicar el mejor tratamiento."
+faq:
+  - question: "¿El láser cura los hongos?"
+    answer: "Es un complemento, no una solución única."
+  - question: "¿Cuánto tarda en verse una uña sana?"
+    answer: "Entre 8 y 12 meses — la uña del pie crece despacio."
+  - question: "¿Por qué vuelven a aparecer?"
+    answer: "Por no completar el tratamiento o no controlar factores como calzado, prendas de vestir, pisos, humedad u hongos en la piel. Por eso la educación, propuestas de higienización y productos especiales son parte del plan terapéutico, no un extra."
+evidence:
+  - claim: "El láser es complemento del tratamiento de la onicomicosis, no una cura única."
+    level: mixed
+    source: "Meretsky CR, et al. Efficacy of Laser Therapy for Onychomycosis: Systematic Review and Meta-Analysis. Cureus. 2024."
+  - claim: "El láser es complemento del tratamiento de la onicomicosis, no una cura única."
+    level: mixed
+    source: "Bristow IR. The effectiveness of lasers in onychomycosis: systematic review. J Foot Ankle Res. 2014."
+related:
+  - una-incarnada-onicocriptosis
+  - traumatismo-de-unas
+  - pies-secos-sudoracion-mal-olor

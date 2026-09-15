@@ -1,0 +1,78 @@
+---
+// Podología deja de ser una página larga de secciones y pasa a ser el índice de sus 12
+// padecimientos, cada uno con su propia página en la raíz del sitio.
+//
+// `src/content/services/podologia.yaml` se deja INTACTO a propósito: sigue siendo la fuente que
+// parte `scripts/split-podologia.mjs` y que compara `src/lib/conditions.test.ts`, así que borrarle
+// las 12 secciones dejaría la prueba de fidelidad sin con qué comparar. Esta página simplemente
+// ignora `sections` y usa del YAML solo el título, la etiqueta y la tarjeta. La ruta dinámica
+// `[...slug].astro` excluye podología para no generarla dos veces.
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import ChatButton from '../../components/ChatButton.astro';
+import AppointmentButton from '../../components/AppointmentButton.astro';
+import RelatedServices from '../../components/RelatedServices.astro';
+import BackHome from '../../components/BackHome.astro';
+import { breadcrumb, medicalWebPage } from '../../lib/schema';
+
+const servicio = await getEntry('services', 'especialidades/podologia');
+if (!servicio) throw new Error('falta src/content/services/podologia.yaml');
+const d = servicio.data;
+
+const conditions = (await getCollection('conditions'))
+  .filter((c) => c.data.service === 'podologia')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const url = '/especialidades/podologia/';
+const description = 'Padecimientos del pie que atendemos en podología clínica: hongos en uñas, uña incarnada, pie diabético, heridas, fascitis plantar y más.';
+const schema = [
+  medicalWebPage({ name: 'Podología', description, url }),
+  breadcrumb([
+    { name: 'Inicio', url: '/' },
+    { name: 'Especialidades', url: '/especialidades/' },
+    { name: 'Podología', url },
+  ]),
+];
+---
+
+<Base title={d.seoTitle} description={description} ogImage={d.card.image} schema={schema}>
+  <section class="container-site pb-4 pt-12 text-center" data-animate>
+    <h1 class="title-hero">Podología</h1>
+    <h2 class="title-section mt-3 text-accent-text">Padecimientos y tratamientos</h2>
+    <p class="prose-measure mx-auto mt-5">
+      Estos son los padecimientos del pie que atendemos en podología clínica. Elegí el tuyo para ver el detalle
+      del tratamiento.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <ChatButton />
+      <AppointmentButton />
+    </div>
+  </section>
+
+  <section class="section-y">
+    <div class="container-site">
+      <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          conditions.map((c) => (
+            <li data-animate>
+              <a
+                href={`/${c.data.slug}/`}
+                class="group block h-full overflow-hidden rounded-card bg-white shadow-soft transition-shadow hover:shadow-lift"
+              >
+                {c.data.hero.image && <Image src={c.data.hero.image} alt={c.data.title} width={600} height={400} class="aspect-[3/2] w-full object-cover" />}
+                <div class="px-6 py-5">
+                  <h3 class="text-[20px] font-semibold text-primary group-hover:text-accent-text">{c.data.title}</h3>
+                  {c.data.hero.subheading && <p class="mt-1 text-[16px] text-muted">{c.data.hero.subheading}</p>}
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <RelatedServices ids={d.related} />
+  {d.showBackHome && <BackHome />}
+</Base>
