@@ -24,7 +24,7 @@ const { heading, image, subheading, body, showChat } = Astro.props;
 ---
 
 <CenteredBlock heading={heading} image={image} imageAlt={heading || subheading || ''} showChat={showChat}>
-  {subheading && <p class="mb-4 text-[17px] font-medium text-accent md:text-[19px]">{subheading}</p>}
+  {subheading && <p class="mb-4 text-[17px] font-medium text-accent-text md:text-[19px]">{subheading}</p>}
   <div class="max-w-[540px] space-y-4">
     {body.map((p) => <p class="text-[15px] leading-relaxed text-primary/80">{p}</p>)}
   </div>

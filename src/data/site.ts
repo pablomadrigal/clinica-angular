@@ -34,22 +34,34 @@ export const site = {
   mapEmbedUrl:
     'https://maps.google.com/maps?q=Angular%20Cl%C3%ADnica%20del%20Pie%2C%20guadalupe%2C%20san%20jos%C3%A9%2C%20costa%20rica&t=m&z=15&output=embed&iwloc=near',
   copyright: '© Copyright Pablo Madrigal 2024. All rights reserved.',
+  // Cifras que la clínica declara en su documento institucional; no se estiman ni se redondean acá.
+  stats: [
+    { value: '11+', label: 'años de trayectoria clínica continua.' },
+    { value: '400 m²', label: 'de instalaciones propias, accesibles (Ley 7600) y con bioseguridad estricta.' },
+    { value: '5', label: 'disciplinas bajo un mismo techo: podología, heridas, fisioterapia, psicología y medicina general.' },
+    { value: '50–70', label: 'consultas especializadas atendidas por semana.' },
+  ],
 } as const;
 
 // El submenú de "Especialidades" se rellena en Header.astro desde la colección `services`.
 export const nav: NavItem[] = [
   { label: 'Inicio', href: '/' },
-  { label: 'Nuestra Empresa', href: '/nuestra-empresa/' },
+  {
+    label: 'Nuestra Clínica',
+    href: '/nuestra-clinica/',
+    children: [{ label: 'Nuestros Beneficios', href: '/nuestros-beneficios/' }],
+  },
   { label: 'Especialidades', href: '/especialidades/', children: [] },
   { label: 'Nuestros Especialistas', href: '/nuestros-especialistas/' },
-  { label: 'Nuestros Beneficios', href: '/nuestros-beneficios/' },
   {
-    label: 'Tecnología',
-    href: '#',
+    label: 'Tecnologías',
+    href: '/tecnologias/',
     children: [
       { label: 'K-laser', href: '/k-laser/' },
       { label: 'Láser Pion', href: '/laser-pion/' },
     ],
   },
+  { label: 'Instalaciones', href: '/instalaciones/' },
+  { label: 'Blog', href: '/blog/' },
   { label: 'Contáctenos', href: '/contactenos/' },
 ];

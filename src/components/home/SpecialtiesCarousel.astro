@@ -14,9 +14,9 @@ const images = [
   { src: img5, alt: 'Psicología' },
 ];
 ---
-<section class="bg-accent py-10 md:py-14">
+<section class="section-y bg-primary">
   <div class="container-site text-center">
-    <h2 class="text-[30px] font-semibold text-white md:text-[35px]">Conozca nuestras especialidades</h2>
+    <h2 class="title-section font-semibold text-white">Conozca nuestras especialidades</h2>
     <div class="specialties-swiper swiper mt-8">
       <div class="swiper-wrapper">
         {images.map((im) => (
@@ -27,13 +27,13 @@ const images = [
       </div>
       <div class="swiper-pagination !static mt-5"></div>
     </div>
-    <Button href="/especialidades/" variant="primary" shape="rounded" caps={false} class="mt-6">Más Información</Button>
+    <Button href="/especialidades/" variant="accent" shape="rounded" caps={false} class="mt-6">Más Información</Button>
   </div>
 </section>
 
 <style is:global>
   .specialties-swiper .swiper-pagination-bullet { background: #fff; opacity: .7; }
-  .specialties-swiper .swiper-pagination-bullet-active { background: #3d387f; opacity: 1; }
+  .specialties-swiper .swiper-pagination-bullet-active { background: #f3c57a; opacity: 1; }
 </style>
 
 <script>

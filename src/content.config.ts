@@ -83,4 +83,46 @@ const specialists = defineCollection({
     }),
 });
 
-export const collections = { services, specialists };
+// Un padecimiento = una página. El contenido sale de las secciones de `podologia.yaml`
+// (ver scripts/split-podologia.mjs) y NO se rellena con texto inventado: las secciones sin
+// material se dejan vacías y sencillamente no se pintan.
+const conditions = defineCollection({
+  loader: glob({ base: './src/content/conditions', pattern: '*.yaml' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      slug: z.string(), // ruta sin barras, en la raíz del sitio
+      service: z.string(), // id del servicio padre, p. ej. "podologia"
+      menuLabel: z.string(),
+      order: z.number(),
+      seoTitle: z.string(),
+      // `lead` es la entradilla; `subheading` el nombre clínico ("- Onicomicosis -").
+      hero: z.object({ image: image().optional(), subheading: z.string().optional(), lead: paragraphs.default([]) }),
+      symptoms: z.array(z.string()).default([]),
+      causes: z.array(z.string()).default([]),
+      diagnosis: z.array(z.string()).default([]),
+      treatments: z.array(z.object({ title: z.string(), body: paragraphs.default([]) })).default([]),
+      faq: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
+      // Contenido médico: solo se transcribe lo que aporta la clínica, nunca se completa.
+      evidence: z
+        .array(z.object({ claim: z.string(), level: z.enum(['strong', 'mixed', 'clinical']), source: z.string() }))
+        .default([]),
+      related: z.array(z.string()).default([]), // slugs de otros padecimientos
+    }),
+});
+
+// Blog ("Centro de Conocimiento"). Arranca vacío a propósito.
+const posts = defineCollection({
+  loader: glob({ base: './src/content/posts', pattern: '**/*.md' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      date: z.coerce.date(),
+      cover: image().optional(),
+      evidence: z.enum(['strong', 'mixed', 'clinical']).optional(),
+      draft: z.boolean().default(false),
+    }),
+});
+
+export const collections = { services, specialists, conditions, posts };

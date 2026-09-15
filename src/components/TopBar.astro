@@ -13,7 +13,7 @@ const items: { icon: 'phone' | 'whatsapp' | 'mail' | 'clock'; title: string; lin
   { icon: 'clock', title: 'Horario', lines: site.hours },
 ];
 ---
-<div class="border-b border-gray-100 bg-white">
+<div class="border-b border-border bg-bg">
   <div class="flex w-full items-center justify-between gap-4 px-5 py-3">
     <a href="/" class="mx-auto shrink-0 lg:mx-0" aria-label="Clínica Angular">
       <Image src={logo} alt="Clínica Angular" height={70} class="h-12 w-auto sm:h-16" loading="eager" />
@@ -21,11 +21,11 @@ const items: { icon: 'phone' | 'whatsapp' | 'mail' | 'clock'; title: string; lin
     <ul class="hidden items-start gap-8 lg:flex">
       {items.map((it) => (
         <li class="flex items-start gap-2">
-          <Contact name={it.icon} class="mt-0.5 h-[18px] w-[18px] shrink-0 text-accent" />
+          <Contact name={it.icon} class="mt-0.5 h-[18px] w-[18px] shrink-0 text-accent-text" />
           <div>
-            <h3 class="text-[15px] font-semibold text-primary">{it.title}</h3>
+            <h3 class="font-display text-[16px] font-semibold text-primary-dark">{it.title}</h3>
             {it.lines.map((l) => (
-              <p class="text-[12px] leading-4 text-text">{it.href ? <a href={it.href} class="hover:text-primary">{l}</a> : l}</p>
+              <p class="text-[13px] leading-5 text-muted">{it.href ? <a href={it.href} class="hover:text-primary">{l}</a> : l}</p>
             ))}
           </div>
         </li>
@@ -34,7 +34,7 @@ const items: { icon: 'phone' | 'whatsapp' | 'mail' | 'clock'; title: string; lin
     <ul class="hidden items-center gap-2 lg:flex">
       {(['facebook', 'instagram', 'tiktok'] as const).map((n) => (
         <li>
-          <a href={site.social[n]} target="_blank" rel="noopener" class="grid h-7 w-7 place-items-center rounded-md bg-primary text-white hover:bg-accent hover:text-primary" aria-label={socialLabels[n]}>
+          <a href={site.social[n]} target="_blank" rel="noopener" class="grid h-7 w-7 place-items-center rounded-md bg-primary text-white hover:bg-accent hover:text-text" aria-label={socialLabels[n]}>
             <Social name={n} class="h-3.5 w-3.5" />
           </a>
         </li>

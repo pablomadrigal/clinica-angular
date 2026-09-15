@@ -63,7 +63,7 @@ const slides: Slide[] = [
 ];
 
 const textClass: Record<TextColor, string> = {
-  dark: 'text-slide',
+  dark: 'text-text',
   primary: 'text-primary',
   white: 'text-white',
 };
@@ -115,7 +115,7 @@ const scrimClass: Record<TextColor, string> = {
             <a
               href={s.href}
               class:list={[
-                'mt-6 inline-block rounded-[22px] bg-accent px-7 py-3.5 text-[13px] font-semibold text-primary shadow-sm hover:bg-accent-dark hover:text-white',
+                'mt-6 inline-block rounded-[22px] bg-accent px-7 py-3.5 text-[15px] font-semibold text-text shadow-soft hover:bg-accent-text hover:text-white',
                 i === 0 && 'uppercase',
               ]}
             >{s.cta}</a>
@@ -125,10 +125,10 @@ const scrimClass: Record<TextColor, string> = {
     ))}
   </div>
   <div class="swiper-pagination !bottom-4"></div>
-  <button type="button" class="hero-prev absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent hover:text-accent-dark md:block" aria-label="Anterior">
+  <button type="button" class="hero-prev absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent-light drop-shadow-[0_1px_3px_rgba(0,0,0,.6)] hover:text-white md:block" aria-label="Anterior">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-8 w-8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
   </button>
-  <button type="button" class="hero-next absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent hover:text-accent-dark md:block" aria-label="Siguiente">
+  <button type="button" class="hero-next absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-accent-light drop-shadow-[0_1px_3px_rgba(0,0,0,.6)] hover:text-white md:block" aria-label="Siguiente">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-8 w-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
   </button>
 </section>

@@ -1,9 +1,10 @@
 ---
 interface Props {
   href: string;
-  variant?: 'accent' | 'primary' | 'white' | 'chat' | 'appointment';
-  // 'pill' (por defecto, comportamiento previo) = radio completo + mayúsculas.
-  // 'rounded' = esquinas redondeadas moderadas (10px) + texto tal cual (usado por "Agendar cita").
+  // El dorado `accent` solo vive como FONDO con texto tinta encima; como texto no pasa AA
+  // (ver src/lib/palette.test.ts). Por eso no existe una variante de texto dorado.
+  variant?: 'accent' | 'primary' | 'white' | 'chat' | 'whatsapp' | 'appointment' | 'outline';
+  // 'pill' (por defecto) = radio completo + mayúsculas. 'rounded' = 10px + texto tal cual.
   shape?: 'pill' | 'rounded';
   caps?: boolean;
   class?: string;
@@ -11,13 +12,13 @@ interface Props {
 }
 const { href, variant = 'accent', shape = 'pill', caps = true, class: cls = '', target } = Astro.props;
 const styles = {
-  accent: 'bg-accent text-primary hover:bg-accent-dark hover:text-white',
-  primary: 'bg-primary text-white hover:bg-purple-dark',
-  white: 'bg-white text-primary hover:bg-accent',
-  chat: 'bg-chat text-white hover:bg-[#2fb878]',
-  // Mismo tono que `accent`, pero con texto blanco: así se ve "Agendar cita" en la referencia
-  // (a diferencia de `accent`, pensado para texto oscuro sobre el naranja en otros contextos).
-  appointment: 'bg-accent text-white hover:bg-accent-dark',
+  accent: 'bg-accent text-text shadow-soft hover:bg-accent-text hover:text-white',
+  primary: 'bg-primary text-white shadow-soft hover:bg-primary-dark',
+  white: 'bg-white text-primary shadow-soft hover:bg-bg-alt',
+  chat: 'bg-chat text-text hover:brightness-95',
+  whatsapp: 'bg-whatsapp text-text hover:brightness-95',
+  appointment: 'bg-accent text-text shadow-soft hover:bg-accent-text hover:text-white',
+  outline: 'border-white text-white hover:bg-white/15',
 };
 ---
 <a
@@ -25,9 +26,10 @@ const styles = {
   target={target}
   rel={target === '_blank' ? 'noopener' : undefined}
   class:list={[
-    'inline-flex items-center gap-2 px-7 py-3 text-[13px] font-semibold transition-colors',
-    shape === 'pill' ? 'rounded-full' : 'rounded-[10px]',
-    caps && 'uppercase tracking-wide',
+    /* 56px de alto: objetivo táctil cómodo, que es lo que pide el público de la clínica. */
+    'inline-flex min-h-[56px] items-center justify-center gap-2 border-2 border-transparent px-7 py-3 text-[17px] font-semibold leading-tight transition-[background-color,color,transform] motion-safe:hover:-translate-y-0.5',
+    shape === 'pill' ? 'rounded-full' : 'rounded-field',
+    caps && 'text-[15px] uppercase tracking-wide',
     styles[variant],
     cls,
   ]}
