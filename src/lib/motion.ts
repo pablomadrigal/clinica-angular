@@ -5,13 +5,13 @@
 
 export interface MotionEnv {
   reducedMotion: boolean;
-  load: () => Promise<{ gsap: GsapLike; ScrollTrigger: unknown }>;
+  load: () => Promise<{ gsap: GsapLike; ScrollTrigger: object }>;
   root: ParentNode;
 }
 
 interface GsapLike {
-  registerPlugin: (plugin: unknown) => void;
-  fromTo: (target: unknown, from: object, to: object) => void;
+  registerPlugin: (...plugins: object[]) => void;
+  fromTo: (target: Element | string, from: object, to: object) => void;
 }
 
 export function prefersReducedMotion(): boolean {
@@ -23,7 +23,7 @@ export async function initMotion(env: MotionEnv): Promise<boolean> {
   if (env.reducedMotion) return false;
 
   let gsap: GsapLike;
-  let ScrollTrigger: unknown;
+  let ScrollTrigger: object;
   try {
     ({ gsap, ScrollTrigger } = await env.load());
   } catch {
@@ -31,7 +31,7 @@ export async function initMotion(env: MotionEnv): Promise<boolean> {
   }
   gsap.registerPlugin(ScrollTrigger);
 
-  const hero = env.root.querySelector('[data-parallax] img');
+  const hero = env.root.querySelector<HTMLElement>('[data-parallax] img');
   if (hero) {
     gsap.fromTo(
       hero,

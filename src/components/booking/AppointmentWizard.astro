@@ -1,0 +1,320 @@
+---
+import { getCollection } from 'astro:content';
+import { site } from '../../data/site';
+import { STEPS } from './wizard';
+
+// Las listas salen de las colecciones, no de constantes duplicadas: si mañana se agrega un
+// padecimiento o un especialista, el asistente lo ofrece sin tocar este archivo.
+const padecimientos = (await getCollection('conditions'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((c) => ({ value: c.data.slug, label: c.data.title }));
+
+const servicios = (await getCollection('services'))
+  .filter((s) => s.data.slug !== 'especialidades/podologia') // sus padecimientos ya van listados aparte
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((s) => ({ value: s.id.split('/').pop()!, label: s.data.card.label }));
+
+const profesionales = (await getCollection('specialists'))
+  .filter((s) => s.data.group === 'clinico')
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((s) => ({ value: s.data.name.replace(/\n/g, ' '), label: `${s.data.name.replace(/\n/g, ' ')} — ${s.data.role.replace(/\n/g, ' ')}` }));
+
+const horas = ['9:00 am', '10:00 am', '11:00 am', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm'];
+const etiquetas: Record<string, string> = {
+  servicio: 'Servicio',
+  profesional: 'Profesional',
+  sede: 'Sede',
+  fecha: 'Fecha y hora',
+  datos: 'Tus datos',
+};
+
+const campo = 'w-full rounded-field border-2 border-border bg-white px-4 py-3 text-[17px] text-text aria-[invalid=true]:border-[#b3261e]';
+const etiqueta = 'mb-2 block text-[17px] font-semibold text-text';
+const error = 'mt-2 hidden text-[15px] font-semibold text-[#b3261e]';
+---
+<form
+  id="agenda"
+  novalidate
+  data-booking-form
+  class="rounded-panel border border-border bg-white p-6 shadow-soft md:p-10"
+  aria-labelledby="agenda-titulo"
+>
+  <h2 id="agenda-titulo" class="title-card font-semibold">Agendá tu cita en pocos pasos</h2>
+  <p class="prose-measure mt-2 text-[17px] text-muted">
+    Elegí servicio, profesional, sede y horario. Al terminar se abre WhatsApp con el resumen listo
+    para enviar, y el equipo te confirma la disponibilidad real de agenda.
+  </p>
+
+  <ol class="mt-8 flex flex-wrap gap-2" aria-label="Pasos de la solicitud">
+    {STEPS.map((s, i) => (
+      <li
+        data-pill={s}
+        class="rounded-full border-2 border-border px-4 py-2 text-[14px] font-semibold text-muted aria-[current=step]:border-primary aria-[current=step]:bg-primary aria-[current=step]:text-white"
+        aria-current={i === 0 ? 'step' : undefined}
+      >{i + 1}. {etiquetas[s]}</li>
+    ))}
+  </ol>
+
+  {/* Anuncia el cambio de paso a quien usa lector de pantalla. */}
+  <p data-live class="sr-only" role="status" aria-live="polite"></p>
+
+  <fieldset data-panel="servicio" class="mt-8 border-0 p-0">
+    <legend class="sr-only">Paso 1: servicio</legend>
+    <label class={etiqueta} for="servicio">¿Qué necesitás consultar?</label>
+    <select id="servicio" name="servicio" class={campo} aria-describedby="error-servicio">
+      <option value="">Seleccioná una opción</option>
+      {padecimientos.length > 0 && (
+        <optgroup label="Podología — padecimientos">
+          {padecimientos.map((o) => <option value={o.value}>{o.label}</option>)}
+        </optgroup>
+      )}
+      <optgroup label="Otras especialidades">
+        {servicios.map((o) => <option value={o.value}>{o.label}</option>)}
+      </optgroup>
+      <option value="otro">Otro / no estoy seguro</option>
+    </select>
+    <p id="error-servicio" class={error} data-error="servicio"></p>
+    <div class="mt-6"><button type="button" class="boton-avanzar" data-next>Continuar</button></div>
+  </fieldset>
+
+  <fieldset data-panel="profesional" class="mt-8 border-0 p-0" hidden>
+    <legend class="sr-only">Paso 2: profesional</legend>
+    <label class={etiqueta} for="profesional">Profesional <span class="font-normal text-muted">(opcional)</span></label>
+    <select id="profesional" name="profesional" class={campo}>
+      <option value="">Sin preferencia — el equipo asigna según disponibilidad</option>
+      {profesionales.map((o) => <option value={o.value}>{o.label}</option>)}
+    </select>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <button type="button" class="boton-volver" data-prev>Atrás</button>
+      <button type="button" class="boton-avanzar" data-next>Continuar</button>
+    </div>
+  </fieldset>
+
+  <fieldset data-panel="sede" class="mt-8 border-0 p-0" hidden>
+    <legend class="sr-only">Paso 3: sede</legend>
+    <label class={etiqueta} for="sede">Sede</label>
+    <select id="sede" name="sede" class={campo} aria-describedby="ayuda-sede error-sede">
+      <option value={site.addresses.contacto}>Guadalupe, San José (sede principal)</option>
+    </select>
+    <p id="ayuda-sede" class="mt-2 text-[15px] text-muted">Hoy atendemos en una sola sede.</p>
+    <p id="error-sede" class={error} data-error="sede"></p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <button type="button" class="boton-volver" data-prev>Atrás</button>
+      <button type="button" class="boton-avanzar" data-next>Continuar</button>
+    </div>
+  </fieldset>
+
+  <fieldset data-panel="fecha" class="mt-8 border-0 p-0" hidden>
+    <legend class="sr-only">Paso 4: fecha y hora</legend>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div>
+        <label class={etiqueta} for="fecha">Fecha preferida</label>
+        <input type="date" id="fecha" name="fecha" class={campo} aria-describedby="error-fecha" />
+        <p id="error-fecha" class={error} data-error="fecha"></p>
+      </div>
+      <div>
+        <label class={etiqueta} for="hora">Hora preferida</label>
+        <select id="hora" name="hora" class={campo} aria-describedby="error-hora">
+          <option value="">Seleccioná un horario</option>
+          {horas.map((h) => <option value={h}>{h}</option>)}
+        </select>
+        <p id="error-hora" class={error} data-error="hora"></p>
+      </div>
+    </div>
+    <p class="mt-3 text-[15px] text-muted">
+      Es una preferencia: la confirmación final llega por WhatsApp según la disponibilidad real.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <button type="button" class="boton-volver" data-prev>Atrás</button>
+      <button type="button" class="boton-avanzar" data-next>Continuar</button>
+    </div>
+  </fieldset>
+
+  <fieldset data-panel="datos" class="mt-8 border-0 p-0" hidden>
+    <legend class="sr-only">Paso 5: tus datos</legend>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div>
+        <label class={etiqueta} for="nombre">Tu nombre completo</label>
+        <input type="text" id="nombre" name="nombre" autocomplete="name" class={campo} aria-describedby="error-nombre" />
+        <p id="error-nombre" class={error} data-error="nombre"></p>
+      </div>
+      <div>
+        <label class={etiqueta} for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" autocomplete="email" class={campo} aria-describedby="error-email" />
+        <p id="error-email" class={error} data-error="email"></p>
+      </div>
+      <div>
+        <label class={etiqueta} for="celular">Celular (8 dígitos)</label>
+        <input type="tel" id="celular" name="celular" inputmode="numeric" autocomplete="tel" class={campo} aria-describedby="error-celular" />
+        <p id="error-celular" class={error} data-error="celular"></p>
+      </div>
+      <div class="sm:col-span-2">
+        <label class={etiqueta} for="mensaje">Contanos brevemente tu consulta <span class="font-normal text-muted">(opcional)</span></label>
+        <textarea id="mensaje" name="mensaje" rows="4" maxlength="500" class={campo}></textarea>
+      </div>
+    </div>
+    <div class="mt-6">
+      <label class="flex items-start gap-3 text-[17px]">
+        <input type="checkbox" id="consentimiento" name="consentimiento" class="mt-1.5 h-5 w-5 shrink-0" aria-describedby="error-consentimiento" />
+        <span>Autorizo a Clínica Angular a usar estos datos para gestionar mi cita.</span>
+      </label>
+      <p id="error-consentimiento" class={error} data-error="consentimiento"></p>
+    </div>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <button type="button" class="boton-volver" data-prev>Atrás</button>
+      <button type="submit" class="boton-avanzar">Enviar por WhatsApp</button>
+    </div>
+  </fieldset>
+
+  <div data-panel="confirmacion" class="mt-8" hidden>
+    <div class="rounded-card border-l-[5px] border-accent bg-bg-alt p-6" role="status">
+      <p class="text-[19px] font-semibold text-primary-dark">Tu solicitud está lista para enviarse.</p>
+      <p class="mt-2 text-[17px]">
+        Se abrió WhatsApp con este resumen. Si no se abrió solo, usá el botón de abajo. La cita
+        queda confirmada cuando te responde el equipo; esto todavía no reserva un espacio.
+      </p>
+      <pre data-resumen class="mt-4 whitespace-pre-wrap font-body text-[17px] font-semibold text-text"></pre>
+    </div>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a data-enviar href="#" target="_blank" rel="noopener" class="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-whatsapp px-7 py-3 text-[17px] font-semibold text-text">Abrir WhatsApp</a>
+      <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Clínica Angular Guadalupe San José')}`} target="_blank" rel="noopener" class="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-primary px-7 py-3 text-[17px] font-semibold text-white">Cómo llegar</a>
+      <button type="button" data-reiniciar class="boton-volver">Empezar de nuevo</button>
+    </div>
+    <h3 class="mt-8 text-[19px]">Antes de tu cita</h3>
+    <p class="prose-measure text-[17px]">
+      Llegá 10 minutos antes. Si es una primera valoración de heridas, traé los estudios o las
+      fotos previas que tengas.
+    </p>
+  </div>
+</form>
+
+<style>
+  .boton-avanzar,
+  .boton-volver {
+    display: inline-flex;
+    min-height: 56px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.75rem 1.75rem;
+    font-size: 17px;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+  }
+  .boton-avanzar { background: var(--color-primary); color: #fff; }
+  .boton-avanzar:hover { background: var(--color-primary-dark); }
+  .boton-volver { background: #fff; color: var(--color-primary); border: 2px solid var(--color-primary); }
+  .boton-volver:hover { background: var(--color-bg-alt); }
+</style>
+
+<script>
+  import { STEPS, anterior, buildBookingUrl, origen, resumen, siguiente, validateStep } from './wizard';
+  import type { BookingData, Step } from './wizard';
+
+  const form = document.querySelector<HTMLFormElement>('form[data-booking-form]');
+  if (form) {
+    const live = form.querySelector<HTMLElement>('[data-live]')!;
+    const panel = (n: string) => form.querySelector<HTMLElement>(`[data-panel="${n}"]`);
+    let actual: Step = 'servicio';
+
+    const leer = (): Partial<BookingData> => {
+      const v = (n: string) => form.querySelector<HTMLInputElement>(`[name="${n}"]`)?.value ?? '';
+      const sel = form.querySelector<HTMLSelectElement>('[name="servicio"]');
+      return {
+        servicio: v('servicio'),
+        servicioLabel: sel?.selectedIndex ? sel.options[sel.selectedIndex].text : '',
+        profesional: v('profesional'),
+        sede: v('sede'),
+        fecha: v('fecha'),
+        hora: v('hora'),
+        nombre: v('nombre'),
+        email: v('email'),
+        celular: v('celular'),
+        mensaje: v('mensaje'),
+        consentimiento: form.querySelector<HTMLInputElement>('[name="consentimiento"]')?.checked ?? false,
+        origen: origen(location.search, document.referrer),
+      };
+    };
+
+    function limpiarErrores() {
+      form!.querySelectorAll<HTMLElement>('[data-error]').forEach((p) => {
+        p.textContent = '';
+        p.classList.add('hidden');
+        form!.querySelector(`[name="${p.dataset.error}"]`)?.removeAttribute('aria-invalid');
+      });
+    }
+
+    function mostrar(nombre: Step | 'confirmacion') {
+      STEPS.forEach((s) => {
+        panel(s)!.hidden = s !== nombre;
+        form!.querySelector(`[data-pill="${s}"]`)!.toggleAttribute('aria-current', s === nombre);
+        if (s === nombre) form!.querySelector(`[data-pill="${s}"]`)!.setAttribute('aria-current', 'step');
+      });
+      panel('confirmacion')!.hidden = nombre !== 'confirmacion';
+      const visible = panel(nombre)!;
+      const paso = STEPS.indexOf(nombre as Step);
+      live.textContent = paso >= 0 ? `Paso ${paso + 1} de ${STEPS.length}` : 'Solicitud lista';
+      visible.querySelector<HTMLElement>('select, input, textarea, a, button')?.focus();
+      if (nombre !== 'servicio') visible.scrollIntoView({ block: 'nearest' });
+    }
+
+    function validar(): boolean {
+      limpiarErrores();
+      const errores = validateStep(actual, leer());
+      for (const [campo, mensaje] of Object.entries(errores)) {
+        const p = form!.querySelector<HTMLElement>(`[data-error="${campo}"]`);
+        if (p) {
+          p.textContent = mensaje;
+          p.classList.remove('hidden');
+        }
+        form!.querySelector(`[name="${campo}"]`)?.setAttribute('aria-invalid', 'true');
+      }
+      const primero = Object.keys(errores)[0];
+      if (primero) form!.querySelector<HTMLElement>(`[name="${primero}"]`)?.focus();
+      return primero === undefined;
+    }
+
+    form.querySelectorAll('[data-next]').forEach((b) =>
+      b.addEventListener('click', () => {
+        if (!validar()) return;
+        const proximo = siguiente(actual);
+        if (proximo === 'confirmacion') return;
+        actual = proximo;
+        mostrar(actual);
+      }),
+    );
+
+    form.querySelectorAll('[data-prev]').forEach((b) =>
+      b.addEventListener('click', () => {
+        limpiarErrores();
+        actual = anterior(actual);
+        mostrar(actual);
+      }),
+    );
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validar()) return;
+      const datos = leer();
+      const url = buildBookingUrl(datos);
+      form.querySelector<HTMLElement>('[data-resumen]')!.textContent = resumen(datos).join('\n');
+      form.querySelector<HTMLAnchorElement>('[data-enviar]')!.href = url;
+      mostrar('confirmacion');
+      window.open(url, '_blank', 'noopener');
+    });
+
+    form.querySelector('[data-reiniciar]')?.addEventListener('click', () => {
+      form.reset();
+      limpiarErrores();
+      actual = 'servicio';
+      mostrar(actual);
+    });
+
+    // Si el paciente llega desde una página de padecimiento, ese servicio ya viene elegido.
+    const desde = new URLSearchParams(location.search).get('servicio');
+    if (desde) {
+      const sel = form.querySelector<HTMLSelectElement>('[name="servicio"]')!;
+      if ([...sel.options].some((o) => o.value === desde)) sel.value = desde;
+    }
+  }
+</script>
