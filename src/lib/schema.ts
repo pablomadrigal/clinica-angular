@@ -67,6 +67,22 @@ export function medicalWebPage(opts: { name: string; description: string; url: s
   };
 }
 
+/** Artículo del blog. `image` es opcional: sin portada, el nodo simplemente no la declara. */
+export function blogPosting(opts: { title: string; description: string; url: string; date: Date; image?: string }) {
+  return {
+    '@type': 'BlogPosting',
+    headline: opts.title,
+    description: opts.description,
+    url: new URL(opts.url, site.url).href,
+    mainEntityOfPage: new URL(opts.url, site.url).href,
+    datePublished: opts.date.toISOString().slice(0, 10),
+    inLanguage: 'es-CR',
+    author: { '@id': CLINIC_ID },
+    publisher: { '@id': CLINIC_ID },
+    ...(opts.image ? { image: new URL(opts.image, site.url).href } : {}),
+  };
+}
+
 export function graph(nodes: unknown[]) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': nodes.filter(Boolean) });
 }
