@@ -1,60 +1,51 @@
-// Parallax y apariciones suaves con GSAP. Reglas:
-// - Sin GSAP (falla la carga) o con "reducir movimiento", la página se ve COMPLETA y estática.
-//   Nada empieza en opacidad 0 desde el CSS: la animación parte de un estado ya visible.
-// - GSAP se carga de forma diferida, así el HTML del sitio no arrastra la librería si no hace falta.
+// Apariciones al hacer scroll, con IntersectionObserver y transiciones CSS.
+//
+// Por qué NO con GSAP/ScrollTrigger, que es lo que pedía el entregable: el efecto arranca
+// poniendo el bloque en opacidad 0, así que si el disparador no corre el contenido queda
+// invisible para siempre. Eso pasó de verdad en las páginas de padecimiento (ScrollTrigger
+// aplicaba el estado inicial y nunca avanzaba), y es un modo de fallo inaceptable para un
+// sitio de salud. IntersectionObserver garantiza una primera llamada para cada elemento
+// observado en el siguiente cuadro, esté o no a la vista, así que lo que está en pantalla se
+// revela sí o sí.
+//
+// Además, el estado oculto lo aplica una clase que pone este script (`motion-ready`): sin
+// JavaScript, o con "reducir movimiento", el CSS nunca esconde nada.
 
 export interface MotionEnv {
   reducedMotion: boolean;
-  load: () => Promise<{ gsap: GsapLike; ScrollTrigger: object }>;
   root: ParentNode;
+  /** El documento al que se le marca `motion-ready`; separado para poder probarlo. */
+  flag: { classList: { add: (c: string) => void } };
+  observe: (onEnter: (el: Element) => void) => { observe: (el: Element) => void };
 }
 
-interface GsapLike {
-  registerPlugin: (...plugins: object[]) => void;
-  fromTo: (target: Element | string, from: object, to: object) => void;
+export const SELECTORES = '[data-animate], [data-reveal-media]';
+
+/** Devuelve cuántos elementos quedaron a cargo del observador (0 = página estática). */
+export function initMotion(env: MotionEnv): number {
+  const elementos = [...env.root.querySelectorAll(SELECTORES)];
+  if (env.reducedMotion || elementos.length === 0) return 0;
+
+  env.flag.classList.add('motion-ready');
+  const observador = env.observe((el) => el.classList.add('is-visible'));
+  for (const el of elementos) observador.observe(el);
+  return elementos.length;
 }
 
 export function prefersReducedMotion(): boolean {
   return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-/** Devuelve `true` si llegó a animar; `false` si decidió (o tuvo que) dejar la página quieta. */
-export async function initMotion(env: MotionEnv): Promise<boolean> {
-  if (env.reducedMotion) return false;
-
-  let gsap: GsapLike;
-  let ScrollTrigger: object;
-  try {
-    ({ gsap, ScrollTrigger } = await env.load());
-  } catch {
-    return false;
-  }
-  gsap.registerPlugin(ScrollTrigger);
-
-  const hero = env.root.querySelector<HTMLElement>('[data-parallax] img');
-  if (hero) {
-    gsap.fromTo(
-      hero,
-      { scale: 1.08, yPercent: -4 },
-      { scale: 1, yPercent: 6, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.6 } },
-    );
-  }
-
-  for (const media of env.root.querySelectorAll('[data-reveal-media] img')) {
-    gsap.fromTo(
-      media,
-      { scale: 1.12 },
-      { scale: 1, ease: 'none', scrollTrigger: { trigger: media, start: 'top 85%', end: 'bottom 30%', scrub: 0.8 } },
-    );
-  }
-
-  for (const el of env.root.querySelectorAll('[data-animate]')) {
-    gsap.fromTo(
-      el,
-      { opacity: 0, y: 28 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 88%', once: true } },
-    );
-  }
-
-  return true;
+/** Observador real del navegador: revela al entrar y deja de mirar el elemento. */
+export function browserObserver(onEnter: (el: Element) => void): IntersectionObserver {
+  return new IntersectionObserver(
+    (entradas, obs) => {
+      for (const e of entradas) {
+        if (!e.isIntersecting) continue;
+        onEnter(e.target);
+        obs.unobserve(e.target);
+      }
+    },
+    { rootMargin: '0px 0px -12% 0px' },
+  );
 }

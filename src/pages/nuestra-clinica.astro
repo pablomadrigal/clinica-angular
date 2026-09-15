@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import BackHome from '../components/BackHome.astro';
+import ContactSection from '../components/ContactSection.astro';
+import foto from '../assets/Foto2-Angular-Podologia-Costa-Rica-2.jpg';
+import { site } from '../data/site';
+import { breadcrumb, medicalWebPage } from '../lib/schema';
+
+// Renombre de /nuestra-empresa/ (redirect 301 en vercel.json). El texto institucional es el
+// que entregó el dueño en el entregable de agosto (site/nuestra-clinica/index.html) y se
+// transcribe literal. La foto es la real que ya usaba la página vieja: el entregable de
+// agosto trae placeholders SVG que no se migran.
+// Los "Pilares de Nuestra Empresa" de la página vieja NO se conservan: el dueño los
+// reemplazó por "Nuestros Valores", que cubre lo mismo con la redacción nueva.
+const valores = [
+  ['Compromiso con el paciente', 'cada decisión clínica prioriza su seguridad, bienestar y calidad de vida.'],
+  ['Excelencia clínica', 'actuamos con rigor científico, criterio clínico profesional y mejora continua.'],
+  ['Humanización', 'escuchamos, acompañamos y atendemos con empatía y respeto.'],
+  ['Ética e integridad', 'ejercemos con honestidad, transparencia y responsabilidad profesional.'],
+  ['Innovación responsable', 'incorporamos tecnologías y procedimientos respaldados por evidencia.'],
+  ['Trabajo multidisciplinario', 'integramos disciplinas para soluciones más completas y efectivas.'],
+  ['Docencia e investigación', 'promovemos la actualización permanente y la generación de conocimiento.'],
+];
+
+const diferencias = [
+  'Atención fundamentada en evidencia científica actualizada, no en prácticas heredadas sin respaldo.',
+  'Valoración clínica integral: tratamos la causa, no solo el síntoma.',
+  'Tecnología diagnóstica y terapéutica de última generación, incluyendo láser de alta potencia y baropodómetro.',
+  'Equipo multidisciplinario especializado en podología, biomecánica, fisioterapia, enfermería y medicina.',
+  'Protocolos clínicos estandarizados adaptados a cada caso particular.',
+  'Enfoque preventivo y resolutivo, no únicamente paliativo.',
+];
+
+const description =
+  'Clínica Angular: misión, visión, valores y compromiso con la calidad de un centro costarricense especializado en podología clínica avanzada y tratamiento integral de heridas.';
+const schema = [
+  medicalWebPage({ name: 'Nuestra Clínica', description, url: '/nuestra-clinica/' }),
+  breadcrumb([
+    { name: 'Inicio', url: '/' },
+    { name: 'Nuestra Clínica', url: '/nuestra-clinica/' },
+  ]),
+];
+---
+<Base title="Nuestra Clínica: Misión, Visión y Valores - Clínica Angular" description={description} schema={schema}>
+  <section class="container-site section-y grid items-center gap-10 md:grid-cols-2" data-animate>
+    <div>
+      <p class="text-[15px] font-bold uppercase tracking-[0.1em] text-accent-text">Nuestra Clínica</p>
+      <h1 class="mt-3 title-hero font-semibold">Ciencia clínica, tecnología de vanguardia y trato humano al servicio de la salud del pie</h1>
+      <p class="prose-measure mt-6 text-[17px] leading-relaxed text-text">Somos un centro costarricense especializado en podología clínica avanzada, tratamiento integral del pie diabético, manejo avanzado de heridas, biomecánica, ortopodología y fisioterapia. Cada paciente recibe una valoración clínica integral orientada a identificar la causa raíz de su condición —no solo a tratar el síntoma— y a construir un plan terapéutico individualizado, sustentado en evidencia científica actualizada.</p>
+      <p class="prose-measure mt-4 text-[17px] leading-relaxed text-text">Nuestro modelo de atención integra criterio clínico riguroso, tecnología diagnóstica y terapéutica de última generación —incluyendo terapia láser de alta potencia—, protocolos clínicos estandarizados, un sistema de expediente clínico electrónico y un equipo multidisciplinario comprometido con la excelencia asistencial.</p>
+      <p class="prose-measure mt-4 text-[17px] leading-relaxed text-text">Con más de 11 años de trayectoria clínica ininterrumpida, actualmente atendemos entre 50 y 70 consultas especializadas por semana.</p>
+    </div>
+    <div data-reveal-media>
+      <Image src={foto} alt="Clínica Angular" width={640} height={430} class="w-full rounded-panel object-cover shadow-lift" />
+    </div>
+  </section>
+
+  <section class="bg-primary section-y">
+    <div class="container-site grid gap-8 md:grid-cols-2" data-animate>
+      <div class="rounded-panel border border-accent-light/40 px-7 py-8">
+        <h2 class="title-card font-semibold text-accent-light">Nuestra Misión</h2>
+        <p class="mt-4 text-[17px] leading-relaxed text-white">Brindar atención especializada en podología clínica, tratamiento avanzado de heridas, biomecánica y salud integral del pie, mediante diagnósticos precisos, tratamientos personalizados y protocolos basados en evidencia, orientados a prevenir complicaciones, aliviar el dolor, restaurar la función y sostener la calidad de vida de cada paciente.</p>
+      </div>
+      <div class="rounded-panel border border-accent-light/40 px-7 py-8">
+        <h2 class="title-card font-semibold text-accent-light">Nuestra Visión</h2>
+        <p class="mt-4 text-[17px] leading-relaxed text-white">Consolidarnos como la clínica privada de referencia en Costa Rica y Centroamérica en podología clínica avanzada, salud integral del pie y unidad de heridas complejas y regenerativas. Aspiramos a posicionar a Clínica Angular como un referente clínico y académico en América Latina.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-site section-y" data-animate>
+    <h2 class="title-section font-semibold">Nuestros Valores</h2>
+    <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {valores.map(([titulo, texto]) => (
+        <li class="rounded-card border border-border bg-white p-6 shadow-soft">
+          <h3 class="title-card font-semibold text-primary">{titulo}</h3>
+          <p class="mt-2 text-[17px] leading-relaxed text-text">{texto}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="bg-bg-alt section-y">
+    <div class="container-site" data-animate>
+      <h2 class="title-section font-semibold">¿Qué nos diferencia?</h2>
+      <ul class="mt-8 grid gap-5 md:grid-cols-2">
+        {diferencias.map((d) => (
+          <li class="flex gap-3 rounded-card bg-white p-6 shadow-soft">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="mt-1 h-6 w-6 shrink-0 text-accent-text" aria-hidden="true">
+              <circle cx="12" cy="12" r="9.5" />
+              <path d="m8 12.5 2.5 2.5 5.5-5.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <p class="text-[17px] leading-relaxed text-text">{d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="container-site section-y" data-animate>
+    <h2 class="title-section font-semibold">Nuestro Compromiso con la Calidad</h2>
+    <p class="prose-measure mt-6 text-[17px] leading-relaxed text-text">Operamos bajo protocolos de bioseguridad y esterilización, además de procesos clínicos estandarizados, con formación continua de nuestro equipo y una cultura de mejora permanente centrada en la seguridad del paciente. Contamos con un sistema de expediente clínico electrónico que estandariza el registro de cada consulta y sienta la base de datos clínicos propios necesarios para futura investigación.</p>
+    <p class="mt-8 text-[17px] font-semibold text-primary">Conocé al equipo detrás de este criterio clínico</p>
+    <Button href="/nuestros-especialistas/" variant="primary" shape="rounded" caps={false} class="mt-4">Nuestros Especialistas</Button>
+  </section>
+
+  <BackHome />
+  <ContactSection address={site.addresses.empresa} />
+</Base>

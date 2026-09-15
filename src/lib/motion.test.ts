@@ -1,53 +1,51 @@
 import { describe, expect, it, vi } from 'vitest';
-import { initMotion } from './motion';
+import { initMotion, SELECTORES } from './motion';
 
-function fakeRoot(selectores: Record<string, unknown[]> = {}): ParentNode {
-  return {
-    querySelector: (s: string) => (selectores[s]?.[0] ?? null),
-    querySelectorAll: (s: string) => (selectores[s] ?? []),
-  } as unknown as ParentNode;
+function entorno(elementos: Element[], reducedMotion = false) {
+  const flag = { classList: { add: vi.fn() } };
+  const observados: Element[] = [];
+  let disparar: (el: Element) => void = () => {};
+  const env = {
+    reducedMotion,
+    flag,
+    root: { querySelectorAll: (s: string) => (s === SELECTORES ? elementos : []) } as unknown as ParentNode,
+    observe: (onEnter: (el: Element) => void) => {
+      disparar = onEnter;
+      return { observe: (el: Element) => observados.push(el) };
+    },
+  };
+  return { env, flag, observados, entrar: (el: Element) => disparar(el) };
 }
 
-const gsap = () => ({ registerPlugin: vi.fn(), fromTo: vi.fn() });
+const bloque = () => ({ classList: { add: vi.fn() } }) as unknown as Element;
 
 describe('initMotion', () => {
-  it('no carga GSAP si el usuario pidió menos movimiento', async () => {
-    const load = vi.fn();
-    expect(await initMotion({ reducedMotion: true, load, root: fakeRoot() })).toBe(false);
-    expect(load).not.toHaveBeenCalled();
+  it('con "reducir movimiento" no esconde nada ni observa nada', () => {
+    const { env, flag, observados } = entorno([bloque(), bloque()], true);
+    expect(initMotion(env)).toBe(0);
+    expect(flag.classList.add).not.toHaveBeenCalled();
+    expect(observados).toHaveLength(0);
   });
 
-  it('si GSAP no carga, no revienta la página', async () => {
-    const load = vi.fn().mockRejectedValue(new Error('offline'));
-    expect(await initMotion({ reducedMotion: false, load, root: fakeRoot() })).toBe(false);
+  it('solo marca la página como animable si hay algo que animar', () => {
+    const { env, flag } = entorno([]);
+    expect(initMotion(env)).toBe(0);
+    expect(flag.classList.add).not.toHaveBeenCalled();
   });
 
-  it('anima el hero, las imágenes de sección y los bloques marcados', async () => {
-    const g = gsap();
-    const root = fakeRoot({
-      '[data-parallax] img': ['hero'],
-      '[data-reveal-media] img': ['img1', 'img2'],
-      '[data-animate]': ['bloque'],
-    });
-    const ok = await initMotion({
-      reducedMotion: false,
-      load: async () => ({ gsap: g, ScrollTrigger: {} }),
-      root,
-    });
-    expect(ok).toBe(true);
-    expect(g.registerPlugin).toHaveBeenCalledOnce();
-    expect(g.fromTo).toHaveBeenCalledTimes(4);
+  it('esconde solo después de tomar el control, y observa cada bloque', () => {
+    const elementos = [bloque(), bloque(), bloque()];
+    const { env, flag, observados } = entorno(elementos);
+    expect(initMotion(env)).toBe(3);
+    expect(flag.classList.add).toHaveBeenCalledWith('motion-ready');
+    expect(observados).toEqual(elementos);
   });
 
-  it('un bloque que aparece arranca en opacidad 0 y termina en 1', async () => {
-    const g = gsap();
-    await initMotion({
-      reducedMotion: false,
-      load: async () => ({ gsap: g, ScrollTrigger: {} }),
-      root: fakeRoot({ '[data-animate]': ['bloque'] }),
-    });
-    const [, desde, hasta] = g.fromTo.mock.calls[0];
-    expect(desde).toMatchObject({ opacity: 0 });
-    expect(hasta).toMatchObject({ opacity: 1 });
+  it('revela el bloque cuando entra a la vista', () => {
+    const el = bloque();
+    const { env, entrar } = entorno([el]);
+    initMotion(env);
+    entrar(el);
+    expect(el.classList.add).toHaveBeenCalledWith('is-visible');
   });
 });

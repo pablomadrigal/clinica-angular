@@ -55,17 +55,13 @@ const ogImageUrl = new URL(ogImageSrc, site.url).href;
     <Footer />
     <WhatsAppButton />
     <script>
-      import { initMotion, prefersReducedMotion } from '../lib/motion';
+      import { browserObserver, initMotion, prefersReducedMotion } from '../lib/motion';
 
-      // GSAP se baja solo si de verdad se va a usar: ni con "reducir movimiento" ni en un
-      // navegador sin JS se descarga la librería.
       initMotion({
         reducedMotion: prefersReducedMotion(),
         root: document,
-        load: async () => {
-          const [{ gsap }, { ScrollTrigger }] = await Promise.all([import('gsap'), import('gsap/ScrollTrigger')]);
-          return { gsap, ScrollTrigger };
-        },
+        flag: document.documentElement,
+        observe: browserObserver,
       });
     </script>
   </body>

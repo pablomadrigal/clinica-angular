@@ -114,3 +114,29 @@
 
 /* Ritmo vertical de sección del rediseño. */
 @utility section-y { padding-block: clamp(3rem, 8vw, 6.5rem); }
+
+/* Apariciones al hacer scroll. `motion-ready` la pone src/lib/motion.ts, así que sin
+   JavaScript —o con "reducir movimiento"— nada de esto aplica y la página se ve completa. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ready [data-animate] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .motion-ready [data-animate].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  /* La imagen "respira": entra un poco ampliada y se asienta. Si algo falla queda apenas
+     más grande, que es un fallo invisible. */
+  .motion-ready [data-reveal-media] {
+    overflow: hidden;
+  }
+  .motion-ready [data-reveal-media] img {
+    transform: scale(1.08);
+    transition: transform 1.4s ease-out;
+  }
+  .motion-ready [data-reveal-media].is-visible img {
+    transform: none;
+  }
+}

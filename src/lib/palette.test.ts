@@ -19,6 +19,7 @@ const pares: [nombre: string, texto: string, fondo: string, minimo: number][] = 
   ['título sobre blanco', palette['primary-dark'], white, AA_NORMAL],
   ['enlace sobre crema', palette.primary, palette.bg, AA_NORMAL],
   ['enlace sobre blanco', palette.primary, white, AA_NORMAL],
+  ['enlace sobre lila', palette.primary, palette['bg-alt'], AA_NORMAL],
   ['blanco sobre púrpura', white, palette.primary, AA_NORMAL],
   ['blanco sobre púrpura oscuro', white, palette['primary-dark'], AA_NORMAL],
   ['pie de página sobre tinta', palette['muted-invert'], palette.text, AA_NORMAL],
