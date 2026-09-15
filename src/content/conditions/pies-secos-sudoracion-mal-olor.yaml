@@ -1,0 +1,29 @@
+title: "Pies secos, sudoración excesiva, mal olor"
+slug: pies-secos-sudoracion-mal-olor
+service: podologia
+menuLabel: "Pies secos y sudoración"
+order: 11
+seoTitle: "Pies secos, sudoración excesiva, mal olor - Clínica Angular"
+hero:
+  image: ../../assets/f.elconfidencial.com_original_5a3_c60_75b_5a3c6075be36935033b52be15b321f38.jpg
+  subheading: "- Anhidrosis, hiperhidrosis y bromodosis -"
+  lead:
+    - "La piel seca o anhidrosis es la disminución o ausencia de sudoración ante estímulos de esfuerzo, estrés o calor. Entre los factores más comunes son las enfermedades neurológicas, enfermedades de las glándulas sudoríparas, pie diabético, deshidratación, entre otros."
+    - "La sudación excesiva llamada hiperhidrosis es una condición en la cual el cuerpo produce un volumen de sudor desproporcional a las necesidades fisiológicas para la regulación de la temperatura corporal, es decir, el paciente suda mucho y sin razón. El sudor es producido por las glándulas sudoríparas, que son glándulas que se encuentran en las capas internas de la piel (dermis), comunicándose con la capa más superficial (epidermis) a través de micro ductos que desembocan en los poros de nuestra piel."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "El podólogo hace una valoración integral de las causas de estos padecimientos para la elección del tratamiento indicado:"
+      - "✓ Productos dermatológicos tópicos"
+      - "✓ Recomendaciones sobre el calzado, calcetines e higiene."
+      - "✓ Recomendaciones alimenticias"
+      - "✓ Referencia en caso necesario"
+faq: []
+evidence: []
+related:
+  - hongos-unas-onicomicosis
+  - callos-y-durezas
+  - pie-geriatrico

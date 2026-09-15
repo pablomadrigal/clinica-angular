@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import BackHome from '../components/BackHome.astro';
+import ContactSection from '../components/ContactSection.astro';
+import cube from '../assets/Cube4conombra_d37fe5ad-f6f0-4952-9c6f-e24dd9420413_740x.webp';
+import pion from '../assets/Captura-de-pantalla-2026-03-16-121826.png';
+import { site } from '../data/site';
+import { breadcrumb, medicalWebPage } from '../lib/schema';
+
+// Índice de tecnologías. /k-laser/ y /laser-pion/ NO se mueven (spec: no romper enlaces
+// existentes); esta página solo las presenta y enlaza. Las descripciones son un extracto
+// literal del texto de cada una de esas dos páginas, no redacción nueva.
+const equipos = [
+  {
+    title: 'K-Laser Cube 4',
+    href: '/k-laser/',
+    image: cube,
+    text: 'El K-Laser Cube es un equipo multiláser, capaz de aplicar longitudes de onda diferentes, permitiendo realizar tratamientos en distintos campos de la podología, tanto bioestimulativos y de tratamiento del dolor (talalgias, espolón calcáreo, fascitis plantar, esguinces), de cicatrización de heridas (pie diabético, úlceras, tratamientos post-quirúrgicos) y tratamientos térmicos de onicomicosis y verrugas plantares.',
+  },
+  {
+    title: 'Láser Pion',
+    href: '/laser-pion/',
+    image: pion,
+    text: 'El láser Pioon de diodo para podología es una herramienta versátil de 3ª generación de alta potencia (hasta 10-15W) usada para tratar onicomicosis, verrugas plantares, helomas y aliviar dolores como la fascitis plantar. Proporciona tratamientos no invasivos, rápidos e indoloros, utilizando fototermólisis para eliminar patógenos sin dañar tejidos sanos.',
+  },
+];
+
+const description =
+  'Tecnología médica de Clínica Angular: terapia láser de alta potencia con K-Laser Cube 4 y láser Pion para onicomicosis, verrugas plantares, heridas y dolor.';
+const schema = [
+  medicalWebPage({ name: 'Tecnologías', description, url: '/tecnologias/' }),
+  breadcrumb([
+    { name: 'Inicio', url: '/' },
+    { name: 'Tecnologías', url: '/tecnologias/' },
+  ]),
+];
+---
+<Base title="Tecnologías - Clínica Angular" description={description} schema={schema}>
+  <section class="container-site section-y">
+    <div data-animate>
+      <p class="text-[15px] font-bold uppercase tracking-[0.1em] text-accent-text">Tecnología de avanzada</p>
+      <h1 class="mt-3 title-hero font-semibold">Tecnologías</h1>
+      <p class="prose-measure mt-6 text-[17px] leading-relaxed text-text">Nuestro modelo de atención integra tecnología diagnóstica y terapéutica de última generación, incluyendo terapia láser de alta potencia. Conozca los dos equipos con los que tratamos onicomicosis, verrugas plantares, heridas y dolor.</p>
+    </div>
+    <div class="mt-12 grid gap-8 md:grid-cols-2">
+      {equipos.map((e) => (
+        <article class="flex flex-col rounded-panel border border-border bg-white p-7 shadow-soft" data-animate>
+          <div data-reveal-media>
+            <Image src={e.image} alt={e.title} width={640} class="mx-auto w-full max-w-[380px] rounded-card object-contain" />
+          </div>
+          <h2 class="mt-6 title-card font-semibold">{e.title}</h2>
+          <p class="mt-3 text-[17px] leading-relaxed text-text">{e.text}</p>
+          <Button href={e.href} variant="primary" shape="rounded" caps={false} class="mt-6 self-start">Más información</Button>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <BackHome />
+  <ContactSection address={site.addresses.kLaser} />
+</Base>

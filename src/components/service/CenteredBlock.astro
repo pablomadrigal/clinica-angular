@@ -21,15 +21,20 @@ const {
   heading,
   image,
   imageAlt = heading ?? '',
-  imageClass = 'mb-6 w-full max-w-[420px] rounded-2xl object-cover',
+  imageClass = 'mb-6 w-full max-w-[420px] rounded-card object-cover shadow-soft',
   bg = 'white',
   showChat = false,
   showAppointment = false,
 } = Astro.props;
 ---
-<div class:list={['flex flex-col items-center px-5 py-10 text-center sm:px-10 md:px-14 md:py-14', bg === 'purple' && 'bg-primary text-white']}>
-  {heading && <h3 class="mb-6 text-[20px] font-bold text-accent md:text-[24px]" set:html={nl2br(heading)} />}
-  {image && <Image src={image} alt={imageAlt} width={640} height={480} class={imageClass} />}
+<div class:list={['flex flex-col items-center px-5 py-12 text-center sm:px-10 md:px-14', bg === 'purple' && 'bg-primary text-white']} data-animate>
+  {/* Sobre púrpura el dorado va en su versión clara: `accent-text` no pasa AA ahí. */}
+  {heading && <h3 class:list={['mb-6 title-card font-semibold', bg === 'purple' ? 'text-accent-light' : 'text-accent-text']} set:html={nl2br(heading)} />}
+  {image && (
+    <div data-reveal-media>
+      <Image src={image} alt={imageAlt} width={640} height={480} class={imageClass} />
+    </div>
+  )}
   <slot />
   <ActionButtons showChat={showChat} showAppointment={showAppointment} class="mt-6" />
 </div>

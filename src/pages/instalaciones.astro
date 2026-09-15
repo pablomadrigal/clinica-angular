@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import BackHome from '../components/BackHome.astro';
+import ContactSection from '../components/ContactSection.astro';
+import fachada from '../assets/WhatsApp-Image-2025-08-03-at-22.09.53-e1764877128450.jpeg';
+import { site } from '../data/site';
+import { breadcrumb, medicalWebPage } from '../lib/schema';
+
+// PENDIENTE: SESIÓN DE FOTOS.
+// De las 91 imágenes de src/assets, la fachada es la única del edificio, así que esta página
+// lleva una sola foto y va a verse escueta: es el estado real del material, no un defecto de
+// la implementación. NO rellenar con placeholders ni con fotos de otra cosa.
+// (Ojo: `consultorio.jpg` NO es un consultorio — es el retrato de la Dra. Milagro Quesada,
+// que usa `src/content/specialists/milagro-quesada.yaml`. El nombre del archivo miente.)
+// Cuando exista la sesión de fotos, agregar una galería (recepción, sala de espera, área de
+// esterilización, consultorios, parqueo y rampa de acceso) debajo del bloque de áreas.
+//
+// Todo el texto sale de material declarado por la clínica: los 400 m² y las cinco disciplinas
+// de `site.stats`, y la accesibilidad (Ley 7600, rampa, servicio sanitario adaptado, parqueo
+// para 8 vehículos) del entregable de agosto. No se inventan áreas que no estén ahí.
+const areas = [
+  'Podología clínica',
+  'Tratamiento avanzado de heridas',
+  'Fisioterapia',
+  'Psicología',
+  'Medicina general',
+];
+
+const description =
+  'Las instalaciones de Clínica Angular: 400 m² propios en Guadalupe, San José, accesibles según la Ley 7600, con bioseguridad estricta y cinco disciplinas bajo un mismo techo.';
+const schema = [
+  medicalWebPage({ name: 'Instalaciones', description, url: '/instalaciones/' }),
+  breadcrumb([
+    { name: 'Inicio', url: '/' },
+    { name: 'Instalaciones', url: '/instalaciones/' },
+  ]),
+];
+---
+<Base title="Instalaciones - Clínica Angular" description={description} schema={schema}>
+  <section class="container-site section-y grid items-center gap-10 md:grid-cols-2">
+    <div data-animate>
+      <p class="text-[15px] font-bold uppercase tracking-[0.1em] text-accent-text">Instalaciones</p>
+      <h1 class="mt-3 title-hero font-semibold">400 m² diseñados para el cuidado integral del pie</h1>
+      <p class="prose-measure mt-6 text-[17px] leading-relaxed text-text">Nuestras instalaciones son propias, accesibles y están equipadas para atender bajo un mismo techo las cinco disciplinas de la clínica. Operamos con protocolos de bioseguridad y esterilización en todas las áreas de atención.</p>
+    </div>
+    <div data-reveal-media>
+      <Image src={fachada} alt="Fachada de Clínica Angular en Guadalupe, con rampa de acceso" width={640} height={430} class="w-full rounded-panel object-cover shadow-lift" />
+    </div>
+  </section>
+
+  <section class="bg-bg-alt section-y">
+    <div class="container-site" data-animate>
+      <h2 class="title-section font-semibold">Cinco disciplinas bajo un mismo techo</h2>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {areas.map((a) => (
+          <li class="rounded-card bg-white px-6 py-5 text-[17px] font-semibold text-primary shadow-soft">{a}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="container-site section-y" data-animate>
+    <h2 class="title-section font-semibold">Accesibilidad y parqueo</h2>
+    <p class="prose-measure mt-6 text-[17px] leading-relaxed text-text">Las instalaciones son conformes a la Ley 7600: cuentan con rampa de acceso y servicio sanitario adaptado. Hay parqueo para 8 vehículos.</p>
+    <dl class="mt-8 grid gap-6 sm:grid-cols-2">
+      <div class="rounded-card border border-border bg-white p-6 shadow-soft">
+        <dt class="text-[15px] font-bold uppercase tracking-[0.1em] text-accent-text">Dirección</dt>
+        <dd class="mt-2 text-[17px] leading-relaxed text-text">{site.addresses.empresa}</dd>
+      </div>
+      <div class="rounded-card border border-border bg-white p-6 shadow-soft">
+        <dt class="text-[15px] font-bold uppercase tracking-[0.1em] text-accent-text">Horario</dt>
+        <dd class="mt-2 text-[17px] leading-relaxed text-text">
+          {site.hoursLong.map((h) => <span class="block">{h}</span>)}
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <BackHome />
+  <ContactSection address={site.addresses.empresa} />
+</Base>

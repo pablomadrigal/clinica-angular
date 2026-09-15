@@ -1,0 +1,37 @@
+title: "Pie diabético"
+slug: pie-diabetico
+service: podologia
+menuLabel: "Pie diabético"
+order: 3
+seoTitle: "Pie diabético - Clínica Angular"
+hero:
+  image: ../../assets/WhatsApp-Image-2024-02-26-at-22.29.08.jpg
+  lead:
+    - "El “pie diabético” aparece cuando existen niveles inadecuados de glucosa en sangre por un tiempo prolongado, que se unen con otros factores, entre ellos la mala circulación y la pérdida de la sensibilidad en el pie. El conjunto de estos factores más, deformidad en el pie, calzado inadecuado o una lesión, pueden conllevar a la aparición o desarrollo de ulceraciones. Esto se conoce como “pie diabético”. La ulceración en la persona que vive con diabetes puede conllevar a complicaciones severas como la amputación."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: Tratamiento Preventivo en Diabéticos
+    body:
+      - "Valoración integral podológica para la prevención de pie diabético"
+  - title: "Tratamiento del “Pie diabético”"
+    body:
+      - "Tratamiento de úlceras en los pies de personas que viven con diabetes utilizando diferentes tecnologías como:"
+      - "✓ Ozonoterapia"
+      - "✓ Apósitos inteligentes"
+      - "✓ Curación avanzada"
+      - "✓ Plasma rico en plaquetas"
+      - "✓ Tecarterapia"
+  - title: Plantillas personalizadas para personas con diabetes
+    body:
+      - "Se realiza un estudio digitalizado de los puntos de mayor presión plantar, para diseñar la plantilla con descargas de presión."
+  - title: Calzado para diabéticos
+    body:
+      - "Ofrecemos diferentes tipos de calzado terapéutico para personas que viven con diabetes"
+faq: []
+evidence: []
+related:
+  - heridas-cronicas
+  - pie-geriatrico
+  - callos-y-durezas

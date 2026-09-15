@@ -1,0 +1,33 @@
+title: "Heridas y úlceras"
+slug: heridas-cronicas
+service: podologia
+menuLabel: "Heridas y úlceras"
+order: 5
+seoTitle: "Heridas y úlceras - Clínica Angular"
+hero:
+  image: ../../assets/WhatsApp-Image-2024-02-26-at-22.26.29.jpg
+  lead:
+    - "Las heridas a tratar son úlceras venosas, arteriales y mixtas úlceras en pie diabético. úlceras por encamamiento y humedad heridas quirúrgicas complejas que no curan tales como, dehiscencia de suturas, absceso de pared, hematoma y seroma post quirúrgica. También se tratan heridas traumáticas y quemaduras de 1 y 2 grado."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "Según la naturaleza de la herida se elige:"
+      - "✓ Curación avanzada de herida"
+      - "✓ Uso de apósitos bioactivos"
+      - "✓ Desbridamiento manual y/o ultrasónico"
+      - "✓ Plasma rico en plaquetas"
+      - "✓ Plasma rico en fibrina y leucocitos"
+      - "✓ Ozono terapia"
+      - "✓ Corrientes eléctricas,"
+      - "✓ Diatermia"
+      - "✓ Oscilaciones profundas"
+      - "✓ Terapia láser"
+faq: []
+evidence: []
+related:
+  - pie-diabetico
+  - pie-geriatrico
+  - callos-y-durezas

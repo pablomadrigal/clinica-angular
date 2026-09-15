@@ -1,0 +1,28 @@
+title: "Alteraciones biomecánicas de la marcha"
+slug: alteraciones-biomecanicas-marcha
+service: podologia
+menuLabel: "Alteraciones biomecánicas"
+order: 12
+seoTitle: "Alteraciones biomecánicas de la marcha - Clínica Angular"
+hero:
+  image: ../../assets/pie-cavo.jpg
+  lead:
+    - "La biomecánica aborda el estudio de la pisada y la corrección de deformidades de la misma mediante la indicación y confección de plantillas personalizadas. Se indican en personas con alteración biomecánica del pie o por posturas inadecuadas o por tener el pie cabo, pie plano, equino, para personas con amputación o con enfermedades neurodegenerativas que alteran el patrón de la marcha."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "✓ Valoración en estática o en camilla"
+      - "✓ Valoración dinámica en una plataforma digital conocida como Baropodómetro"
+      - "✓ Escaneo del pie"
+      - "✓ Confección de plantillas personalizadas"
+      - "✓ Además, confección de correctores, separadores y protectores digitales."
+      - "✓ Rehabilitación y ejercicios."
+faq: []
+evidence: []
+related:
+  - fascitis-plantar
+  - enfermedades-ortopodologicas
+  - callos-y-durezas

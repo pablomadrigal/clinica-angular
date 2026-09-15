@@ -7,7 +7,7 @@ import { Image } from 'astro:assets';
 interface Props { label: string; href: string; image: ImageMetadata | undefined }
 const { label, href, image } = Astro.props;
 ---
-<a href={href} class="group block">
+<a href={href} class="group block overflow-hidden rounded-card bg-white shadow-soft transition-shadow hover:shadow-lift">
   {image && <Image src={image} alt={label} width={600} height={400} class="aspect-[3/2] w-full object-cover" />}
-  <h2 class="mt-4 text-center text-[18px] font-semibold text-primary group-hover:text-accent-dark">{label}</h2>
+  <h2 class="title-card px-4 py-5 text-center font-semibold text-primary group-hover:text-accent-text">{label}</h2>
 </a>

@@ -1,0 +1,26 @@
+---
+// Preguntas frecuentes con <details> nativo: se abre sin JavaScript y es accesible de fábrica.
+// No pinta nada si no hay preguntas.
+interface Props { items: { question: string; answer: string }[] }
+const { items } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="section-y bg-bg-alt">
+    <div class="container-site" data-animate>
+      <h2 class="title-section">Preguntas frecuentes</h2>
+      <div class="mt-8 space-y-3">
+        {items.map((f) => (
+          <details class="group rounded-card border border-border bg-white px-6 py-4 shadow-soft">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-primary-dark">
+              {f.question}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5 shrink-0 text-accent-text transition-transform group-open:rotate-45" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+              </svg>
+            </summary>
+            <p class="prose-measure mt-3">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

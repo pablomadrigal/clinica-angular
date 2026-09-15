@@ -1,0 +1,45 @@
+---
+// Respaldo científico. Solo se pinta lo que aporta la clínica: si `items` viene vacío, la
+// sección entera desaparece (no hay "sin evidencia disponible" ni encabezado huérfano).
+interface Props { items: { claim: string; level: 'strong' | 'mixed' | 'clinical'; source: string }[] }
+const { items } = Astro.props;
+
+// Clases completas y literales: Tailwind escanea el archivo, un nombre armado por concatenación
+// no se generaría. Cada par fondo/texto está en src/lib/palette.test.ts.
+const NIVEL = {
+  strong: { etiqueta: 'Evidencia sólida', clase: 'bg-evidence-strong-bg text-evidence-strong' },
+  mixed: { etiqueta: 'Evidencia mixta', clase: 'bg-evidence-mixed-bg text-evidence-mixed' },
+  clinical: { etiqueta: 'Manejo clínico', clase: 'bg-evidence-clinical-bg text-evidence-clinical' },
+} as const;
+---
+{items.length > 0 && (
+  <section class="section-y">
+    <div class="container-site" data-animate>
+      <h2 class="title-section">Respaldo científico</h2>
+      <div class="mt-8 overflow-x-auto">
+        <table class="w-full min-w-[640px] border-collapse text-left">
+          <thead>
+            <tr class="border-b-2 border-border">
+              <th scope="col" class="py-3 pr-4 font-semibold text-primary-dark">Afirmación</th>
+              <th scope="col" class="py-3 pr-4 font-semibold text-primary-dark">Nivel</th>
+              <th scope="col" class="py-3 font-semibold text-primary-dark">Fuente</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((e) => (
+              <tr class="border-b border-border align-top">
+                <td class="py-4 pr-4">{e.claim}</td>
+                <td class="py-4 pr-4">
+                  <span class:list={['inline-block rounded-full px-3 py-1 text-[15px] font-semibold', NIVEL[e.level].clase]}>
+                    {NIVEL[e.level].etiqueta}
+                  </span>
+                </td>
+                <td class="py-4 text-[16px] text-muted">{e.source}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+)}

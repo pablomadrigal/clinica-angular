@@ -1,0 +1,29 @@
+# PENDIENTE: el texto de origen describe otro padecimiento; espera material del Dr. Madrigal.
+title: "Fascitis plantar"
+slug: fascitis-plantar
+service: podologia
+menuLabel: "Fascitis plantar"
+order: 4
+seoTitle: "Fascitis plantar - Clínica Angular"
+hero:
+  image: ../../assets/dolor-fascitis-plantar.jpg
+  lead:
+    - "La uña incarnada se presenta cuando el borde de la uña se incrusta dentro del borde interno o externo del dedo del pie, ocasionando dolor, enrojecimiento e inflamación en el borde de la uña. Los factores más contribuyentes son el calzado mal ajustado, inadecuado corte de uñas, presión adicional provocada por algunas deformidades del pie o de los dedos, el sobrepeso o la obesidad. Algunos tipos de deporte y algunos tipos de trabajo, ayudan al desarrollo de la fascitis plantar."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "Durante la cita de valoración nuestro profesional en Podología Clínica determina cual/es de las siguientes técnica/s se utilizará según sea su problema de salud:"
+      - "✓ Cambio del calzado"
+      - "✓ Estudio de la pisada y de la biomecánica del pie"
+      - "✓ Confección de plantillas personalizadas, y/o"
+      - "✓ Tratamiento de fisioterapia para la reducción de la fascitis plantar"
+      - "✓ Se brindan ejercicios y recomendaciones inmediatas para el hogar."
+faq: []
+evidence: []
+related:
+  - alteraciones-biomecanicas-marcha
+  - enfermedades-ortopodologicas
+  - callos-y-durezas

@@ -1,0 +1,28 @@
+title: "Enfermedades ortopodológicas"
+slug: enfermedades-ortopodologicas
+service: podologia
+menuLabel: "Enfermedades ortopodológicas"
+order: 7
+seoTitle: "Enfermedades ortopodológicas - Clínica Angular"
+hero:
+  image: ../../assets/images_2023_01_21_55114416__l-copy.jpg
+  subheading: "- Deformidades en dedos y pies -"
+  lead:
+    - "Alteración en la estructura ósea o articular de los dedos del pie, que se puede deber a causas congénitas, de biomecánica, por enfermedades deformantes como la diabetes o la artritis, o al uso de calzado inadecuado. Casos tales como dedos en garra, dedos en martillo, dedos en mazo, dedos supra ductos o infraductos y juanetes."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "✓ Confección personalizada de ortesis de silicón"
+      - "✓ Uso de otros materiales ortésicos"
+      - "✓ Calzadoterapiao"
+      - "✓ Estudio de la biomecánica en nuestro laboratorio de pisada"
+      - "✓ Confección de plantillas personalizadas"
+faq: []
+evidence: []
+related:
+  - alteraciones-biomecanicas-marcha
+  - callos-y-durezas
+  - fascitis-plantar

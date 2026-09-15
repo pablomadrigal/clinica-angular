@@ -1,0 +1,28 @@
+title: "Callos y durezas"
+slug: callos-y-durezas
+service: podologia
+menuLabel: "Callos y durezas"
+order: 10
+seoTitle: "Callos y durezas - Clínica Angular"
+hero:
+  image: ../../assets/pie.jpg
+  lead:
+    - "Nos referimos a las durezas como hiperqueratosis, las cuales son una lesión que consiste en el engrosamiento de la capa externa de la piel compuesta por queratina. La hiperqueratosis en forma de callosidad se desarrolla en la piel como método de defensa frente a una irritación, presión, fricción, inflamación, infección, condiciones externas no beneficiosas para la piel, etc.Los helomas (callosidades) son lesiones hiperqueratósicas (engrosamiento de capada de queratina), en circunferencia que crecen hacia dentro y en forma de clavo. Aparecen cuando un área de piel recibe una presión excesiva por parte del hueso y del calzado."
+    - "Los helomas se pueden producir por un calzado inadecuado, que no tenga la capacidad interna necesaria que el pie necesita. También existen otros desencadenantes como la alteración biomecánica del pie, que puede conducir a la aparición de zonas de hiperpresión. Es importante la atención a los pacientes diabéticos ya que en estos pacientes los helomas tienden a producir incluso úlceras en el pie."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "✓ Quiropodia: eliminación de los callos y las durezas"
+      - "con técnica podológica"
+      - "✓ Aplicación de productos queratolíticos (cremas)"
+      - "✓ Calzadoterapia"
+      - "✓ Educación y reducción de factores de riesgo"
+faq: []
+evidence: []
+related:
+  - enfermedades-ortopodologicas
+  - alteraciones-biomecanicas-marcha
+  - pie-diabetico

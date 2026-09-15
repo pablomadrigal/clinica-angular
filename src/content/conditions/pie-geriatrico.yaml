@@ -1,0 +1,29 @@
+title: "Pie geriátrico"
+slug: pie-geriatrico
+service: podologia
+menuLabel: "Pie geriátrico"
+order: 8
+seoTitle: "Pie geriátrico - Clínica Angular"
+hero:
+  image: ../../assets/podologia_geriatrico_perdidas.jpg
+  lead:
+    - "Durante toda nuestra vida los pies están sometidos a constantes estímulos de presión por el peso del cuerpo, provocando alteraciones vasculares y articulares, esto se traduce con el paso del tiempo en la aparición de callosidades y deformidades de los dedos."
+    - "Así mismo los efectos de posibles enfermedades congénitas, el envejecimiento y el estrés provocado por las ocupaciones a lo largo de la vida contribuyen a la aparición de alteraciones dermatológicas tal como la onicogrifosis que consiste en engrosamiento o deformidad de las uñas. La alteraciones estructurales consisten en deformidades de los dedos, los más comunes son los juanetes y los dedos en garra."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: "Tratamiento:"
+    body:
+      - "✓ Valoración integral de la piel y de las articulaciones"
+      - "✓ Confección de soportes plantares o plantillas personalizadas para persona adulta mayor"
+      - "✓ Tratamiento de uñas gruesas o engrosadas para personas con pie geriátrico o personas adultas mayores"
+      - "✓ Confesión de aparatos ortésicos para mejorar el confort del pie en la persona adulta mayor"
+      - "✓ Indicación de productos dermatológicos."
+      - "✓ Recomendación calzado terapéutico para pie delicado"
+faq: []
+evidence: []
+related:
+  - heridas-cronicas
+  - pie-diabetico
+  - callos-y-durezas

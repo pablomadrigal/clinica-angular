@@ -32,7 +32,7 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
     <div class="flex items-center gap-2">
       <a
         href={site.phoneHref}
-        class="inline-flex h-11 items-center gap-2 rounded-full bg-white/15 px-4 text-[13px] font-semibold text-white active:bg-white/25"
+        class="inline-flex h-11 items-center gap-2 rounded-full bg-white/15 px-4 text-[14px] font-semibold text-white active:bg-white/25"
       >
         <Contact name="phone" class="h-4 w-4" />
         Llamar
@@ -41,7 +41,7 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
         href={CHAT_URL}
         target="_blank"
         rel="noopener"
-        class="inline-flex h-11 items-center gap-2 rounded-full bg-whatsapp px-4 text-[13px] font-semibold text-white active:brightness-95"
+        class="inline-flex h-11 items-center gap-2 rounded-full bg-whatsapp px-4 text-[14px] font-semibold text-text active:brightness-95"
       >
         <Contact name="whatsapp" class="h-4 w-4" />
         WhatsApp
@@ -63,8 +63,8 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
             <a
               href={item.href}
               class:list={[
-                'flex flex-1 items-center justify-between gap-1 px-5 py-4 text-[13px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-primary lg:px-[30px] lg:py-[18px] lg:text-[12px]',
-                isActive(item.href) && 'bg-accent text-primary',
+                'flex flex-1 items-center justify-between gap-1 px-5 py-4 text-[14px] font-medium uppercase tracking-wide transition-colors hover:bg-accent hover:text-text lg:px-4 lg:py-[18px] lg:text-[12.5px] xl:px-6',
+                isActive(item.href) && 'bg-accent text-text',
               ]}
               aria-haspopup={item.children ? 'true' : undefined}
             >
@@ -85,14 +85,14 @@ const isActive = (href: string) => href !== '#' && (href === '/' ? current === '
             )}
           </div>
           {item.children && (
-            <ul id={`submenu-${i}`} class="hidden bg-white text-primary lg:invisible lg:absolute lg:left-0 lg:top-full lg:block lg:min-w-[260px] lg:opacity-0 lg:shadow-lg lg:transition lg:group-hover:visible lg:group-hover:opacity-100 lg:group-focus-within:visible lg:group-focus-within:opacity-100">
+            <ul id={`submenu-${i}`} class="hidden bg-white text-primary lg:invisible lg:absolute lg:left-0 lg:top-full lg:block lg:min-w-[280px] lg:opacity-0 lg:shadow-lg lg:transition lg:group-hover:visible lg:group-hover:opacity-100 lg:group-focus-within:visible lg:group-focus-within:opacity-100">
               {item.children.map((c) => (
                 <li>
                   <a
                     href={c.href}
                     class:list={[
-                      'block border-b border-gray-100 py-4 pl-10 pr-5 text-[13px] font-medium hover:bg-accent lg:py-3 lg:pl-5 lg:text-[12px]',
-                      isActive(c.href) && 'bg-accent/40',
+                      'block border-b border-border py-4 pl-10 pr-5 text-[14px] font-medium text-text hover:bg-accent hover:text-text lg:py-3 lg:pl-5 lg:text-[13px]',
+                      isActive(c.href) && 'bg-bg-alt font-semibold',
                     ]}
                   >{c.label}</a>
                 </li>

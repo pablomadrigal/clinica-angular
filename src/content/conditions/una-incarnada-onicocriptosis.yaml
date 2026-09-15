@@ -1,0 +1,36 @@
+title: "Uña incarnada"
+slug: una-incarnada-onicocriptosis
+service: podologia
+menuLabel: "Uña incarnada"
+order: 2
+seoTitle: "Uña incarnada - Clínica Angular"
+hero:
+  image: ../../assets/unero-1.jpg
+  subheading: "- Onicocriptosis -"
+  lead:
+    - "La uña incarnada se presenta cuando el borde de la uña se incrusta dentro del borde interno o externo del dedo del pie, ocasionando dolor, enrojecimiento e inflamación en el borde de la uña. Los factores más contribuyentes son el calzado mal ajustado, inadecuado corte de uñas, presión adicional provocada por algunas deformidades del pie o de los dedos."
+symptoms: []
+causes: []
+diagnosis: []
+treatments:
+  - title: Tratamiento para la onicocriptosis
+    body:
+      - "Durante la cita de valoración nuestro profesional en Podología Clínica determina la técnica a utilizar según sea su problema de salud. Para el tratamiento recomendará alguno de los siguientes procedimientos:"
+  - title: "Ortonixia:"
+    body:
+      - "El podólogo puede colocar aparatos correctores, tipo frenillo en la uña que tiene tendencia a incarnarse, se utiliza en uña incarnada grado 1 y 2."
+  - title: "Espiculotomía:"
+    body:
+      - "Procedimiento que realiza el podólogo dónde retira el fragmento de la uña que está incarnada sin tocar la matriz."
+  - title: "Matricectomía:"
+    body:
+      - "Procedimiento que realiza el podólogo retirando el fragmento de la uña que está incarnada y aplicando cauterización química, para evitar que ese fragmento vuelva a crecer, este es un proceso indoloro."
+  - title: "Paroniquia:"
+    body:
+      - "El podólogo valora y dará tratamiento tópico o realizará procedimientos de retiro de espículas."
+faq: []
+evidence: []
+related:
+  - hongos-unas-onicomicosis
+  - traumatismo-de-unas
+  - enfermedades-ortopodologicas

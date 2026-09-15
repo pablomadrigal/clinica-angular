@@ -1,0 +1,58 @@
+---
+// Tratamientos heredados del bloque `treatments` de podologia.yaml. No pinta nada si viene vacío.
+import AppointmentButton from '../AppointmentButton.astro';
+
+interface Props { items: { title: string; body: string[] }[] }
+const { items } = Astro.props;
+
+// El YAML marca los ítems de checklist con "✓" al inicio y deja el resto como párrafo. Se agrupan
+// respetando el orden del origen: hay líneas de continuación sin "✓" en medio de una checklist.
+type Bloque = { tipo: 'p'; texto: string } | { tipo: 'ul'; items: string[] };
+function agrupar(body: string[]): Bloque[] {
+  const out: Bloque[] = [];
+  for (const linea of body) {
+    if (linea.startsWith('✓')) {
+      const ultimo = out[out.length - 1];
+      const texto = linea.replace(/^✓\s*/, '');
+      if (ultimo?.tipo === 'ul') ultimo.items.push(texto);
+      else out.push({ tipo: 'ul', items: [texto] });
+    } else {
+      out.push({ tipo: 'p', texto: linea });
+    }
+  }
+  return out;
+}
+---
+{items.length > 0 && (
+  <section class="section-y">
+    <div class="container-site" data-animate>
+      <h2 class="title-section">Tratamiento</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {items.map((it) => (
+          <article class="rounded-card border border-border bg-white p-6 shadow-soft md:p-8">
+            <h3 class="title-card">{it.title}</h3>
+            {agrupar(it.body).map((b) =>
+              b.tipo === 'p' ? (
+                <p class="mt-3">{b.texto}</p>
+              ) : (
+                <ul class="mt-3 space-y-2">
+                  {b.items.map((li) => (
+                    <li class="flex gap-3">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-1.5 h-5 w-5 shrink-0 text-accent-text" aria-hidden="true">
+                        <path d="m5 12.5 4.5 4.5L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      <span>{li}</span>
+                    </li>
+                  ))}
+                </ul>
+              ),
+            )}
+          </article>
+        ))}
+      </div>
+      <div class="mt-8 flex justify-center">
+        <AppointmentButton />
+      </div>
+    </div>
+  </section>
+)}

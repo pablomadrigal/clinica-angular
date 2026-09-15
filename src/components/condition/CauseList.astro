@@ -1,0 +1,20 @@
+---
+// Causas y factores de riesgo. No pinta nada si el array viene vacío.
+interface Props { items: string[] }
+const { items } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="section-y">
+    <div class="container-site" data-animate>
+      <h2 class="title-section">Causas y factores de riesgo</h2>
+      <ul class="prose-measure mt-6 space-y-3">
+        {items.map((s) => (
+          <li class="flex gap-3">
+            <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+            <span>{s}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

@@ -6,17 +6,20 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { site } from '../data/site';
+import { clinicGraph, graph } from '../lib/schema';
 
-// El sitio original no tiene meta description en ninguna página; se usa una genérica.
 interface Props {
   title: string;
   description?: string;
   ogImage?: ImageMetadata;
+  /** Nodos schema.org propios de la página (MedicalWebPage, FAQPage, BreadcrumbList…). */
+  schema?: unknown[];
 }
 const {
   title,
   description = 'Clínica Angular: podología clínica, tratamiento avanzado de heridas, fisioterapia, psicología y medicina general en Guadalupe, San José, Costa Rica.',
   ogImage,
+  schema = [],
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImageSrc = ogImage ? (await getImage({ src: ogImage, width: ogImage.width, height: ogImage.height })).src : '/favicon.png';
@@ -38,13 +41,28 @@ const ogImageUrl = new URL(ogImageSrc, site.url).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:locale" content="es_CR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={graph([...clinicGraph(), ...schema])} is:inline />
   </head>
-  <body class="min-h-screen bg-white">
-    <a href="#contenido" class="sr-only focus:not-sr-only">Omitir e ir al contenido</a>
+  <body class="min-h-screen bg-bg">
+    <a
+      href="#contenido"
+      class="sr-only rounded-field bg-white px-6 py-4 font-semibold text-primary shadow-lift focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]"
+    >Omitir e ir al contenido</a>
     <TopBar />
     <Header />
     <main id="contenido"><slot /></main>
     <Footer />
     <WhatsAppButton />
+    <script>
+      import { browserObserver, initMotion, prefersReducedMotion } from '../lib/motion';
+
+      initMotion({
+        reducedMotion: prefersReducedMotion(),
+        root: document,
+        flag: document.documentElement,
+        observe: browserObserver,
+      });
+    </script>
   </body>
 </html>
