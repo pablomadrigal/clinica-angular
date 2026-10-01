@@ -271,7 +271,7 @@
       "permanent": false
     },
     {
-      "source": "/especialidades/:path*",
+      "source": "/especialidades/:path(.*)",
       "destination": "/",
       "permanent": false
     }
