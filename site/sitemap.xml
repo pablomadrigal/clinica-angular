@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://angular.cr/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://angular.cr/nuestra-clinica/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://angular.cr/contactenos/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://angular.cr/hongos-unas-onicomicosis/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!--
+    NOTA: este sitemap contiene únicamente las páginas ya construidas en esta
+    primera fase. A medida que se agreguen las ~30 páginas restantes (servicios,
+    especialistas, tecnologías, blog) deben añadirse aquí. Si se usa Next.js/Astro,
+    se recomienda generar este archivo automáticamente (next-sitemap o integración
+    nativa de Astro) en vez de mantenerlo a mano.
+  -->
+</urlset>
