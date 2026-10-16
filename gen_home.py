@@ -104,7 +104,7 @@ BODY = f"""
 </section>
 
 <section>
-  <div class="container" style="display:grid; gap:2.5rem; grid-template-columns: 1.1fr 1fr; align-items:center;" data-animate>
+  <div class="container split" style="gap:2.5rem; align-items:center;" data-animate>
     <div>
       <span class="section-eyebrow">Nuestro equipo</span>
       <h2>Diez profesionales, una sola forma de trabajar</h2>
@@ -148,7 +148,7 @@ BODY = f"""
 </section>
 
 <section>
-  <div class="container" style="display:grid; gap:2.5rem; grid-template-columns:1fr 1.1fr; align-items:center;" data-animate>
+  <div class="container split" style="gap:2.5rem; align-items:center;" data-animate>
     <div class="reveal-media">
       <img src="/assets/img/instalaciones-plano.svg" alt="Plano de las instalaciones de 400 m² de Clínica Angular" loading="lazy">
     </div>
