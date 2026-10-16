@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import json, os
-from gen_common import page, DOMINIO
+import json
+from gen_common import page, DOMINIO, write_page
 
 SLUG = "/nuestra-clinica/"
-
 SCHEMA = f"""<script type="application/ld+json">
 {json.dumps({
   "@context": "https://schema.org",
@@ -29,7 +28,7 @@ BODY = """
 </section>
 
 <section class="bg-alt">
-  <div class="container" style="display:grid; gap:2rem; grid-template-columns:1fr 1fr;" data-animate>
+  <div class="container split" style="gap:2rem;" data-animate>
     <div>
       <h2>Nuestra Misión</h2>
       <p>Brindar atención especializada en podología clínica, tratamiento avanzado de heridas, biomecánica y salud integral del pie, mediante diagnósticos precisos, tratamientos personalizados y protocolos basados en evidencia, orientados a prevenir complicaciones, aliviar el dolor, restaurar la función y sostener la calidad de vida de cada paciente.</p>
@@ -93,9 +92,5 @@ HTML = page(
     schema_json=SCHEMA,
     active_path="/nuestra-clinica/",
 )
-
-os.makedirs("site/nuestra-clinica", exist_ok=True)
-with open("site/nuestra-clinica/index.html", "w", encoding="utf-8") as f:
-    f.write(HTML)
-
+write_page(SLUG, HTML)
 print("Nuestra Clínica generada.")

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Fachada de la clínica — foto real pendiente">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5b3a8f"/>
+      <stop offset="1" stop-color="#3c2763"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#g)"/>
+  <circle cx="984" cy="162" r="198" fill="#c9a24b" opacity="0.18"/>
+  <circle cx="144" cy="765" r="252" fill="#f4eff9" opacity="0.10"/>
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Georgia, serif" font-size="50" fill="#ffffff" opacity="0.92">Fachada de la clínica — foto real pendiente</text>
+  <text x="50%" y="531" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#c9a24b">Clínica Angular</text>
+</svg>
