@@ -66,123 +66,23 @@
       "permanent": true
     },
     {
-      "source": "/nuestros-especialistas",
-      "destination": "/nuestra-clinica/",
-      "permanent": false
-    },
-    {
-      "source": "/nuestros-especialistas/",
-      "destination": "/nuestra-clinica/",
-      "permanent": false
-    },
-    {
-      "source": "/instalaciones",
-      "destination": "/nuestra-clinica/",
-      "permanent": false
-    },
-    {
-      "source": "/instalaciones/",
-      "destination": "/nuestra-clinica/",
-      "permanent": false
-    },
-    {
-      "source": "/blog",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/blog/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/tecnologias",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/tecnologias/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/k-laser-cube-4",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/k-laser-cube-4/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
       "source": "/k-laser",
-      "destination": "/",
+      "destination": "/k-laser-cube-4/",
       "permanent": false
     },
     {
       "source": "/k-laser/",
-      "destination": "/",
+      "destination": "/k-laser-cube-4/",
       "permanent": false
     },
     {
       "source": "/laser-pion",
-      "destination": "/",
+      "destination": "/tecnologias/",
       "permanent": false
     },
     {
       "source": "/laser-pion/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/pie-diabetico",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/pie-diabetico/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/heridas-cronicas",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/heridas-cronicas/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/una-encarnada",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/una-encarnada/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/politica-de-privacidad",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/politica-de-privacidad/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/terminos",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/terminos/",
-      "destination": "/",
+      "destination": "/tecnologias/",
       "permanent": false
     },
     {
@@ -206,26 +106,6 @@
       "permanent": false
     },
     {
-      "source": "/fisioterapia",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/fisioterapia/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/medicina-general",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/medicina-general/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
       "source": "/pedicure-clinico",
       "destination": "/",
       "permanent": false
@@ -237,22 +117,22 @@
     },
     {
       "source": "/podologia",
-      "destination": "/",
+      "destination": "/especialidades/podologia/",
       "permanent": false
     },
     {
       "source": "/podologia/",
-      "destination": "/",
+      "destination": "/especialidades/podologia/",
       "permanent": false
     },
     {
       "source": "/psicologia",
-      "destination": "/",
+      "destination": "/psicologia-clinica/",
       "permanent": false
     },
     {
       "source": "/psicologia/",
-      "destination": "/",
+      "destination": "/psicologia-clinica/",
       "permanent": false
     },
     {
@@ -262,16 +142,6 @@
     },
     {
       "source": "/servicio-de-estetica/",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/especialidades",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/especialidades/:path(.*)",
       "destination": "/",
       "permanent": false
     }

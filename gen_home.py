@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
-from gen_common import page, wa_link, DOMINIO
+from gen_common import page, wa_link, DOMINIO, write_page
 
 SCHEMA = f"""<script type="application/ld+json">
 {json.dumps({
@@ -40,7 +40,7 @@ SCHEMA = f"""<script type="application/ld+json">
 </script>"""
 
 BODY = f"""
-<section class="hero">
+<section class="hero hero-tall">
   <div class="hero-media">
     <img src="/assets/img/hero-equipo.svg" alt="Equipo clínico de Clínica Angular durante una consulta de podología" loading="eager" fetchpriority="high">
   </div>
@@ -177,8 +177,5 @@ HTML = page(
     schema_json=SCHEMA,
     active_path="/",
 )
-
-with open("site/index.html", "w", encoding="utf-8") as f:
-    f.write(HTML)
-
+write_page("/", HTML)
 print("Home generada.")

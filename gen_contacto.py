@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
-from gen_common import page, wa_link, DOMINIO
+from gen_common import page, wa_link, DOMINIO, write_page
 
 SLUG = "/contactenos/"
 
@@ -42,12 +42,19 @@ BODY = f"""
           <label for="servicio">¿Qué servicio necesitás?</label>
           <select id="servicio" name="servicio" required>
             <option value="">Seleccioná un servicio</option>
-            <option value="onicomicosis">Hongos en las uñas (onicomicosis)</option>
+            <option value="hongos">Hongos en las uñas (onicomicosis)</option>
             <option value="una-encarnada">Uña encarnada</option>
+            <option value="verruga-plantar">Verruga plantar (VPH)</option>
+            <option value="deformidades">Deformidades en dedos y pies</option>
+            <option value="pie-geriatrico">Pie geriátrico</option>
+            <option value="pie-pediatrico">Pie pediátrico</option>
+            <option value="traumatismo-unas">Traumatismo de uñas</option>
+            <option value="callos-durezas">Callos y durezas</option>
+            <option value="pies-secos">Pies secos, sudoración y mal olor</option>
             <option value="pie-diabetico">Clínica de pie diabético</option>
-            <option value="heridas">Tratamiento avanzado de heridas</option>
+            <option value="heridas">Clínica de Heridas</option>
             <option value="fascitis">Fascitis plantar</option>
-            <option value="biomecanico">Estudio biomecánico / plantillas</option>
+            <option value="biomecanica">Estudio biomecánico / plantillas</option>
             <option value="psicologia">Psicología clínica</option>
             <option value="medicina-general">Medicina general</option>
             <option value="otro">Otro / no estoy seguro</option>
@@ -63,7 +70,7 @@ BODY = f"""
           <select id="profesional" name="profesional">
             <option value="">Sin preferencia — el equipo asigna según disponibilidad</option>
             <option value="dr-madrigal">Dr. Marvin Madrigal Chaves — Podología clínica</option>
-            <option value="dra-ruiz">Dra. Rebeca Ruiz — Podología y Fisioterapia</option>
+            <option value="dra-ruiz">Dra. Rebeca Ruiz — Podóloga y Fisioterapeuta</option>
           </select>
         </div>
         <div class="btn-row">
@@ -147,7 +154,7 @@ BODY = f"""
           <p id="resumen-cita" style="margin-top:.6rem; font-weight:600;"></p>
         </div>
         <h3>¿Cómo llegar?</h3>
-        <p>{ "Guadalupe, del Estadio Coyella Fonseca, 75 m oeste, San José, Costa Rica." }</p>
+        <p>Guadalupe, del Estadio Coyella Fonseca, 75 m oeste, San José, Costa Rica.</p>
         <h3>Instrucciones previas</h3>
         <p>Llegá 10 minutos antes de tu horario. Si tu consulta es de podología, no es necesario preparar nada especial; si es una primera valoración de heridas, traé estudios o imágenes previas si las tenés.</p>
         <div class="btn-row">
@@ -177,10 +184,7 @@ BODY = f"""
 </section>
 """
 
-EXTRA_HEAD = """<style>
-.step-pill{ background:#fff; border:1px solid var(--color-border); border-radius:999px; padding:.4rem 1rem; font-size:.85rem; font-weight:600; color:#6b5f80; }
-.step-pill.active{ background:var(--color-primary); color:#fff; border-color:var(--color-primary); }
-</style>"""
+EXTRA_HEAD = ""
 
 HTML = page(
     slug=SLUG,
@@ -192,10 +196,5 @@ HTML = page(
     extra_head=EXTRA_HEAD,
     extra_scripts='<script src="/assets/js/booking.js"></script>',
 )
-
-import os
-os.makedirs("site/contactenos", exist_ok=True)
-with open("site/contactenos/index.html", "w", encoding="utf-8") as f:
-    f.write(HTML)
-
-print("Página de contacto/agenda generada.")
+write_page(SLUG, HTML)
+print("Contáctenos generada.")

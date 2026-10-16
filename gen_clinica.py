@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import json, os
-from gen_common import page, DOMINIO
+import json
+from gen_common import page, DOMINIO, write_page
 
 SLUG = "/nuestra-clinica/"
-
 SCHEMA = f"""<script type="application/ld+json">
 {json.dumps({
   "@context": "https://schema.org",
@@ -93,9 +92,5 @@ HTML = page(
     schema_json=SCHEMA,
     active_path="/nuestra-clinica/",
 )
-
-os.makedirs("site/nuestra-clinica", exist_ok=True)
-with open("site/nuestra-clinica/index.html", "w", encoding="utf-8") as f:
-    f.write(HTML)
-
+write_page(SLUG, HTML)
 print("Nuestra Clínica generada.")
