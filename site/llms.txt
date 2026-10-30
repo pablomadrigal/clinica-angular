@@ -1,26 +1,57 @@
-# Clínica Angular
-> Clínica podológica y de tratamiento avanzado de heridas en San José,
-> Costa Rica, dirigida por el Dr. Marvin Madrigal Chaves.
+# Clínica Angular — angular.cr
+
+Clínica Angular es un centro especializado en podología clínica avanzada, pie diabético,
+tratamiento avanzado de heridas, fisioterapia, psicología clínica y medicina general,
+ubicado en Guadalupe, San José, Costa Rica. Más de 11 años de trayectoria clínica continua.
+
+Contacto: +(506) 2253-8303 · WhatsApp +(506) 8305-6444 · info@angular.cr
+
+## Páginas institucionales
+- https://angular.cr/
+- https://angular.cr/nuestra-clinica/
+- https://angular.cr/contactenos/
+- https://angular.cr/instalaciones/
 
 ## Especialidades
-- Podología clínica: onicomicosis, uña encarnada, verruga plantar,
-  pie diabético, pie geriátrico, pie pediátrico, callos y durezas
-- Curación avanzada de heridas y úlceras crónicas
-- Fisioterapia especializada
-- Psicología clínica
-- Medicina general
+- https://angular.cr/especialidades/
+- https://angular.cr/especialidades/podologia/
 
-## Páginas clave
-- /pie-diabetico/
-- /heridas-cronicas/
-- /k-laser-cube-4/
-- /sobre-el-dr-madrigal/
+## Podología (servicios individuales)
+- https://angular.cr/hongos-unas-onicomicosis/
+- https://angular.cr/una-encarnada/
+- https://angular.cr/verruga-plantar-vph/
+- https://angular.cr/deformidades-dedos-pies/
+- https://angular.cr/pie-geriatrico/
+- https://angular.cr/pie-pediatrico/
+- https://angular.cr/traumatismo-de-unas/
+- https://angular.cr/callos-y-durezas/
+- https://angular.cr/pies-secos-sudoracion-mal-olor/
+- https://angular.cr/pie-diabetico/
 
-## Credenciales
-Dr. Marvin Madrigal Chaves — Podólogo Clínico, Doctor en Enfermería
-(tratamiento social, Colegio de Enfermeras de Costa Rica), Experto en
-Tratamiento Avanzado de Heridas, CEO de Clínica Angular.
+## Heridas y fisioterapia
+- https://angular.cr/heridas-cronicas/
+- https://angular.cr/fisioterapia/
+- https://angular.cr/fascitis-plantar/
+- https://angular.cr/biomecanica-plantillas/
 
-## Contacto
-WhatsApp: +506 8305-6444
-Guadalupe, San José, Costa Rica
+## Psicología y medicina general
+- https://angular.cr/psicologia-clinica/
+- https://angular.cr/medicina-general/
+
+## Tecnologías
+- https://angular.cr/baropodometro/
+- https://angular.cr/centrifuga-prp/
+- https://angular.cr/desbridamiento-ultrasonico/
+- https://angular.cr/k-laser-cube-4/
+- https://angular.cr/ozonoterapia-heridas/
+- https://angular.cr/tecnologias/
+
+## Equipo
+- https://angular.cr/nuestros-especialistas/
+- https://angular.cr/sobre-el-dr-madrigal/
+
+## Contenido y legal
+- https://angular.cr/blog/
+- https://angular.cr/tienda/
+- https://angular.cr/politica-de-privacidad/
+- https://angular.cr/terminos/

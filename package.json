@@ -1,10 +1,10 @@
 {
-  "name": "clinica-angular-web",
-  "version": "0.1.0",
+  "name": "angular-cr-sitio-web",
+  "version": "1.0.0",
+  "description": "Sitio web de Clínica Angular (angular.cr) — HTML/CSS/JS estático, sin build step.",
   "private": true,
-  "description": "Sitio estático de Clínica Angular (fase 1) — HTML/CSS/JS sin build step.",
   "scripts": {
-    "dev": "npx --yes serve site -l 3000",
-    "start": "npx --yes serve site -l 3000"
+    "start": "npx serve site -l 3000",
+    "serve": "npx serve site -l 3000"
   }
 }

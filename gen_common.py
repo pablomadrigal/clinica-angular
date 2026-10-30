@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Componentes compartidos para generar las páginas estáticas de Clínica Angular."""
+import os, json, urllib.parse
 
 DOMINIO = "https://angular.cr"
 TEL = "+50622538303"
@@ -12,7 +13,6 @@ HORARIO = "Lunes a Viernes 9:00 am – 5:00 pm · Sábado 9:00 am – 1:00 pm ·
 
 
 def wa_link(msg):
-    import urllib.parse
     return f"https://wa.me/{WA}?text={urllib.parse.quote(msg)}"
 
 
@@ -98,17 +98,8 @@ def footer():
 """
 
 
-def page(
-    slug,
-    title,
-    description,
-    body_html,
-    schema_json="",
-    active_path="",
-    og_image="/assets/img/og-default.svg",
-    extra_head="",
-    extra_scripts="",
-):
+def page(slug, title, description, body_html, schema_json="", active_path="",
+         og_image="/assets/img/og-default.svg", extra_head="", extra_scripts=""):
     canonical = f"{DOMINIO}{slug}"
     return f"""<!doctype html>
 <html lang="es">
@@ -146,3 +137,41 @@ def page(
 </body>
 </html>
 """
+
+
+def write_page(slug, html):
+    """slug like '/una-encarnada/' -> site/una-encarnada/index.html ; '/' -> site/index.html"""
+    if slug == "/":
+        path = "site/index.html"
+    else:
+        path = "site" + slug.rstrip("/") + "/index.html"
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(html)
+    return path
+
+
+def breadcrumb_html(items):
+    """items: list of (label, url) tuples; last item has no link."""
+    parts = []
+    for i, (label, url) in enumerate(items):
+        if url:
+            parts.append(f'<a href="{url}">{label}</a>')
+        else:
+            parts.append(f'<span>{label}</span>')
+    return f'<nav class="breadcrumb container" aria-label="Ruta de navegación">{" / ".join(parts)}</nav>'
+
+
+def breadcrumb_schema(items_with_url):
+    """items_with_url: list of (name, absolute_or_relative_url)"""
+    elements = []
+    for i, (name, url) in enumerate(items_with_url, start=1):
+        full = url if url.startswith("http") else DOMINIO + url
+        elements.append({"@type": "ListItem", "position": i, "name": name, "item": full})
+    return {"@type": "BreadcrumbList", "itemListElement": elements}
+
+
+def ld_json(graph_list):
+    return '<script type="application/ld+json">\n' + json.dumps(
+        {"@context": "https://schema.org", "@graph": graph_list}, ensure_ascii=False, indent=2
+    ) + "\n</script>"

@@ -17,10 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/styles.css">
-<style>
-.step-pill{ background:#fff; border:1px solid var(--color-border); border-radius:999px; padding:.4rem 1rem; font-size:.85rem; font-weight:600; color:#6b5f80; }
-.step-pill.active{ background:var(--color-primary); color:#fff; border-color:var(--color-primary); }
-</style>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -99,12 +96,19 @@
           <label for="servicio">¿Qué servicio necesitás?</label>
           <select id="servicio" name="servicio" required>
             <option value="">Seleccioná un servicio</option>
-            <option value="onicomicosis">Hongos en las uñas (onicomicosis)</option>
+            <option value="hongos">Hongos en las uñas (onicomicosis)</option>
             <option value="una-encarnada">Uña encarnada</option>
+            <option value="verruga-plantar">Verruga plantar (VPH)</option>
+            <option value="deformidades">Deformidades en dedos y pies</option>
+            <option value="pie-geriatrico">Pie geriátrico</option>
+            <option value="pie-pediatrico">Pie pediátrico</option>
+            <option value="traumatismo-unas">Traumatismo de uñas</option>
+            <option value="callos-durezas">Callos y durezas</option>
+            <option value="pies-secos">Pies secos, sudoración y mal olor</option>
             <option value="pie-diabetico">Clínica de pie diabético</option>
-            <option value="heridas">Tratamiento avanzado de heridas</option>
+            <option value="heridas">Clínica de Heridas</option>
             <option value="fascitis">Fascitis plantar</option>
-            <option value="biomecanico">Estudio biomecánico / plantillas</option>
+            <option value="biomecanica">Estudio biomecánico / plantillas</option>
             <option value="psicologia">Psicología clínica</option>
             <option value="medicina-general">Medicina general</option>
             <option value="otro">Otro / no estoy seguro</option>
@@ -120,7 +124,7 @@
           <select id="profesional" name="profesional">
             <option value="">Sin preferencia — el equipo asigna según disponibilidad</option>
             <option value="dr-madrigal">Dr. Marvin Madrigal Chaves — Podología clínica</option>
-            <option value="dra-ruiz">Dra. Rebeca Ruiz — Podología y Fisioterapia</option>
+            <option value="dra-ruiz">Dra. Rebeca Ruiz — Podóloga y Fisioterapeuta</option>
           </select>
         </div>
         <div class="btn-row">
@@ -199,8 +203,8 @@
 
       <div class="booking-panel" data-panel="confirmacion" hidden>
         <div class="callout" role="status">
-          <strong>Falta un paso: enviá tu solicitud por WhatsApp</strong>
-          <p style="margin:.6rem 0 0;">Abrimos WhatsApp con tu solicitud ya escrita. Si no se abrió, usá el botón de abajo. La cita queda en firme cuando el equipo te la confirme.</p>
+          <strong>¡Tu solicitud quedó registrada!</strong>
+          <p style="margin:.6rem 0 0;">Un miembro del equipo confirmará tu cita por WhatsApp o correo en las próximas horas hábiles. Guardá este resumen:</p>
           <p id="resumen-cita" style="margin-top:.6rem; font-weight:600;"></p>
         </div>
         <h3>¿Cómo llegar?</h3>
@@ -208,7 +212,7 @@
         <h3>Instrucciones previas</h3>
         <p>Llegá 10 minutos antes de tu horario. Si tu consulta es de podología, no es necesario preparar nada especial; si es una primera valoración de heridas, traé estudios o imágenes previas si las tenés.</p>
         <div class="btn-row">
-          <a class="btn btn-whatsapp" id="enviar-whatsapp" href="https://wa.me/50683056444?text=Hola%2C%20quiero%20agendar%20una%20cita." target="_blank" rel="noopener">Enviar solicitud por WhatsApp</a>
+          <a class="btn btn-whatsapp" href="https://wa.me/50683056444?text=Hola%2C%20acabo%20de%20agendar%20una%20cita%20desde%20la%20web." target="_blank" rel="noopener">Confirmar por WhatsApp</a>
           <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Cl%C3%ADnica+Angular+Guadalupe+San+Jos%C3%A9" target="_blank" rel="noopener">Cómo llegar (Google Maps)</a>
         </div>
       </div>
@@ -217,7 +221,7 @@
 </section>
 
 <section>
-  <div class="container" style="display:grid; gap:2.5rem; grid-template-columns:1fr 1fr;" data-animate>
+  <div class="container split" style="gap:2.5rem;" data-animate>
     <div>
       <h2>Información de contacto</h2>
       <p>Teléfono: <a href="tel:+50622538303">+(506) 2253-8303</a><br>
